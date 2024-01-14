@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{import}  
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+% \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}{Example}
+\numberwithin{equation}{section}
+
+\title{Boundary Value Problems for Partial Differential Equations}
+\author{Xiao Ma}
+\date{Winter 2024}
+
+\begin{document}
+
+\maketitle
+
+\import{sections/}{section_1.tex}
+
+\end{document}
