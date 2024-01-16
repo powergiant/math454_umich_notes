@@ -1,0 +1,123 @@
+{
+    "theorem":{
+      "scope": "tex, latex",
+      "prefix": ["btheorem"],
+      "body": ["\\begin{theorem}[$1]\n    $2\n\\end{theorem}$3"],
+      "description": "The theorem block."
+    },
+    "lemma":{
+      "scope": "tex, latex",
+      "prefix": ["blemma"],
+      "body": ["\\begin{lemma}[$1]\n    $2\n\\end{lemma}$3"],
+      "description": "The lemma block."
+    },
+    "definition":{
+      "scope": "tex, latex",
+      "prefix": ["bdefinition"],
+      "body": ["\\begin{definition}[$1]\n    $2\n\\end{definition}$3"],
+      "description": "The definition block."
+    },
+    "proposition":{
+      "scope": "tex, latex",
+      "prefix": ["bproposition"],
+      "body": ["\\begin{proposition}[$1]\n    $2\n\\end{proposition}$3"],
+      "description": "The proposition block."
+    },
+    "remark":{
+      "scope": "tex, latex",
+      "prefix": ["bremark"],
+      "body": ["\\begin{remark}[$1]\n    $2\n\\end{remark}$3"],
+      "description": "The remark block."
+    },
+    "equation":{
+      "scope": "tex, latex",
+      "prefix": ["bequation"],
+      "body": ["\\begin{equation}\\label{eq.$1}\n    $2\n\\end{equation}$3"],
+      "description": "The remark block."
+    },
+    "example":{
+      "scope": "tex, latex",
+      "prefix": ["bexample"],
+      "body": ["\\begin{example}[$1]\n    $2\n\\end{example}$3"],
+      "description": "The example block."
+    },
+    "lr()": {
+        "scope": "tex, latex",
+        "prefix": ["lr()"],
+        "body": ["\\left($1\\right)$2"],
+        "description": "The \\left(\\right) block."
+      },
+      "lr[]": {
+        "scope": "tex, latex",
+        "prefix": ["lr[]"],
+        "body": ["\\left[$1\\right]$2"],
+        "description": "The \\left[\\right] block."
+      },
+      "lr{}": {
+        "scope": "tex, latex",
+        "prefix": ["lr{}"],
+        "body": ["\\left\\{$1\\right\\}$2"],
+        "description": "The \\left\\{\\right\\} block."
+      },
+      "defref": {
+        "scope": "tex, latex",
+        "prefix": ["defref"],
+        "body": ["Definition \\ref{def.$1}"],
+        "description": "The definition reference block."
+      },
+      "eqref": {
+        "scope": "tex, latex",
+        "prefix": ["eqref"],
+        "body": ["\\eqref{eq.$1}"],
+        "description": "The equation reference block."
+      },
+      "thref": {
+        "scope": "tex, latex",
+        "prefix": ["thref"],
+        "body": ["Theorem \\ref{th.$1}"],
+        "description": "The theorem reference block."
+      },
+      "lemref": {
+        "scope": "tex, latex",
+        "prefix": ["lemref"],
+        "body": ["Lemma \\ref{lem.$1}"],
+        "description": "The lemma reference block."
+      },
+      "propref": {
+        "scope": "tex, latex",
+        "prefix": ["propref"],
+        "body": ["Proposition \\ref{prop.$1}"],
+        "description": "The proposition reference block."
+      },
+      "secref": {
+        "scope": "tex, latex",
+        "prefix": ["secref"],
+        "body": ["section \\ref{sec.$1}"],
+        "description": "The section reference block."
+      },
+      "itref": {
+        "scope": "tex, latex",
+        "prefix": ["itref"],
+        "body": ["\\eqref{it.$1}"],
+        "description": "The item reference block."
+      },
+      "figref": {
+        "scope": "tex, latex",
+        "prefix": ["figref"],
+        "body": ["figure \\ref{fig.$1}"],
+        "description": "The figure reference block."
+      },
+      "TODO": {
+        "scope": "tex, latex",
+        "prefix": ["todo"],
+        "body": ["\\textbf{TODO: $1}"],
+        "description": "The TODO block."
+      },
+      // some ad hoc snippets in this projects
+      "[:]": {
+        "scope": "tex, latex",
+        "prefix": ["sq:"],
+        "body": ["[\\,:\\,]$1"],
+        "description": "The [\\,:\\,] block."
+      },
+}

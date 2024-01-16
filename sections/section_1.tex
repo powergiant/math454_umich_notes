@@ -2,6 +2,366 @@
 
 \subsection{Definitions of partial differential equations}
 
-\begin{definition} 
-
+\begin{definition}[Notations of partial derivatives]
+For $f(x)$ with one variable $x$, we know $f^{\prime}(x)=\frac{d f}{d x}$. For $u(x, y)$, we introduce partial derivatives as
+\begin{equation}\label{eq.1st_derivatives}
+    \frac{\partial u}{\partial x}=\left.\frac{d u}{d x}\right|_{y \text { is fixed }}=\partial_x u=u_x .
+\end{equation}
+Similarly,
+\begin{equation}\label{eq.2nd_derivatives}
+    \frac{\partial^2 u}{\partial x^2}=\partial_x^2 u=\partial_{xx} u=u_{x x}
+\end{equation}
 \end{definition}
+
+\begin{example}[]
+For $u(x, y)=x y^2$, we have
+\begin{equation*}
+\frac{\partial u}{\partial x} = \partial_x u = u_x = y^2, \qquad \frac{\partial u}{\partial y} = \partial_y u = u_y = 2 x y,
+\end{equation*}
+\begin{equation*}
+\frac{\partial^2 u}{\partial x^2}=\partial_x^2 u=\partial_{xx} u=u_{x x}=0, \qquad \frac{\partial^2 u}{\partial y^2}=\partial_y^2 u=\partial_{yy} u=u_{y y}=2 x
+\end{equation*}
+
+\end{example}
+
+\begin{definition}[Definition of general PDEs]
+    Given a function $u = u(x, y)$ of two variables, (similarly $u = u(x_1, \cdots, x_n)$ of $n$ variables) and an expression $F(u_{xx}, u_{xy}, u_{yy}, u_{x}, u_{y}, u, x, y)$ of partial derivatives of $u$, the following equation is a \underline{partial differential equation}, abbreviated as \underline{PDE}.
+    \begin{equation}\label{eq.PDE_general}
+        F(u_{xx}, u_{xy}, u_{yy}, u_{x}, u_{y}, u, x, y) = 0
+    \end{equation}
+    In the future, we may also use the notation $F[u]$ to represent $F(u_{xx}, u_{xy}, u_{yy}, u_{x}, u_{y}, u, x, y)$. And \eqref{eq.PDE_general} can be rewritten as 
+    \begin{equation}\label{eq.PDE_general_short}
+        F[u] = 0.
+    \end{equation}
+\end{definition}
+\begin{remark}[]
+    \textbf{TODO: higher order is possible but we do not discuss it in this course}
+\end{remark}
+
+\begin{example}[Examples of PDEs]
+    Here are some examples of PDEs.
+    \begin{equation}\label{eq.examples_PDE}
+        \begin{split}
+            &u_{x x}-u_y=0 \quad \text{(the heat equation)}
+            \\
+            &u_{x x}-u_{y y}=0 \quad \text{(the wave equation)}
+            \\
+            &u_{x x}+u_{y y}=0 \quad \text{(Laplace's equation)}
+            \\
+            &u_{x}+u_{y}=0 \quad \text{(the transport equation)}
+        \end{split}
+    \end{equation}
+\end{example}
+
+\begin{definition}[Order of PDEs]
+    The order of a PDE is the order of the highest-order derivative in the equation.
+    In \eqref{eq.examples_PDE}, the first three PDEs are second order, and the last one is first order.
+\end{definition}
+
+\begin{definition}[Linear PDEs]
+    \textbf{TODO: def of linear pdes}
+\end{definition}
+
+\begin{proposition}[]
+    \textbf{TODO: general form of second order linear pdes}
+\end{proposition}
+
+We have the following proposition,
+
+\begin{proposition}[]
+The second-order PDEs can always be written as
+\begin{equation}\label{eq.2nd_order_linear}
+    a(x, y) u_{x x}+b(x, y) u_{x y}+c(x, y) u_{y y}+d(x, y) u_x+e(x, y) u_y+f(x, y) u=g(x, y),
+\end{equation}
+We assume $a^2+b^2+c^2 \neq 0$ for any $x$, $y$ (at least one of $a, b, c$ is nonzero). 
+\end{proposition}
+
+\begin{definition}[]
+    We call $a, b, c, d, e, f$ \underline{coefficients} and $g$ \underline{source term}. 
+\end{definition}
+
+\subsection{Classification of second-order PDEs}
+
+In this course, we will mainly consider second-order linear PDEs.
+
+\begin{equation}\label{eq.2nd_order_linear'}
+    a(x, y) u_{x x}+b(x, y) u_{x y}+c(x, y) u_{y y}+d(x, y) u_x+e(x, y) u_y+f(x, y) u=g(x, y),
+\end{equation}
+
+These equations are classified as follows by the coefficients $a, b, c$.
+
+\begin{definition}[Classification of PDEs] The second-order linear PDEs \eqref{eq.2nd_order_linear'} are classified as \underline{elliptic}, \underline{parabolic} and \underline{hyperbolic} by the following,
+    \begin{equation}\label{eq.classification_PDE}
+        \begin{cases}
+            4 a c-b^2>0 & \text { elliptic } 
+            \\ 
+            4 a c-b^2=0 & \text { parabolic } 
+            \\ 
+            4 a c-b^2<0 & \text { hyperbolic }
+        \end{cases}
+    \end{equation}
+where we note that $a, b, c$ are functions of $x, y$ and the inequalities in \eqref{eq.classification_PDE} is required to be true for any $x$, $y$.
+\end{definition}
+
+
+\subsection{Review of ODEs}
+
+\begin{definition}[Separable ODEs]
+    The following ODE is the \underline{separable} ODE
+    \begin{equation}\label{eq.separable}
+        y' + p(x)y = 0.
+    \end{equation}
+\end{definition}
+
+\begin{theorem}[]\label{th.separable_ODE}
+    Separable ODE can be solved in the following way
+    \begin{equation*}
+        y' + p(x)y = 0
+        \quad\Rightarrow\quad \frac{dy}{dx} + p(x)y = 0 \quad\Rightarrow\quad \frac{dy}{y} = - p(x)dx
+        \quad\Rightarrow\quad
+        \int \frac{dy}{y} = - \int p(x)dx
+    \end{equation*}
+    and the solution is 
+    \begin{equation}\label{eq.sol_separable}
+        y(x) = Ce^{-\int p(x)dx}
+    \end{equation}
+\end{theorem}
+
+\begin{example}[]
+    Let us solve the following ODEs
+    \begin{equation*}
+        y^{\prime} = -6 x y
+    \end{equation*}
+
+    Apply the procedure in Theorem \ref{th.separable_ODE}
+    \begin{equation*}
+        y' = -6 x y
+        \quad\Rightarrow\quad \frac{dy}{y} = -6 x dx
+        \quad\Rightarrow\quad
+        \int \frac{dy}{y} = - \int 6 x dx
+        \quad\Rightarrow\quad
+        \ln |y|=-3 x^2+C^{\prime}
+    \end{equation*}
+    Therefore, the solution is 
+    \begin{equation*}
+        y=C e^{-3 x^2}.
+    \end{equation*}
+    where $C(= \pm e^{C^{\prime}})$ is an arbitrary constant.
+\end{example}
+
+\begin{definition}[Linear ODEs]
+    The following ODE is the \underline{linear} ODE
+    \begin{equation}\label{eq.linear}
+        y' + p(x)y = q(x).
+    \end{equation}
+\end{definition}
+
+\begin{theorem}[]\label{th.linear_ODE}
+    Linear ODE can be solved by the following procedure
+    \begin{enumerate}
+        \item Solve the corresponding separable equation $y' - p(x)y = 0$ to obtain a solution $\hat{y} = e^{\int p(x)dx}$.
+        \item Multiply the linear ODE by $\hat{y}$ and rewrite the ODE
+        \begin{equation*}
+            y' + p(x)y = q(x)
+            \quad\Rightarrow\quad 
+            \hat{y}(y' + p(x)y) = \hat{y}q(x)
+            \quad\Rightarrow\quad 
+            (\hat{y}y)' = \hat{y}q(x)
+        \end{equation*}
+        \item Integrate the above equation 
+        \begin{equation*}
+            \begin{split}
+                &\hat{y}y = \int \hat{y}q(x) dx + C
+                \quad\Rightarrow\quad 
+                y = \frac{1}{\hat{y}}\left(\int \hat{y}q(x) dx +  C\right)
+                \\
+                &
+                \quad \Rightarrow \quad
+                y = e^{-\int p(x)dx}\left(\int q(x)e^{\int p(x)dx} dx+C\right)
+            \end{split}
+        \end{equation*}
+    \end{enumerate}
+\end{theorem}
+\begin{remark}[]
+    In (2), we applied the following equation
+    \begin{equation*}
+        (\hat{y}y)' = \hat{y}(y' + p(x)y) 
+    \end{equation*} 
+    which is a corollary of the Leibniz rule.
+    \begin{equation*}
+        (\hat{y}y)' = \hat{y}'y + \hat{y}y' = \hat{y}y' + p(x) \hat{y} y = \hat{y}(y' + p(x)y) 
+    \end{equation*}
+\end{remark}
+
+\begin{example}[]
+    $(x^2+1) y^{\prime}+3 x y=6 x, y(0)=3$ is solved as $y(x)=2+(x^2+1)^{-3 / 2}$ by the procedure in Theorem \ref{th.linear_ODE}.
+    \begin{enumerate}
+        \item Divide both sides by $(x^2+1)$.
+        \begin{equation*}
+            (x^2+1) y^{\prime}+3 x y=6x 
+            \quad\Rightarrow\quad
+            y^{\prime} + \frac{3 x}{x^2+1} y = \frac{6x}{x^2+1}
+        \end{equation*}
+        \item Solve the corresponding separable equation $y' - \frac{3 x}{x^2+1}y = 0$ to obtain a solution $(x^2+1)^{\frac{3}{2}}$.
+        \item Multiply the linear ODE by $(x^2+1)^{\frac{3}{2}}$ and rewrite the ODE
+        \begin{equation*}
+            y^{\prime} + \frac{3 x}{x^2+1} y = \frac{6x}{x^2+1} 
+            \quad\Rightarrow\quad
+            ((x^2+1)^{\frac{3}{2}}y)' = 6x(x^2+1)^{\frac{1}{2}}
+        \end{equation*}
+        \item Integrate the above equation
+        \begin{equation*}
+            \begin{split}
+                ((x^2+1)^{\frac{3}{2}}y)' = 6x(x^2+1)^{\frac{1}{2}}
+                \quad&\Rightarrow\quad
+                y = (x^2+1)^{-\frac{3}{2}} \left(\int 6x(x^2+1)^{\frac{1}{2}}+ C\right)
+                \\
+                &\Rightarrow\quad
+                y = 2 + C(x^2+1)^{-\frac{3}{2}}
+            \end{split} 
+        \end{equation*}
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Second order ODEs]
+    The \underline{constant coefficient second order ODEs} are the following equations
+    \begin{equation}\label{eq.2nd_ODE}
+        a y^{\prime \prime}+b y^{\prime}+c y=0\ (a \neq 0) .
+    \end{equation}
+\end{definition}
+
+\begin{theorem}[]\label{th.2nd_ODE}
+    Constant coefficient second order ODEs can be solved by the following procedure
+    \begin{enumerate}
+        \item Solve the \underline{characteristic equation} $a\lambda^2 +  b\lambda + c = 0$ to get two solutions $\lambda_1$ and $\lambda_2$.
+        \item If $\lambda_1\neq\lambda_2$, the general solution is 
+        \begin{equation}\label{eq.sol_2nd_ode}
+            y(x)=C_1 e^{\lambda_1 x}+C_2 e^{\lambda_2 x}
+        \end{equation}
+        \item If $\lambda_1=\lambda_2=\lambda$, the general solution is 
+        \begin{equation}\label{eq.sol_2nd_ode_eqroot}
+            y(x)=(C_1 + C_2x) e^{\lambda x}
+        \end{equation}
+        \item If $\lambda_1, \lambda_2$ are complex roots $\alpha \pm i\beta$, apply the Euler's formula to rewrite \eqref{eq.sol_2nd_ode}
+        \begin{equation*}
+            y(x)=C_1 e^{(\alpha+i \beta) x}+C_2 e^{(\alpha-i \beta) x}=e^{\alpha x}\left(c_1 \cos \beta x+c_2 \sin \beta x\right)
+        \end{equation*}
+        where $c_1=C_1+C_2$, $c_2=i(C_1-C_2)$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}[]
+    $y'' - 3y' + 2y = 0$ is solved as $y(x)=C_1e^{x}+C_2e^{2x}$ by the procedure in Theorem \ref{th.2nd_ODE}.
+    \textbf{TODO: }
+\end{example}
+
+\begin{example}[]
+    $y'' + y = 0$ is solved as $y(x)=C_1\cos(x)+C_2\sin(x)$ by the procedure in Theorem \ref{th.2nd_ODE}.
+    \textbf{TODO: }
+\end{example}
+
+\begin{example}[]
+    $y'' + 2y' + y = 0$ is solved as $y(x)=(C_1+C_2x)e^x$ by the procedure in Theorem \ref{th.2nd_ODE}.
+    \textbf{TODO: }
+\end{example}
+
+\subsection{Separation of variables}
+Many linear PDEs can be reduced to linear ODEs with the method of separation of
+variables, described below.
+
+We take the Laplace's equation
+\begin{equation}\label{eq.Laplace}
+    u_{x x}+u_{y y}=0
+\end{equation}
+as an example.
+
+\textbf{TODO: Boundary conditions}
+
+We are looking for a \underline{separated solution}. Substitute into \eqref{eq.Laplace}, then we get 
+\begin{equation*}
+    X^{\prime \prime} Y+X Y^{\prime \prime}=0 \quad\Rightarrow\quad
+    \frac{X^{\prime \prime}}{X}= -\frac{Y^{\prime \prime}}{Y}
+\end{equation*}
+
+The following lemma implies that $X''/X$ and $Y''/Y$ are constants.
+
+\begin{lemma}[]
+    \textbf{TODO: } $f(x) = g(y)$ implies that $f(x) = g(y) = \textit{const}$,
+\end{lemma}
+\begin{proof}
+    $f(x) = g(y)$ $\Rightarrow$ $f'(x) = 0$ $\Rightarrow$ $f(x) = \textit{const}$.
+\end{proof}
+
+Let $\lambda$ be a constant and we write
+\begin{equation*}
+    X^{\prime \prime}+\lambda X=0, \quad Y^{\prime \prime}-\lambda Y=0 .
+\end{equation*}
+
+We call $\lambda$ the \underline{separation constant}. At this moment $\lambda$ is arbitrary. Thus the PDE was reduced to two ODEs.
+
+\subsubsection{Solving separated solutions}
+
+If $\lambda=0$, then two ODEs have the following linearly independent solutions.
+\begin{equation}\label{eq.separated_basis_0}
+X=1, x, \quad Y=1, y.
+\end{equation}
+
+If $\lambda \neq 0$, then two ODEs have the following linearly independent solutions.
+\begin{equation}\label{eq.separated_basis}
+X=e^{\sqrt{-\lambda} x}, e^{-\sqrt{-\lambda} x}, \quad Y=e^{\sqrt{\lambda} y}, e^{-\sqrt{\lambda} y} .
+\end{equation}
+
+In either case, the solution is given by superpositions:
+\begin{equation}\label{eq.basis_separated}
+u=
+\left\{\begin{aligned}
+&\left(A_1 x+A_2\right)\left(B_1 y+B_2\right), && \lambda=0 
+\\
+&\left(A_1 e^{\sqrt{-\lambda} x}+A_2 e^{-\sqrt{-\lambda x}}\right)\left(B_1 e^{\sqrt{\lambda} y}+B_2 e^{-\sqrt{\lambda} y}\right), && \lambda \neq 0
+\end{aligned}\right.
+\end{equation}
+where $A_1, A_2, B_1, B_2$ are constants. 
+
+For $\lambda>0$, by writing $\lambda=k^2(k>0)$ we have
+\begin{equation}\label{eq.basis_+}
+u(x, y)=\left(A_1 e^{i k x}+A_2 e^{-i k x}\right)\left(B_1 e^{k y}+B_2 e^{-k y}\right),
+\end{equation}
+and for $\lambda<0$, by writing $\lambda=-l^2(l>0)$ we have
+\begin{equation}\label{eq.basis_-}
+u(x, y)=\left(A_1 e^{l x}+A_2 e^{-l x}\right)\left(B_1 e^{i l y}+B_2 e^{-i l y}\right) .
+\end{equation}
+
+Instead of \eqref{eq.separated_basis} we can also choose
+\begin{equation}
+X=\cos (\sqrt{\lambda} x), \sin (\sqrt{\lambda} x), \quad Y=\cosh (\sqrt{\lambda} y), \sinh (\sqrt{\lambda} y) .
+\end{equation}
+
+In this case, we have
+\begin{equation}\label{eq.cos_basis_+}
+    u(x, y)=\left(A_1 \cos (k x)+A_2 \sin (k x)\right)\left(B_1 \cosh (k y)+B_2 \sinh (k y)\right)
+\end{equation}
+\begin{equation}\label{eq.cos_basis_-}
+    u(x, y)=\left(A_1 \cosh (l x)+A_2 \sinh (l x)\right)\left(B_1 \cos (l y)+B_2 \sin (l y)\right)
+\end{equation}
+
+Note that \eqref{eq.cos_basis_+} becomes \eqref{eq.basis_+} and \eqref{eq.cos_basis_-} becomes \eqref{eq.basis_-} by redefining the coefficients. We call solutions such as \eqref{eq.basis_separated} through \eqref{eq.cos_basis_-} separated solutions because they are given in the form $u(x, y)=X(x) Y(y)$.
+
+\subsubsection{Solving the boundary value problem}
+\textbf{TODO: revise the section }
+The separation constant $\lambda$ and coefficients $A_1, A_2, B_1, B_2$ are partially determined by boundary conditions. Suppose that our Laplace's equation is considered in the region $0<x<L, 0<y<\infty$ with boundary conditions
+\begin{equation*}
+u(0, y)=0, \quad u(L, y)=0, \quad u(x, 0)=0.
+\end{equation*}
+
+We find that $u=\left(A_1 x+A_2\right)\left(B_1 y+B_2\right)$ in (1.3) satisfies the boundary conditions only when $u=0$.
+
+We then find that (1.5) and (1.7) satisfy the conditions $u(0, y)=u(L, y)=0$ only when $A_1=A_2=0$. That is, only the solution $u=0$ satisfies the boundary conditions.
+
+Finally (1.4) and (1.6) satisfy $u(0, y)=u(L, y)=0$ when $A_1=0$ and $k=n \pi / L$, where $n$ is an integer. Furthermore we find $B_1=0$ by the condition $u(x, 0)=0$. That is, the solution $A_2 B_2 \sin (k x) \sinh (k y)$ with $k=n \pi / L(n=0, \pm 1, \pm 2, \ldots)$ satisfies the boundary conditions.
+
+Therefore we obtain the following separated solutions of Laplace's equation satisfying the boundary conditions.
+\begin{equation*}
+u(x, y)=A \sin \frac{n \pi x}{L} \sinh \frac{n \pi y}{L}, \quad n=1,2, \ldots,
+\end{equation*}
+
+\textbf{TODO: linear combination and Fourier series}
