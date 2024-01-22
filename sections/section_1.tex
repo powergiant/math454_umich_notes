@@ -35,7 +35,7 @@ For $u(x, y)=x y^2$, we have
     \end{equation}
 \end{definition}
 \begin{remark}[]
-    \textbf{TODO: higher order is possible but we do not discuss it in this course}
+    $F[u]$ may also involve derivatives of order $\ge 2$, but we do not discuss it in this course.
 \end{remark}
 
 \begin{example}[Examples of PDEs]
@@ -49,27 +49,29 @@ For $u(x, y)=x y^2$, we have
             &u_{x x}+u_{y y}=0 \quad \text{(Laplace's equation)}
             \\
             &u_{x}+u_{y}=0 \quad \text{(the transport equation)}
+            \\
+            &u_{x}+uu_{y}=0 \quad \text{(the Burgers equation)}
         \end{split}
     \end{equation}
 \end{example}
 
 \begin{definition}[Order of PDEs]
-    The order of a PDE is the order of the highest-order derivative in the equation.
-    In \eqref{eq.examples_PDE}, the first three PDEs are second order, and the last one is first order.
+    The \underline{order} of a PDE is the order of the highest-order derivative in the equation.
+    In \eqref{eq.examples_PDE}, the first three PDEs are second order, and the last two are first order.
 \end{definition}
 
 \begin{definition}[Linear PDEs]
-    \textbf{TODO: def of linear pdes}
+    Given a PDE $F[u] = 0$, if it satisfies 
+    \begin{equation}\label{eq.linear_pde_def}
+        F[u+v] = F[u] + F[v]\textit{ and }F[cu] = cF[u],
+    \end{equation}
+    then we say that $F[u] = 0$ is a \underline{linear PDE}. In \eqref{eq.examples_PDE}, the first four PDEs are linear, while the last one is not.
 \end{definition}
 
-\begin{proposition}[]
-    \textbf{TODO: general form of second order linear pdes}
-\end{proposition}
-
-We have the following proposition,
+We have the following proposition which characterizes all second order linear PDEs,
 
 \begin{proposition}[]
-The second-order PDEs can always be written as
+The second-order linear PDEs can always be written as
 \begin{equation}\label{eq.2nd_order_linear}
     a(x, y) u_{x x}+b(x, y) u_{x y}+c(x, y) u_{y y}+d(x, y) u_x+e(x, y) u_y+f(x, y) u=g(x, y),
 \end{equation}
@@ -83,7 +85,6 @@ We assume $a^2+b^2+c^2 \neq 0$ for any $x$, $y$ (at least one of $a, b, c$ is no
 \subsection{Classification of second-order PDEs}
 
 In this course, we will mainly consider second-order linear PDEs.
-
 \begin{equation}\label{eq.2nd_order_linear'}
     a(x, y) u_{x x}+b(x, y) u_{x y}+c(x, y) u_{y y}+d(x, y) u_x+e(x, y) u_y+f(x, y) u=g(x, y),
 \end{equation}
@@ -243,26 +244,44 @@ where we note that $a, b, c$ are functions of $x, y$ and the inequalities in \eq
             y(x)=(C_1 + C_2x) e^{\lambda x}
         \end{equation}
         \item If $\lambda_1, \lambda_2$ are complex roots $\alpha \pm i\beta$, apply the Euler's formula to rewrite \eqref{eq.sol_2nd_ode}
-        \begin{equation*}
+        \begin{equation}\label{eq.sol_2nd_ode_complex}
             y(x)=C_1 e^{(\alpha+i \beta) x}+C_2 e^{(\alpha-i \beta) x}=e^{\alpha x}\left(c_1 \cos \beta x+c_2 \sin \beta x\right)
-        \end{equation*}
+        \end{equation}
         where $c_1=C_1+C_2$, $c_2=i(C_1-C_2)$.
     \end{enumerate}
 \end{theorem}
 
 \begin{example}[]
     $y'' - 3y' + 2y = 0$ is solved as $y(x)=C_1e^{x}+C_2e^{2x}$ by the procedure in Theorem \ref{th.2nd_ODE}.
-    \textbf{TODO: }
+    \begin{enumerate}
+        \item Solve the characteristic equation $\lambda^2 - 3\lambda + 2 = 0$ to get two solutions $\lambda_1 = 1$ and $\lambda_2 = 2$.
+        \item Since $\lambda_1\neq\lambda_2$, by \eqref{eq.sol_2nd_ode}, the general solution is 
+        \begin{equation}
+            y(x)=C_1 e^{x}+C_2 e^{2x}
+        \end{equation}
+    \end{enumerate}
 \end{example}
 
 \begin{example}[]
     $y'' + y = 0$ is solved as $y(x)=C_1\cos(x)+C_2\sin(x)$ by the procedure in Theorem \ref{th.2nd_ODE}.
-    \textbf{TODO: }
+    \begin{enumerate}
+        \item Solve the characteristic equation $\lambda^2 + 1 = 0$ to get two solutions $\lambda_1 = i$ and $\lambda_2 = -i$.
+        \item Since $\lambda_1,\lambda_2$ are complex, by \eqref{eq.sol_2nd_ode_complex}, the general solution is 
+        \begin{equation}
+            y(x)=C_1 \cos x + C_2 \sin x
+        \end{equation}
+    \end{enumerate}
 \end{example}
 
 \begin{example}[]
-    $y'' + 2y' + y = 0$ is solved as $y(x)=(C_1+C_2x)e^x$ by the procedure in Theorem \ref{th.2nd_ODE}.
-    \textbf{TODO: }
+    $y'' + 2y' + y = 0$ is solved as $y(x)=(C_1+C_2x)e^{-x}$ by the procedure in Theorem \ref{th.2nd_ODE}.
+    \begin{enumerate}
+        \item Solve the characteristic equation $\lambda^2 + 2\lambda + 1 = 0$ to get $\lambda_1 = \lambda_2 = -1$.
+        \item Since $\lambda_1,\lambda_2$ are equal, by \eqref{eq.sol_2nd_ode_eqroot}, the general solution is 
+        \begin{equation}
+            y(x)=(C_1+C_2x)e^{-x}
+        \end{equation}
+    \end{enumerate}
 \end{example}
 
 \subsection{Boundary value problem}
@@ -282,8 +301,6 @@ with boundary condition
 \end{equation}
 as an example.
 
-\textbf{TODO: Boundary conditions}
-
 We are looking for a \underline{separated solution}. Substitute into \eqref{eq.Laplace}, then we get 
 \begin{equation*}
     X^{\prime \prime} Y+X Y^{\prime \prime}=0 \quad\Rightarrow\quad
@@ -293,10 +310,10 @@ We are looking for a \underline{separated solution}. Substitute into \eqref{eq.L
 The following lemma implies that $X''/X$ and $Y''/Y$ are constants.
 
 \begin{lemma}[]
-    \textbf{TODO: } $f(x) = g(y)$ implies that $f(x) = g(y) = \textit{const}$,
+    $f(x) = g(y)$ implies that $f(x) = g(y) = \textit{const}$,
 \end{lemma}
 \begin{proof}
-    $f(x) = g(y)$ $\Rightarrow$ $f'(x) = 0$ $\Rightarrow$ $f(x) = \textit{const}$.
+    $f(x) = g(y)$ $\Rightarrow$ $f'(x) = \partial_x (g(y)) = 0$ $\Rightarrow$ $f(x) = \textit{const}$.
 \end{proof}
 
 Let $\lambda$ be a constant and we write
@@ -402,9 +419,9 @@ Therefore we obtain the following separated solutions of Laplace's equation sati
 u(x, y)=A \sin \frac{n \pi x}{L} \sinh \frac{n \pi y}{L}, \quad n=1,2, \ldots,
 \end{equation}
 
-\subsubsection{Matching with the last boundary condition}
+\subsubsection{Matching with the last boundary condition}\label{sec.match_boundary}
 
-Now we consider the last boundary condition $u(x, L)=\varphi(x)$ in \eqref{eq.solve_boundary_value_2}. For arbitrary $\varphi(x)$, our separated solution $A \sin \frac{n \pi x}{L} \sinh \frac{n \pi y}{L}$ cannot match with this boundary condition. However, we can use linear combination of these separated solution to generate more solutions,
+Now we consider the last boundary condition $u(x, L)=\varphi(x)$ in \eqref{eq.solve_boundary_value_2}. For arbitrary $\varphi(x)$, our separated solution $A \sin \frac{n \pi x}{L} \sinh \frac{n \pi y}{L}$ cannot match with this boundary condition. However, we can use a linear combination of this separated solution to generate more solutions,
 \begin{equation}\label{eq.linear_combination_sep}
 u(x, y)=\sum_{n = 1}^{\infty} A_n \sin \frac{n \pi x}{L} \sinh \frac{n \pi y}{L}.
 \end{equation}
@@ -416,9 +433,15 @@ To match with $u(x, L)=\varphi(x)$, we take $y = L$ in \eqref{eq.linear_combinat
 
 Therefore, we get 
 \begin{equation}\label{eq.match_boundary_1}
-\varphi(x) =\sum_{n = 1}^{\infty} A_n \sin \frac{n \pi x}{L} \sinh n \pi.
+\varphi(x) =\sum_{n = 1}^{\infty}  A_n \sinh n \pi \sin \frac{n \pi x}{L}.
 \end{equation}
 
-Then $A_n$ can be solved from the sine Fourier coefficients introduced in \ref{sec.}.
+Then $A_n$ can be solved from the sine Fourier coefficients introduced in section \ref{sec.A_n_coef_sep}.
 
-\textbf{TODO: use orthogonality to solve $A_n$}
+The result is 
+\begin{equation}\label{eq.solve_A_n}
+    A_n = \frac{2}{L\sinh n\pi}\int_{0}^{L}\varphi(x)\sin \frac{n \pi x}{L} dx
+\end{equation}
+
+Substitute into \eqref{eq.linear_combination_sep}, then we solve Laplace's equation \eqref{eq.Laplace} with boundary condition.
+
