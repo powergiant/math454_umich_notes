@@ -391,9 +391,6 @@ A function defined on $-L<x<L$ can be rewritten as an infinite sum of $\cos \fra
 
 The idea is that, given a function $f(x)$ defined on $0 < x < L$, we can extend this function as an even/odd function on $-L < x < L$. Then we compute the Fourier series of the extended function. The Fourier series only contains $\cos \frac{n \pi x}{L}$ or $\sin \frac{n \pi x}{L}$ terms by Proposition \ref{prop.odd_even_sin_cos}.
 
-\textbf{TODO: unlike complex Fourier, cosine/sine is not equivalent to Fourier since the domain is different }
-
-
 \subsubsection{Fourier cosine series}
 
 
@@ -482,7 +479,7 @@ $$
 
 We define the odd extension $f_O(x)$ as
 \begin{equation}\label{eq.odd_extension}
-    f_E(x)=\left\{\begin{aligned}
+    f_O(x)=\left\{\begin{aligned}
         &f(x), && 0<x<L 
         \\
         &\,0, && x=0, 
@@ -556,7 +553,22 @@ where $\varepsilon>0$.
 \end{example}
 
 \begin{definition}[Convergence]
-    \textbf{TODO: }
+Given a Fourier series $f(x) = A_0+\sum_{n=1}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]$, we define
+\begin{enumerate}
+    \item \textbf{Partial sums.} The \underline{partial sum}, denoted by $f_N(x)$, is defined to be
+    \begin{equation}\label{eq.partial_sum}
+        f_N(x)=A_0+\sum_{n=1}^N\left[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)\right] .
+    \end{equation}
+    \item \textbf{Convergence at $x$.} We say the Fourier is \underline{convergent at $x$} if 
+    \begin{equation}\label{eq.convergence_at_x}
+        \lim_{N\rightarrow\infty}f_N(x) = f(x).
+    \end{equation}
+    \item \textbf{Uniformly convergence.} We say the Fourier is \underline{uniformly convergent} if 
+    \begin{equation}\label{eq.convergence_uniformly}
+        \lim_{N\rightarrow\infty} \max_{x\in [-L,L]}|f_N(x) - f(x)| = 0.
+    \end{equation}
+\end{enumerate}
+
 \end{definition}
 
 \begin{theorem}[Convergence theorem]
@@ -573,14 +585,12 @@ If $f(x)$ is continuous on $[-L, L]$ and $f(-L)=f(L)$ in addition to the conditi
 
 \textbf{TODO: we study mean square convergence}
 
-\textbf{TODO: partial sum}
-
 \subsubsection{The Parseval's Theorem for Fourier series}
 
 \begin{theorem}[Parseval's theorem]
     Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with Fourier series 
     $$
-    f(x) = A_0+\sum_{n=1}^{\infty}\left[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)\right]
+    f(x) = A_0+\sum_{n=1}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]
     $$
     Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
     \begin{equation}\label{eq.Parseval_fourier}
@@ -598,8 +608,8 @@ We define the mean square error $\sigma_N^2$ as
 \begin{equation}\label{eq.mean_square_error}
     \sigma_N^2=\frac{1}{2 L} \int_{-L}^L\left[f(x)-f_N(x)\right]^2 d x
 \end{equation}
-where
-\begin{equation}\label{eq.partial_sum}
+where $f_N(x)$ is the partial sum
+\begin{equation}
     f_N(x)=A_0+\sum_{n=1}^N\left[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)\right] .
 \end{equation}
 
