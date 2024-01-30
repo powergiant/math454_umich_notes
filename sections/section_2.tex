@@ -624,23 +624,37 @@ For Fourier series, the following theorem claims that a similar identity is true
 \end{theorem}
 \begin{proof}
     Since $\cos (1 \pi x / L) = 1$ and $\sin (n \pi x / L) = 0$, we know that \eqref{eq.Parseval_assumption} is equivalent to 
-    \begin{equation}\label{eq.proof_Parseval_0}
-        f(x) = \sum_{n=0}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]
+    \begin{equation}\label{eq.proof_Parseval_1}
+        \begin{split}
+            f(x) =& \sum_{n=0}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]
+            \\
+            =&\sum_{n=0}^{\infty}(A_n \cos_n +B_n \sin_n)
+        \end{split}
+    \end{equation}
+    where we introduce the notation
+    \begin{equation}\label{eq.proof_Parseval_2}
+        \cos_n = \cos (n \pi x / L),\quad \sin_n = \sin (n \pi x / L)
     \end{equation}
 
     Similar to \eqref{eq.Pythagorean} and its proof, we have 
-    \begin{equation}\label{eq.proof_Parseval_1}
+    \begin{equation}\label{eq.proof_Parseval_3}
         \begin{split}
-            &\qquad\frac{1}{2 L} \int_{-L}^L f(x)^2 d x 
+            \frac{1}{2 L} \int_{-L}^L f(x)^2 d x 
+            =& \frac{1}{2 L} \int_{-L}^L \sum_{n=0}^{\infty}[A_n \cos_n+B_n \sin_n] \sum_{m=0}^{\infty}[A_m \cos_m+B_m \sin_m] d x
             \\
-            =& \frac{1}{2 L} \int_{-L}^L \sum_{n=0}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)] \sum_{m=0}^{\infty}[A_m \cos (m \pi x / L)+B_m \sin (m \pi x / L)] d x
+            =&\frac{1}{2 L} \int_{-L}^L \sum_{n,m=0}^{\infty}(A_nA_m \underbrace{\cos_n\cos_m}_{= 0\textit{ if }n\neq m} + A_nB_m\underbrace{\cos_n\sin_m}_{=0} 
             \\
-            =&\frac{1}{2 L} \int_{-L}^L \sum_{n,m=0}^{\infty}A_nA_m\cos\sin + A_nB_m\cos\sin + B_nA_m\cos\sin + B_nB_m\cos\sin d x
+            &\qquad\qquad\quad+ B_nA_m\underbrace{\sin_n\cos_m}_{=0} + B_nB_m\underbrace{\sin_n\sin_m}_{= 0\textit{ if }n\neq m}) d x
+            \\
+            =&A_0^2+\frac{1}{2} \sum_{n=1}^{\infty}\left(A_n^2+B_n^2\right)
         \end{split}
     \end{equation}
+    where in the last line, we applied the orthogonality of trigonometric functions \eqref{eq.orthogonality}.
 \end{proof}
 
+\subsubsection{The mean square error}
 
+\textbf{TODO: we want quantitatively characterise the error, mean square can be computed using Parseval}
 
 
 We define the mean square error $\sigma_N^2$ as
@@ -678,17 +692,15 @@ $$
 
 We have
 $$
-\int_N^{\infty} \frac{1}{(x+1)^2} d x=\frac{1}{N+1}=\frac{1}{N}\left(1-\frac{1}{N}+\frac{1}{N^2}-\frac{1}{N^3}+\cdots\right), \quad \int_N^{\infty} \frac{1}{x^2} d x=\frac{1}{N} .
+\int_N^{\infty} \frac{1}{(x+1)^2} d x=\frac{1}{N+1} \ge \frac{1}{N} - \frac{1}{N^2}, \quad \int_N^{\infty} \frac{1}{x^2} d x=\frac{1}{N} .
 $$
 
-Let us introduce the symbol $O$ (this is called ``big O'') to express the order. For some $f_N$, $f_N=O\left(N^{-1}\right)$ as $N \rightarrow \infty$ means that there exist a constant $C>0$ and a number $N_0$ such that $\left|f_N\right| \leq C N^{-1}$ for all $N>N_0$. Therefore we obtain
+Let us introduce the symbol $O$ (this is called ``big O'') to express the order. For some $f_N$, $f_N=O\left(N^{-1}\right)$ as $N \rightarrow \infty$ means that there exist a constant $C>0$ such that $\left|f_N\right| \leq C N^{-1}$. Therefore we obtain
 \begin{equation}\label{eq.x_fourier_mse_converge}
     \sigma_N^2=\frac{2 L^2}{\pi^2} \frac{1}{N}\left[1+O\left(\frac{1}{N}\right)\right]=O\left(N^{-1}\right), \quad N \rightarrow \infty .
 \end{equation}
 
-We note that $\sigma_N^2$ goes to zero as $N \rightarrow \infty$ although we know that the sum in \eqref{eq.x_fourier_repeat} does not converge uniformly. This happened because we considered the mean square and took the integral.
-
-Note that each term on the right-hand side is zero when $x= \pm L$. Because of this, the above sum to $x$ and there appear oscillations near $-L$ and $L$ in figure \ref{fig.}. \textbf{TODO: add a picture}
+We note that $\sigma_N^2$ goes to zero as $N \rightarrow \infty$ although we know that the sum in \eqref{eq.x_fourier_repeat} does not converge uniformly. This happened because we considered the mean square and took the integral. \textbf{TODO: add a picture for convergence}
 \end{proof}
 
 \begin{example}[]
@@ -715,34 +727,26 @@ Therefore we obtain
     \sigma_{2 N}^2=\frac{L^2}{6 \pi^4 N^3}+O\left(N^{-4}\right)=O\left(N^{-3}\right), \quad N \rightarrow \infty .
 \end{equation}
 
-Thus the Fourier series of $x$ converges as $O(1 / N)$ and the Fourier series of $|x|$ converges as $O\left(1 / N^3\right)$. Equations (1.16) and (1.17) explain the difference between figure \ref{fig.}.
+Thus the Fourier series of $x$ converges as $O(1 / N)$ and the Fourier series of $|x|$ converges as $O\left(1 / N^3\right)$. Equations \eqref{eq.x_fourier_mse_converge} and \eqref{eq.|x|_fourier_mse_converge} explain the difference between figure \ref{fig.}.
 \end{proof}
 
 \subsubsection{Parseval's theorem for complex, cosine and sine Fourier series}
 
 
+\begin{theorem}[Parseval's theorem for complex Fourier series]
+    Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with Fourier series 
+    \begin{equation}\label{eq.Parseval_complex_assumption}
+        f(x)=\sum_{n=-\infty}^{\infty} \alpha_n e^{i n \pi x / L}
+    \end{equation}
+    Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
+    \begin{equation}\label{eq.Parseval_complex}
+        \frac{1}{2 L} \int_{-L}^L f(x)^2 d x=\sum_{n=-\infty}^{\infty}\left|\alpha_n\right|^2 .
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    \textbf{TODO: }
 
-
-
-
-
-
-
-
-With the help of the orthogonality relations, we can directly obtain (1.19) by integrating both sides of (1.18):
-$$
-\begin{aligned}
-\int_{-L}^L f(x) e^{-i n \pi x / L} d x & =\int_{-L}^L\left(\sum_{n^{\prime}=-\infty}^{\infty} \alpha_{n^{\prime}} e^{i n^{\prime} \pi x / L}\right) e^{-i n \pi x / L} d x \\
-& =\sum_{n^{\prime}=-\infty}^{\infty} \alpha_{n^{\prime}} \int_{-L}^L e^{i\left(n^{\prime}-n\right) \pi x / L} d x=\sum_{n^{\prime}=-\infty}^{\infty} \alpha_{n^{\prime}} 2 L \delta_{n n^{\prime}}=2 L \alpha_n
-\end{aligned}
-$$
-
-We can write Parseval's theorem as follows in complex form.
-$$
-\frac{1}{2 L} \int_{-L}^L f(x)^2 d x=\sum_{n=-\infty}^{\infty}\left|\alpha_n\right|^2 .
-$$
-
-This is seen by the calculation below.
+    This is seen by the calculation below.
 $$
 \begin{aligned}
 \frac{1}{2 L} \int_{-L}^L f(x)^2 d x & =A_0^2+\frac{1}{2} \sum_{n=1}^{\infty}\left(A_n^2+B_n^2\right) \\
@@ -752,4 +756,14 @@ $$
 & =\sum_{n=-\infty}^{\infty}\left|\alpha_n\right|^2
 \end{aligned}
 $$
+
+\end{proof}
+
+\begin{theorem}[Parseval's theorem for cosine Fourier series]
+    \textbf{TODO: }
+\end{theorem}
+
+\begin{theorem}[Parseval's theorem for sine Fourier series]
+    \textbf{TODO: }
+\end{theorem}
 
