@@ -529,6 +529,9 @@ For Fourier sine series, we also have orthogonality relations and \eqref{eq.four
 
 
 \subsection{Convergence of Fourier series}
+
+\textbf{TODO: in this section we study pointwise convergence}
+
 \begin{definition}[Left and right limits]
 For a given $f(x)$, let us write
 \begin{equation}\label{eq.left_right_limit}
@@ -567,6 +570,7 @@ Given a Fourier series $f(x) = A_0+\sum_{n=1}^{\infty}[A_n \cos (n \pi x / L)+B_
     \begin{equation}\label{eq.convergence_uniformly}
         \lim_{N\rightarrow\infty} \max_{x\in [-L,L]}|f_N(x) - f(x)| = 0.
     \end{equation}
+    This means that the convergence is equally well for all $x$.
 \end{enumerate}
 
 \end{definition}
@@ -577,8 +581,17 @@ Let $f(x)$, $-L<x<L$, be piecewise smooth. Then the Fourier series of $f$ conver
 If $f(x)$ is continuous on $[-L, L]$ and $f(-L)=f(L)$ in addition to the conditions assumed in the above theorem, then the Fourier series uniformly converges.
 \end{theorem}
 
-\begin{example}[]
-    The Fourier series of $f(x)=|x|,-L<x<L$, (see Example \ref{ex.|x|_fourier}) uniformly converges.
+\begin{example}[] Here are two examples of convergence.
+
+    \begin{enumerate}
+        \item The Fourier series of $f(x)=|x|$, $-L<x<L$, (see Example \ref{ex.|x|_fourier}) uniformly converges. 
+        
+        \item The Fourier series of $f(x)=x$, $-L<x<L$ does not uniformly converge but converges at any point to $f(x)$ except for $x = -L$, $L$. 
+    \end{enumerate}
+
+    As in the following picture, the Fourier series of $f(x)=x$, $-L<x<L$ has a very bad convergence near $x = -L$, $L$, but series of $f(x)=|x|$ has a much better convergence.
+
+    \textbf{TODO: add a picture}
 \end{example}
 
 \subsection{Parseval's Theorem and Mean Square Error}
@@ -587,18 +600,44 @@ If $f(x)$ is continuous on $[-L, L]$ and $f(-L)=f(L)$ in addition to the conditi
 
 \subsubsection{The Parseval's Theorem for Fourier series}
 
+For orthogonal vectors $e_1,\dots, e_{n}$, $e_i\perp e_j$, their linear combination $v = v_1 e_1+\cdots+v_n e_n$ satisfies the Pythagorean theorem
+\begin{equation}\label{eq.Pythagorean}
+    |v|^2 = |v_1 e_1+\cdots+v_n e_n|^2 = |v_1 e_1|^2+\cdots+|v_n e_n|^2
+\end{equation}
+
+The proof of \eqref{eq.Pythagorean} is given by 
+\begin{equation*}
+    |v|^2 = \left\langle\sum_{j = 1}^{n}v_j e_j, \sum_{k = 1}^{n}v_k e_k\right\rangle = \sum_{j = 1}^{n}\sum_{k = 1}^{n}v_jv_k\underbrace{\langle e_j, e_k\rangle}_{= 0\textit{ if }j\neq k} = \sum_{j = 1}^{n}v_j^2 |e_j|^2
+\end{equation*}
+
+For Fourier series, the following theorem claims that a similar identity is true.
+
 \begin{theorem}[Parseval's theorem]
     Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with Fourier series 
-    $$
-    f(x) = A_0+\sum_{n=1}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]
-    $$
+    \begin{equation}\label{eq.Parseval_assumption}
+        f(x) = A_0+\sum_{n=1}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]
+    \end{equation}
     Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
     \begin{equation}\label{eq.Parseval_fourier}
         \frac{1}{2 L} \int_{-L}^L f(x)^2 d x=A_0^2+\frac{1}{2} \sum_{n=1}^{\infty}\left(A_n^2+B_n^2\right)
     \end{equation}
 \end{theorem}
 \begin{proof}
-    \textbf{TODO: }
+    Since $\cos (1 \pi x / L) = 1$ and $\sin (n \pi x / L) = 0$, we know that \eqref{eq.Parseval_assumption} is equivalent to 
+    \begin{equation}\label{eq.proof_Parseval_0}
+        f(x) = \sum_{n=0}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]
+    \end{equation}
+
+    Similar to \eqref{eq.Pythagorean} and its proof, we have 
+    \begin{equation}\label{eq.proof_Parseval_1}
+        \begin{split}
+            &\qquad\frac{1}{2 L} \int_{-L}^L f(x)^2 d x 
+            \\
+            =& \frac{1}{2 L} \int_{-L}^L \sum_{n=0}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)] \sum_{m=0}^{\infty}[A_m \cos (m \pi x / L)+B_m \sin (m \pi x / L)] d x
+            \\
+            =&\frac{1}{2 L} \int_{-L}^L \sum_{n,m=0}^{\infty}A_nA_m\cos\sin + A_nB_m\cos\sin + B_nA_m\cos\sin + B_nB_m\cos\sin d x
+        \end{split}
+    \end{equation}
 \end{proof}
 
 
