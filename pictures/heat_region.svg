@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="-600 -800 1500 1800" xmlns="http://www.w3.org/2000/svg">
+  <path style="stroke: rgb(0, 0, 0); stroke-width: 5px; transform-origin: 840.67px 800.793px;" d="M 790.524 802.354 L 890.841 780.177 L 881.18 802.107 L 890.841 821.42 L 790.841 802.107" transform="matrix(-1, 0, 0, -1, 0.00006, -0.000072)"/>
+  <path style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" d="M -398.983 -602.409 L -400 800 L 0 800 L 0 -600"/>
+  <line style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="-398.822" y1="-698.922" x2="-398.822" y2="1000"/>
+  <line style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-width: 5px; transform-origin: 99.998px 800.039px;" x1="800" y1="800.019" x2="-600" y2="800"/>
+  <path style="stroke: rgb(0, 0, 0); stroke-width: 5px; transform-origin: -397.433px -729.993px;" d="M -447.581 -728.429 L -347.264 -750.606 L -356.925 -728.676 L -347.264 -709.363 L -447.264 -728.676" transform="matrix(0, 1, -1, 0, -0.000051, 0.000001)"/>
+  <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 80.4px;" x="1975.142" y="153.565"> </text>
+</svg>

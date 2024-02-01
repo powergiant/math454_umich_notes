@@ -2,7 +2,23 @@
 
 \subsection{Separation of variable for general equation}
 
+In this section, we will consider separation of variable for more general equation, possibly with variable coefficients and more general boundary conditions. 
+
 \subsubsection{Boundary conditions}
+
+\textbf{TODO: as in ODE case, we need the boundary condition at any point on the boundary}
+
+Given a PDE defined on a domain $R$, we must prescibe the boundary condition on $\partial R$.
+
+\textbf{TODO: add $\partial R$ in the picture}
+\begin{figure}[H]
+    \scalebox{0.2}{      
+        \includegraphics{pictures/normal_vector.png}
+    }
+    \centering 
+    \caption{The region $R$ and its normal vector.} 
+    \label{fig.normal_vector} 
+\end{figure}
 
 \textbf{TODO: explanation}
 
@@ -31,7 +47,22 @@
 
 \subsubsection{Heat equations as an example}
 
+\begin{figure}[H]
+    \scalebox{0.15}{      
+        \includegraphics{pictures/heat_region.png}
+    }
+    \centering 
+    \caption{The domain for the heat equation.} 
+    \label{fig.heat_region} 
+\end{figure}
+
 \textbf{TODO: Robin, constant coefficients}
+
+\textbf{TODO: compute the normal vector and simplify Robin}
+
+\textbf{TODO: explain Dirichlet}
+
+\textbf{TODO: second order need one condition but first order need one}
 
 \begin{equation}
     \left\{\begin{aligned} 
@@ -46,6 +77,8 @@
 \end{equation}
 
 \textbf{TODO: add detail}
+
+
 
 Let us solve the heat equation in a simple case of $\alpha=\beta=0$. The separated solution is written as $u(z, t)=\phi(z) T(t)$. Thus we obtain
 $$
@@ -161,7 +194,7 @@ Note that the minimum of $\left\|f-\left(c_1 \varphi_1+\cdots+c_N \varphi_N\righ
 \end{example}
 
 \begin{definition}[Orthonormal]
-    The functions $\left(\varphi_1, \ldots, \varphi_N\right)$ are orthonormal if $\left\langle\varphi_i, \varphi_j\right\rangle=$ $\delta_{i j}$. Here $\delta_{i j}$ is the Kronecker delta ( $\delta_{i j}=0$ if $i \neq j$ and $=1$ if $i=j$ ).
+    The functions $\left(\varphi_1, \ldots, \varphi_N\right)$ are orthonormal if $\left\langle\varphi_i, \varphi_j\right\rangle=$ $\delta_{i j}$. Here $\delta_{i j}$ is the Kronecker delta $(\delta_{i j}=0$ if $i \neq j$ and $=1$ if $i=j)$.
 \end{definition}
 
 \subsubsection{The Sturm-Liouville eigenvalue problem}
