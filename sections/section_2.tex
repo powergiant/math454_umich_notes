@@ -241,9 +241,17 @@ We have two observations from the above example
 
     The Fourier series coincides with $y = x$ only in the domain $-L < x < L$. But the Fourier series is a periodic function since it is a sum of several periodic functions $\cos/\sin$. Since $y = x$ is not a periodic function, Fourier series cannot agree with it for all $x$.
     \begin{figure}[H]
-        \scalebox{0.08}{      
-            \includegraphics{pictures/fourier_x.png}
-        }
+        \begin{tikzpicture}
+            \node at (0,0) {\scalebox{0.1}{      
+                \includegraphics{pictures/fourier_x.png}
+            }};
+            \node at (2.5, 2) {$y = x$};
+            \node at (5.25, -1.1) {$x$};
+            \node at (-0.9, 3.2) {$y$};
+            \node at (-0.4, -1.1) {$L$};
+            \node at (-2, -1.1) {$-L$};
+            \node at (4.1, -0.2) {\textit{Fourier series}};
+        \end{tikzpicture}
         \centering 
         \caption{The graph of $y = x$ and its Fourier series.} 
         \label{fig.fourier_x} 
@@ -596,8 +604,6 @@ If $f(x)$ is continuous on $[-L, L]$ and $f(-L)=f(L)$ in addition to the conditi
 
 \subsection{Parseval's Theorem and Mean Square Error}
 
-\textbf{TODO: we study mean square convergence}
-
 \subsubsection{The Parseval's Theorem for Fourier series}
 
 For orthogonal vectors $e_1,\dots, e_{n}$, $e_i\perp e_j$, their linear combination $v = v_1 e_1+\cdots+v_n e_n$ satisfies the Pythagorean theorem
@@ -654,22 +660,31 @@ For Fourier series, the following theorem claims that a similar identity is true
 
 \subsubsection{The mean square error}
 
-\textbf{TODO: we want quantitatively characterise the error, mean square can be computed using Parseval}
-
-
-We define the mean square error $\sigma_N^2$ as
+\begin{definition}[Mean square error]
+We define the \underline{mean square error} $\sigma_N^2$ as
 \begin{equation}\label{eq.mean_square_error}
-    \sigma_N^2=\frac{1}{2 L} \int_{-L}^L\left[f(x)-f_N(x)\right]^2 d x
+    \sigma_N^2=\frac{1}{2 L} \int_{-L}^L[f(x)-f_N(x)]^2 d x
 \end{equation}
 where $f_N(x)$ is the partial sum
 \begin{equation}
     f_N(x)=A_0+\sum_{n=1}^N\left[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)\right] .
 \end{equation}
+\end{definition}
 
-By Parseval's theorem, we obtain
-\begin{equation}\label{eq.mean_square_error_Parseval}
-    \sigma_N^2=\frac{1}{2} \sum_{n=N+1}^{\infty}\left(A_n^2+B_n^2\right)
-\end{equation}
+By Parseval's theorem, we obtain the following expression of the mean square error.
+
+\begin{proposition}[] Given a partial summation whose mean square error is defined by \eqref{eq.mean_square_error}, then we have
+    \begin{equation}\label{eq.mean_square_error_Parseval}
+        \sigma_N^2=\frac{1}{2} \sum_{n=N+1}^{\infty}\left(A_n^2+B_n^2\right)
+    \end{equation}
+\end{proposition}
+\begin{proof}
+    This is an easy corollary of the Parseval's identity \eqref{eq.Parseval_fourier}, if we notice that
+    $$
+    f(x)-f_N(x) = \sum_{n=N+1}^\infty\left[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)\right]
+    $$ 
+Therefore, we finished the proof.
+\end{proof}
 
 \begin{example}[]
 Let us find $\sigma_N^2$ for $f(x)=x$, $-L<x<L$. 
@@ -685,14 +700,14 @@ $$
 \sigma_N^2=\frac{1}{2} \sum_{n=N+1}^{\infty}\left(\frac{2 L}{n \pi}(-1)^{n+1}\right)^2=\frac{2 L^2}{\pi^2} \sum_{n=N+1}^{\infty} \frac{1}{n^2} .
 $$
 
-Note that
+By Theorem \ref{th.int_test}, we get
 $$
-\int_{N+1}^{\infty} \frac{1}{x^2} d x=\int_N^{\infty} \frac{1}{(x+1)^2} d x \leq \sum_{n=N+1}^{\infty} \frac{1}{n^2} \leq \int_{N+1}^{\infty} \frac{1}{(x-1)^2} d x=\int_N^{\infty} \frac{1}{x^2} d x .
+\int_{N+1}^{\infty} \frac{1}{x^2} d x \leq \sum_{n=N+1}^{\infty} \frac{1}{n^2} \leq \int_{N+1}^{\infty} \frac{1}{(x-1)^2} d x=\int_N^{\infty} \frac{1}{x^2} d x .
 $$
 
 We have
 $$
-\int_N^{\infty} \frac{1}{(x+1)^2} d x=\frac{1}{N+1} \ge \frac{1}{N} - \frac{1}{N^2}, \quad \int_N^{\infty} \frac{1}{x^2} d x=\frac{1}{N} .
+\int_{N+1}^{\infty} \frac{1}{x^2} d x=\frac{1}{N+1} \ge \frac{1}{N} - \frac{1}{N^2}, \quad \int_N^{\infty} \frac{1}{x^2} d x=\frac{1}{N} .
 $$
 
 Let us introduce the symbol $O$ (this is called ``big O'') to express the order. For some $f_N$, $f_N=O\left(N^{-1}\right)$ as $N \rightarrow \infty$ means that there exist a constant $C>0$ such that $\left|f_N\right| \leq C N^{-1}$. Therefore we obtain
@@ -703,14 +718,16 @@ Let us introduce the symbol $O$ (this is called ``big O'') to express the order.
 We note that $\sigma_N^2$ goes to zero as $N \rightarrow \infty$ although we know that the sum in \eqref{eq.x_fourier_repeat} does not converge uniformly. This happened because we considered the mean square and took the integral. \textbf{TODO: add a picture for convergence}
 \end{proof}
 
-\begin{theorem}[Integral test]
-    \textbf{TODO: } $f(x)$ monotonic and positive
+\begin{theorem}[Integral test]\label{th.int_test}
+    Given a monotonic and positive function $f(x)$, we have 
     \begin{equation}\label{eq.integral_test}
         \int^{\infty}_{N+1} f(x-1) dx \le \sum_{n = N+1}^{\infty} f(n)\le \int^{\infty}_{N+1} f(x) dx
     \end{equation}    
 \end{theorem}
 \begin{proof}
-    
+    \textbf{TODO: compare the area below the graph of $y = f(x)$}
+
+    \textbf{TODO: add a picture}
 \end{proof}
 
 \begin{example}[]
@@ -727,11 +744,11 @@ $$
 \sigma_{2 N}^2=\frac{1}{2} \sum_{n=2 N+1}^{\infty} A_n^2=\frac{1}{2} \sum_{m=N+1}^{\infty} A_{2 m-1}^2=\frac{8 L^2}{\pi^4} \sum_{m=N+1}^{\infty} \frac{1}{(2 m-1)^4} .
 $$
 
-Note that
+Note that by Theorem \ref{th.int_test}
 $$
-\int_N^{\infty} \frac{1}{(2 x+1)^4} d x \leq \sum_{m=N+1}^{\infty} \frac{1}{(2 m-1)^4} \leq \int_N^{\infty} \frac{1}{(2 x-1)^4} d x,
+\int_{N+1}^{\infty} \frac{1}{(2 x-3)^4} d x \leq \sum_{m=N+1}^{\infty} \frac{1}{(2 m-1)^4} \leq \int_{N+1}^{\infty} \frac{1}{(2 x-1)^4} d x,
 $$
-and $\textit{LHS}=\frac{1}{6(2 N+1)^3}=\frac{1}{48 N^3}+O\left(N^{-4}\right)$ and $\textit{RHS}=\frac{1}{6(2 N-1)^3}=\frac{1}{48 N^3}+O\left(N^{-4}\right)$.
+and by Taylor expansion $\frac{1}{(1+x)^3} = 1 - 3x + 6x^2 + \cdots$, $\textit{LHS} = \frac{1}{8N^3}\frac{1}{(1+1/2N)^3}=\frac{1}{6(2 N+1)^3}=\frac{1}{48 N^3}+O\left(N^{-4}\right)$ and $\textit{RHS}=\frac{1}{6(2 N-1)^3}=\frac{1}{48 N^3}+O\left(N^{-4}\right)$.
 Therefore we obtain
 \begin{equation}\label{eq.|x|_fourier_mse_converge}
     \sigma_{2 N}^2=\frac{L^2}{6 \pi^4 N^3}+O\left(N^{-4}\right)=O\left(N^{-3}\right), \quad N \rightarrow \infty .
@@ -750,13 +767,24 @@ Thus the Fourier series of $x$ converges as $O(1 / N)$ and the Fourier series of
     \end{equation}
     Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
     \begin{equation}\label{eq.Parseval_complex}
-        \frac{1}{2 L} \int_{-L}^L f(x)^2 d x=\sum_{n=-\infty}^{\infty}\left|\alpha_n\right|^2 .
+        \frac{1}{2 L} \int_{-L}^L |f(x)|^2 d x=\sum_{n=-\infty}^{\infty}\left|\alpha_n\right|^2 .
     \end{equation}
 \end{theorem}
 \begin{proof}
-    \textbf{TODO: }
+\textit{Method 1.} We have 
+\begin{equation}\label{eq.proof_Parseval_complex_1}
+    \begin{split}
+        \frac{1}{2 L} \int_{-L}^L |f(x)|^2 d x 
+        =& \frac{1}{2 L} \int_{-L}^L \sum_{n=-\infty}^{\infty} \alpha_n e^{i n \pi x / L} \sum_{m=-\infty}^{\infty} \bar{\alpha}_m e^{-i m \pi x / L} dx
+        \\
+        =& \sum_{n,m=0}^{\infty}\alpha_n\bar{\alpha}_m \underbrace{\frac{1}{2 L} \int_{-L}^L e^{i (n-m) \pi x / L} d x}_{= 0\textit{ if }n\neq m}
+        \\
+        =&\sum_{n=-\infty}^{\infty}\left|\alpha_n\right|^2
+    \end{split}
+\end{equation}
+    
 
-    This is seen by the calculation below.
+\textit{Method 2.} \eqref{eq.Parseval_complex} is seen by the calculation below. By Parseval's identity for the Fourier series \eqref{eq.Parseval_fourier},
 $$
 \begin{aligned}
 \frac{1}{2 L} \int_{-L}^L f(x)^2 d x & =A_0^2+\frac{1}{2} \sum_{n=1}^{\infty}\left(A_n^2+B_n^2\right) \\
@@ -769,11 +797,29 @@ $$
 
 \end{proof}
 
-\begin{theorem}[Parseval's theorem for cosine Fourier series]
-    \textbf{TODO: }
+\begin{theorem}[Parseval's theorem for cosine Fourier series] Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with cosine Fourier series 
+    \begin{equation}\label{eq.Parseval_cosine_assumption}
+        f(x)=A_0 + \sum_{n=1}^{\infty} A_n \cos \frac{n \pi x}{L}
+    \end{equation}
+    Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
+    \begin{equation}\label{eq.Parseval_cosine}
+        \frac{1}{2 L} \int_{-L}^L |f(x)|^2 d x=A_0^2 + \frac{1}{2}\sum_{n=1}^{\infty}A_n^2 .
+    \end{equation}
 \end{theorem}
+\begin{proof}
+    This is homework.
+\end{proof}
 
 \begin{theorem}[Parseval's theorem for sine Fourier series]
-    \textbf{TODO: }
+    Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with sine Fourier series 
+    \begin{equation}\label{eq.Parseval_sine_assumption}
+        f(x)=\sum_{n=1}^{\infty} B_n \sin \frac{n \pi x}{L}
+    \end{equation}
+    Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
+    \begin{equation}\label{eq.Parseval_sine}
+        \frac{1}{L} \int_{0}^L f(x)^2 d x=\frac{1}{2}\sum_{n=1}^{\infty} B_n^2 .
+    \end{equation}
 \end{theorem}
-
+\begin{proof}
+    This is homework.
+\end{proof}

@@ -1,70 +1,209 @@
 \section{PDEs in rectangular coordinates}
 
-\subsection{Separation of variable for general equation}
+In this section, we will consider separation of variable for more general equation in rectangular coordinates, possibly with variable coefficients and more general boundary conditions. 
 
-In this section, we will consider separation of variable for more general equation, possibly with variable coefficients and more general boundary conditions. 
+\subsection{Boundary conditions for general PDEs}
 
-\subsubsection{Boundary conditions}
 
-\textbf{TODO: as in ODE case, we need the boundary condition at any point on the boundary}
+\subsubsection{Dirichlet, Neumann and Robin boundary conditions}
 
-Given a PDE defined on a domain $R$, we must prescibe the boundary condition on $\partial R$.
+In the ODE class, we have learned the following boundary value problem
+\begin{equation}\label{eq.ODE_boundary}
+    \begin{split}
+        &u'' = 1, \qquad x\in [0, 1]
+        \\
+        &u(0) = 0,\quad u(1) = 0.
+    \end{split}
+\end{equation}
+where we prescribe a condition for every point on the boundary of the domain $[0, 1]$. (The boundary is $0$ and $1$.) If we missing any of these conditions, we cannot get a unique solution. 
 
-\textbf{TODO: add $\partial R$ in the picture}
+For example, if we remove the condition $u(1) = 0$, then we get solution $u(x) = \frac{1}{2}x^2 + Cx$, which contains an undetermined constant $C$.
+
+Given a PDE defined on a domain $R$, we must also prescibe the boundary condition on $\partial R$ to obtain a unique solution.
+
 \begin{figure}[H]
-    \scalebox{0.2}{      
-        \includegraphics{pictures/normal_vector.png}
-    }
+    \begin{tikzpicture}
+        \node at (0, 0) {
+            \scalebox{0.2}{      
+                \includegraphics{pictures/normal_vector.png}
+            }
+        };
+        \node at (0.4, 1.8) {$\mathbf{n}$};
+        \node at (0, -0.5) {$R$};
+    \end{tikzpicture}
     \centering 
     \caption{The region $R$ and its normal vector.} 
     \label{fig.normal_vector} 
 \end{figure}
 
-\textbf{TODO: explanation}
+Before we introduce the concept of boundary conditions, let us first explain the concept of normal vectors.
 
-\begin{definition}[Normal vector] $\mathbf{n}$
+\begin{definition}[Normal vector] Given a domain $R$ and a point $x\in \partial R$, a \underline{normal vector} $\mathbf{n}$ at $x$ is the vector as demonstrated by figure \ref{fig.normal_vector}. In this class, normal vector is always pointing outwards. 
     
 \end{definition}
 
-\begin{definition}[Boundary conditions] Consider a PDE $F[u] = 0$. Here are the boundary conditions that we consider in this class.
+Now we introduce the boundary conditions which will be considered in this class.
+
+\begin{definition}[Boundary conditions] Consider a PDE $F[u] = 0$ defined on the domain $R$. Here are the boundary conditions that we consider in this class.
     \begin{enumerate}
         \item \textbf{Dirichlet boundary condition.} The value of $u$ on the boundary is given.
         \begin{equation}\label{eq.Dirichlet_boundary}
-            u=g(x), \quad x \in \partial \Omega .
+            u=g(x), \quad x \in \partial R .
         \end{equation}
         
         \item \textbf{Neumann boundary condition.} The normal derivative on the boundary is given.
         \begin{equation}\label{eq.Neumann_boundary}
-            \mathbf{n} \cdot \nabla u=g(x), \quad x \in \partial \Omega .
+            \mathbf{n} \cdot \nabla u=g(x), \quad x \in \partial R .
         \end{equation}
         
         \item \textbf{Robin boundary condition.} A linear combination of the above two boundary conditions. 
         \begin{equation}\label{eq.Robin_boundary}
-            a(x) u+b(x) \mathbf{n} \cdot \nabla u=g(x), \quad x \in \partial \Omega .
+            a(x) u+b(x) \mathbf{n} \cdot \nabla u=g(x), \quad x \in \partial R .
         \end{equation}
     \end{enumerate}
 \end{definition}
 
 \subsubsection{Heat equations as an example}
 
+We take the heat equation $u_t = Ku_{zz}$, defined on $R = \{(z, t): 0 \le t < \infty,\ 0 \le x \le L\}$, as an example to explain these boundary conditions. 
+
+
+The domain $R$ of the heat equation is described by the following picture,
+
 \begin{figure}[H]
-    \scalebox{0.15}{      
-        \includegraphics{pictures/heat_region.png}
-    }
+    \begin{tikzpicture}
+        \node at (0, 0) {\scalebox{0.15}{      
+            \includegraphics{pictures/heat_region.png}
+        }};
+        \node at (2.8, -3) {$z$};
+        \node at (-1.9, 3.3) {$t$};
+        \node at (-0.55, -3) {$L$};
+        \node at (-1.4, -3) {$t = 0$};
+        \node at (-0.1, -1.3) {$z = L$};
+        \node at (-2.7, -1.3) {$z = 0$};
+        \node at (-2.5, 0.2) {$\mathbf{n}_2$};
+        \node at (-0.2, 0.2) {$\mathbf{n}_1$};
+        \node at (-1.4, 0.1) {$R$};
+        \node (1) at (-0.72, 0) {};
+        \node (2) at (0.3,0) {};
+        \draw[-Stealth] (1) -- (2);
+
+        \node (3) at (-2.05, 0) {};
+        \node (4) at (-3.05,0) {};
+        \draw[-Stealth] (3) -- (4);
+    \end{tikzpicture}
     \centering 
     \caption{The domain for the heat equation.} 
     \label{fig.heat_region} 
 \end{figure}
 
-\textbf{TODO: Robin, constant coefficients}
+There are three pieces of $\partial R$, 
+\begin{equation}\label{eq.heat_boundary_3_pieces}
+    \begin{split}
+        &z=0, \quad t>0
+        \\
+        &z=L, \quad t>0
+        \\
+        &0<z<L, \quad t=0
+    \end{split}
+\end{equation}
 
-\textbf{TODO: compute the normal vector and simplify Robin}
-
-\textbf{TODO: explain Dirichlet}
+On the first two parts of $\partial R$ corresponding to $z = 0,\, L$, we impose Robin boundary condition. On the last part corresponding to $t = 0$, we impose the Dirichlet boundary condition. Then we get the following system of equations,
+\begin{equation}\label{eq.heat_and_boundary_1}
+    \left\{\begin{aligned} 
+        &u_t=K u_{z z}, && 0<z<L, \quad t>0, 
+        \\ 
+        &a(z, t) u+b(z, t) \mathbf{n} \cdot \nabla u=g(z, t),\quad && z=0,\, L, \quad t>0, 
+        \\
+        &u(z, 0)=f(z), && 0<z<L, \quad t=0.
+    \end{aligned}\right.
+\end{equation}
+Here the choice of Dirichlet and Robin boundary condition comes from the physics of heat conduction. We will explain this in section \ref{sec.}.
 
 \textbf{TODO: second order need one condition but first order need one}
 
+
+Now we explain how to simplify the Robin boundary condition in \eqref{eq.heat_and_boundary_1}.
+
+On $z = 0$, from figure \ref{fig.heat_region}, we know that the normal vector $\mathbf{n} = (-1, 0)$ and $\nabla u = (u_z, u_t)$, so we get $\mathbf{n}\cdot \nabla u = -u_z$. Therefore, $a(z, t) u+b(z, t) \mathbf{n} \cdot \nabla u=g(z, t)$ simplifies to 
+\begin{equation}\label{eq.heat_and_boundary_2}
+    a(0, t) u - b(0, t) u_z = g(0, t).
+\end{equation}
+
+On $z = L$, from figure \ref{fig.heat_region}, we know that the normal vector $\mathbf{n} = (1, 0)$ and $\nabla u = (u_z, u_t)$, so we get $\mathbf{n}\cdot \nabla u = u_z$. Therefore, $a(z, t) u+b(z, t) \mathbf{n} \cdot \nabla u=g(z, t)$ simplifies to 
+\begin{equation}\label{eq.heat_and_boundary_3}
+    a(L, t) u + b(L, t) u_z = g(L, t).
+\end{equation}
+
+We introduce new functions $a(t)$, $\widetilde{a}(t)$, $b(t)$, $\widetilde{b}(t)$, $g(t)$ and $\widetilde{g}(t)$ by the following equations
+\begin{equation}\label{eq.heat_and_boundary_4}
+    \begin{split}
+        &a(t) = a(0, t),\quad b(t) = b(0, t),\quad g(t) = g(0, t)
+        \\
+        &\widetilde{a}(t) = a(L, t),\quad \widetilde{b}(t) = b(L, t),\quad \widetilde{g}(t) = g(L, t)
+    \end{split}
+\end{equation}
+
+Then the Robin boundary conditions becomes
+\begin{equation}\label{eq.heat_and_boundary_5}
+    \begin{split}
+        &a(t) u - b(t) u_z = g(t), \quad z = 0
+        \\
+        &\widetilde{a}(t) u + \widetilde{b}(t) u_z = \widetilde{g}(t), \quad z = L
+    \end{split}
+\end{equation}
+
+The heat equation becomes
+\begin{equation}\label{eq.heat_and_boundary_general}
+    \left\{\begin{aligned} 
+        &u_t=K u_{z z}, && 0<z<L, \quad t>0, 
+        \\ 
+        &a(t) u - b(t) u_z = g(t),\quad && z=0, \quad t>0, 
+        \\ 
+        &\widetilde{a}(t) u + \widetilde{b}(t) u_z = \widetilde{g}(t), && z=L, \quad t>0, 
+        \\
+        &u=f(z), && 0<z<L, \quad t=0.
+    \end{aligned}\right.
+\end{equation}
+
+In order to make \eqref{eq.heat_and_boundary_general} solvable, we impose the homogeneous condition. 
+
+
+\begin{definition}[Homogeneous] We say \eqref{eq.heat_and_boundary_general} is \underline{homogeneous} if 
+    \begin{enumerate}
+        \item $a(t)$, $\widetilde{a}(t)$, $b(t)$, $\widetilde{b}(t)$, $g(t)$ and $\widetilde{g}(t)$ are independent of $t$.
+        \item $g(t) = \widetilde{g}(t) = 0$.
+    \end{enumerate}
+\end{definition}
+
+With homogeneous assumption, \eqref{eq.heat_and_boundary_general} becomes
+\begin{equation}\label{eq.heat_and_boundary_6}
+    \left\{\begin{aligned} 
+        &u_t=K u_{z z}, && 0<z<L, \quad t>0, 
+        \\ 
+        &a u - b u_z = 0,\quad && z=0, \quad t>0, 
+        \\ 
+        &\widetilde{a} u + \widetilde{b} u_z = 0, && z=L, \quad t>0, 
+        \\
+        &u=f(z), && 0<z<L, \quad t=0.
+    \end{aligned}\right.
+\end{equation}
+
+To further simplify the above equation, we doing the change of variable 
 \begin{equation}
+    b\rightarrow bL,\quad \widetilde{b}\rightarrow \widetilde{b}L
+\end{equation}
+followed by the change of variable
+\begin{equation}
+    \begin{split}
+        &a\rightarrow r\cos \alpha,\quad b\rightarrow r\sin \alpha,
+        \\
+        &\widetilde{a}\rightarrow r\cos \beta,\quad \widetilde{b}\rightarrow r\sin \beta.
+    \end{split}
+\end{equation}
+
+Finally, the heat equation becomes
+\begin{equation}\label{eq.heat_and_boundary}
     \left\{\begin{aligned} 
         &u_t=K u_{z z}, && 0<z<L, \quad t>0, 
         \\ 
@@ -76,11 +215,10 @@ Given a PDE defined on a domain $R$, we must prescibe the boundary condition on 
     \end{aligned}\right.
 \end{equation}
 
-\textbf{TODO: add detail}
 
+\subsubsection{Separation of variable in heat equation}
 
-
-Let us solve the heat equation in a simple case of $\alpha=\beta=0$. The separated solution is written as $u(z, t)=\phi(z) T(t)$. Thus we obtain
+Let us solve the heat equation in a simple case of $\alpha=\beta=0$ in \eqref{eq.heat_and_boundary}. The separated solution is written as $u(z, t)=\phi(z) T(t)$. Thus we obtain
 $$
 T^{\prime}(t)+\lambda K T(t)=0, \quad \phi^{\prime \prime}(z)+\lambda \phi(z)=0 .
 $$
@@ -95,7 +233,7 @@ $$
 T(t)=e^{-\lambda K t}, \quad \phi=A \sin (\sqrt{\lambda} z)+B \cos (\sqrt{\lambda} z), \quad \lambda>0 .
 $$
 
-By plugging $\phi=A \sin (\sqrt{\lambda} z)+B \cos (\sqrt{\lambda} z)$ into the boundary conditions, we find that $B=0$ and $\sqrt{\lambda} L$ is an integer multiple of $\pi$. Therefore we obtain
+By plugging $\phi=A \sin (\sqrt{\lambda} z)+B \cos (\sqrt{\lambda} z)$ into the boundary conditions, we find that $B=0$ and $\sqrt{\lambda} L = n\pi$ where $n$ is an integer. Therefore we obtain
 $$
 \phi(z)=\phi_n(z)=\sin \left(\sqrt{\lambda_n} z\right), \quad \lambda_n=\left(\frac{n \pi}{L}\right)^2, \quad n=1,2, \ldots,
 $$
@@ -104,14 +242,27 @@ $$
 u(z, t)=\phi_n(z) e^{-\lambda_n K t}, \quad n=1,2, \ldots
 $$
 
-If no initial condition is given, the above separated solutions are the solutions to the problem. Here, however, we have an initial condition.
-Let us consider the initial condition. We express the solution as
+If no initial condition $u(z, 0) = f(z)$ is given, the above separated solutions are the solutions to the problem. However, they do not satisfies $u(z, 0) = f(z)$.
+Let us consider the linear combination of separated solution and match with the initial condition.
+
+The linear combination is 
 $$
 u(z, t)=\sum_{n=1}^{\infty} C_n \phi_n(z) e^{-\lambda_n K t},
 $$
-where $C_n$ are constants. Since $f$ is piecewise smooth, we can write $f(z)=\sum_{n=1}^{\infty} B_n \phi_n(z)$, $0<z<L$, with some coefficients $B_n$ (Fourier sine series). This implies that $C_n=B_n$. We obtain
+where $C_n$ are constants. 
+
+By $u(z, 0) = f(z)$, we know that 
+
+$$
+f(z) = u(z, 0) = \sum_{n=1}^{\infty} C_n \phi_n(z) = \sum_{n=1}^{\infty} C_n \sin \frac{n\pi z}{L}.
+$$
+
+From this we know that $C_n$ is the $B_n$ coefficients of the Fourier sine series. We thus obtain
 $$
 u(z, t)=\sum_{n=1}^{\infty} B_n \phi_n(z) e^{-\lambda_n K t}, \quad 0<z<L, \quad t>0 .
+$$
+$$
+B_n=\frac{2}{L} \int_0^L f(x) \sin \frac{n \pi x}{L} d x.
 $$
 
 \begin{example}[]
@@ -119,19 +270,18 @@ The heat equation $u_t=K u_{z z}$ for $0<z<L, t>0$ with $u(0, t)=u(L, t)=0$ and 
 $$
 u(z, t)=\sum_{n=1}^{\infty} B_n \sin \frac{n \pi z}{L} e^{-(n \pi / L)^2 K t},
 $$
-where
+where  
 $$
 B_n=\frac{2}{\pi} \frac{1-(-1)^n}{n} .
 $$
 
-As mentioned above, $B_n$ are coefficients of the Fourier sine series of $f(z)$. We can also compute $B_n$ as follows. First, we note the following orthogonality relations. For $n, m=1,2, \ldots$, we have
-
-\textbf{TODO: match boundary condition and using orthogonality}
-
-\begin{equation*}
-    \int_0^L \sin \frac{n \pi z}{L} \sin \frac{m \pi z}{L} d z = \frac{L}{2} \delta_{n m}
-\end{equation*}
+Here as mentioned above, $B_n$ can be directly computed as coefficients of the Fourier sine series of $f(z) = 1$
 \end{example}
+
+\subsubsection{Some linear algebra}
+
+
+\subsection{The Sturm-Liouville eigenvalue problem}
 
 \subsubsection{Orthogonal functions}
 
