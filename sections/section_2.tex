@@ -770,10 +770,30 @@ $$
 \end{proof}
 
 \begin{theorem}[Parseval's theorem for cosine Fourier series]
-    \textbf{TODO: }
+    Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with cosine Fourier series 
+    \begin{equation}\label{eq.Parseval_cosine_assumption}
+        f(x)=A_0 + \sum_{n=1}^{\infty} A_n \cos \frac{n \pi x}{L}
+    \end{equation}
+    Then, mean square of $f(x)=\frac{1}{L} \int_{0}^L f(x)^2 d x$ satisfies the following identity
+    \begin{equation}\label{eq.Parseval_cosine}
+        \frac{1}{L} \int_{0}^L f(x)^2 d x=A_0^2 + \frac{1}{2}\sum_{n=1}^{\infty}A_n^2.
+    \end{equation}
 \end{theorem}
+\begin{proof}
+    \textbf{TODO: }
+\end{proof}
 
 \begin{theorem}[Parseval's theorem for sine Fourier series]
-    \textbf{TODO: }
+    Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with sine Fourier series 
+    \begin{equation}\label{eq.Parseval_sine_assumption}
+        f(x)=\sum_{n=1}^{\infty} B_n \sin \frac{n \pi x}{L}
+    \end{equation}
+    Then, mean square of $f(x)=\frac{1}{L} \int_{0}^L f(x)^2 d x$ satisfies the following identity
+    \begin{equation}\label{eq.Parseval_sine}
+        \frac{1}{L} \int_{0}^L f(x)^2 d x=\frac{1}{2}\sum_{n=1}^{\infty} B_n^2.
+    \end{equation}
 \end{theorem}
+\begin{proof}
+    \textbf{TODO: }
+\end{proof}
 
