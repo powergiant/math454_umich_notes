@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="-6600 -1600 6000 3800" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="-5700 -1100 4300 2800" xmlns="http://www.w3.org/2000/svg">
   <path style="stroke: rgb(0, 0, 0); stroke-width: 5px; transform-origin: -1564.65px 600.442px;" d="M -1614.795 602.003 L -1514.478 579.826 L -1524.139 601.756 L -1514.478 621.069 L -1614.478 601.756" transform="matrix(-1, 0, 0, -1, 0.000072, -0.000067)"/>
   <line style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-width: 5px;" x1="-4000" y1="-900" x2="-4000" y2="1600"/>
   <line style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-width: 5px; transform-origin: -3600px 600.002px;" x1="-1599.989" y1="600" x2="-5599.992" y2="600"/>
@@ -9,13 +9,8 @@
   <line style="fill: rgb(216, 216, 216); stroke-width: 5px; stroke: rgb(253, 1, 1);" x1="-3699.762" y1="900" x2="-3100" y2="303.778"/>
   <line style="fill: rgb(216, 216, 216); stroke-width: 5px; stroke: rgb(253, 1, 1);" x1="-3099.761" y1="900" x2="-2500" y2="303.778"/>
   <line style="fill: rgb(216, 216, 216); stroke-width: 5px; stroke: rgb(253, 1, 1);" x1="-4899.761" y1="896.222" x2="-4300" y2="300"/>
-  <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 80.4px;" x="-2710.949" y="-474.518">y = x</text>
   <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 80.4px;" x="-1626.036" y="-47.513"> </text>
-  <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 80.4px;" x="-2105.043" y="427.199"> </text>
   <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 80.4px;" x="-2150.542" y="200.601"> </text>
-  <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 80.4px;" x="-2439.009" y="424.071">Fourier series</text>
   <line style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-width: 5px; stroke-dasharray: 20;" x1="-3700.253" y1="302.074" x2="-3700" y2="600"/>
   <line style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-width: 5px; stroke-dasharray: 20;" x1="-4305.922" y1="596.656" x2="-4300" y2="900"/>
-  <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 80.2px;" x="-3712.324" y="682.731">L</text>
-  <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 77.2px;" x="-4331.537" y="683.454">-L</text>
 </svg>
