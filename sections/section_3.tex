@@ -1,6 +1,6 @@
 \section{PDEs in rectangular coordinates}
 
-In this section, we will consider separation of variable for more general equation in rectangular coordinates, possibly with variable coefficients and more general boundary conditions. 
+In this section, we will consider the separation of variables for more general equations in rectangular coordinates, possibly with variable coefficients and more general boundary conditions. 
 
 \subsection{Boundary conditions for general PDEs}
 
@@ -15,11 +15,11 @@ In the ODE class, we have learned the following boundary value problem
         &u(0) = 0,\quad u(1) = 0.
     \end{split}
 \end{equation}
-where we prescribe a condition for every point on the boundary of the domain $[0, 1]$. (The boundary is $0$ and $1$.) If we missing any of these conditions, we cannot get a unique solution. 
+where we prescribe a condition for every point on the boundary of the domain $[0, 1]$. (The boundary is $0$ and $1$.) If we miss any of these conditions, we cannot get a unique solution. 
 
 For example, if we remove the condition $u(1) = 0$, then we get solution $u(x) = \frac{1}{2}x^2 + Cx$, which contains an undetermined constant $C$.
 
-Given a PDE defined on a domain $R$, we must also prescibe the boundary condition on $\partial R$ to obtain a unique solution.
+Given a PDE defined on a domain $R$, we must also prescribe the boundary condition on $\partial R$ to obtain a unique solution.
 
 \begin{figure}[H]
     \begin{tikzpicture}
@@ -38,11 +38,11 @@ Given a PDE defined on a domain $R$, we must also prescibe the boundary conditio
 
 Before we introduce the concept of boundary conditions, let us first explain the concept of normal vectors.
 
-\begin{definition}[Normal vector] Given a domain $R$ and a point $x\in \partial R$, a \underline{normal vector} $\mathbf{n}$ at $x$ is the vector as demonstrated by figure \ref{fig.normal_vector}. In this class, normal vector is always pointing outwards. 
+\begin{definition}[Normal vector] Given a domain $R$ and a point $x\in \partial R$, a \underline{normal vector} $\mathbf{n}$ at $x$ is the vector as demonstrated by figure \ref{fig.normal_vector}. In this class, the normal vector is always pointing outwards. 
     
 \end{definition}
 
-Now we introduce the boundary conditions which will be considered in this class.
+Now we introduce the boundary conditions that will be considered in this class.
 
 \begin{definition}[Boundary conditions] Consider a PDE $F[u] = 0$ defined on the domain $R$. Here are the boundary conditions that we consider in this class.
     \begin{enumerate}
@@ -68,7 +68,7 @@ Now we introduce the boundary conditions which will be considered in this class.
 We take the heat equation $u_t = Ku_{zz}$, defined on $R = \{(z, t): 0 \le t < \infty,\ 0 \le x \le L\}$, as an example to explain these boundary conditions. 
 
 
-The domain $R$ of the heat equation is described by the following picture,
+The domain $R$ of the heat equation is described in the following picture,
 
 \begin{figure}[H]
     \begin{tikzpicture}
@@ -108,7 +108,7 @@ There are three pieces of $\partial R$,
     \end{split}
 \end{equation}
 
-On the first two parts of $\partial R$ corresponding to $z = 0,\, L$, we impose Robin boundary condition. On the last part corresponding to $t = 0$, we impose the Dirichlet boundary condition. Then we get the following system of equations,
+On the first two parts of $\partial R$ corresponding to $z = 0,\, L$, we impose the Robin boundary condition. On the last part corresponding to $t = 0$, we impose the Dirichlet boundary condition. Then we get the following system of equations,
 \begin{equation}\label{eq.heat_and_boundary_1}
     \left\{\begin{aligned} 
         &u_t=K u_{z z}, && 0<z<L, \quad t>0, 
@@ -144,7 +144,7 @@ We introduce new functions $a(t)$, $\widetilde{a}(t)$, $b(t)$, $\widetilde{b}(t)
     \end{split}
 \end{equation}
 
-Then the Robin boundary conditions becomes
+Then the Robin boundary condition becomes
 \begin{equation}\label{eq.heat_and_boundary_5}
     \begin{split}
         &a(t) u - b(t) u_z = g(t), \quad z = 0
@@ -189,7 +189,7 @@ With homogeneous assumption, \eqref{eq.heat_and_boundary_general} becomes
     \end{aligned}\right.
 \end{equation}
 
-To further simplify the above equation, we doing the change of variable 
+To further simplify the above equation, we did the change of variable 
 \begin{equation}
     b\rightarrow bL,\quad \widetilde{b}\rightarrow \widetilde{b}L
 \end{equation}
@@ -242,7 +242,7 @@ $$
 u(z, t)=\phi_n(z) e^{-\lambda_n K t}, \quad n=1,2, \ldots
 $$
 
-If no initial condition $u(z, 0) = f(z)$ is given, the above separated solutions are the solutions to the problem. However, they do not satisfies $u(z, 0) = f(z)$.
+If no initial condition $u(z, 0) = f(z)$ is given, the separated solutions are the solutions to the problem. However, they do not satisfies $u(z, 0) = f(z)$.
 Let us consider the linear combination of separated solution and match with the initial condition.
 
 The linear combination is 
@@ -257,7 +257,7 @@ $$
 f(z) = u(z, 0) = \sum_{n=1}^{\infty} C_n \phi_n(z) = \sum_{n=1}^{\infty} C_n \sin \frac{n\pi z}{L}.
 $$
 
-From this we know that $C_n$ is the $B_n$ coefficients of the Fourier sine series. We thus obtain
+From this, we know that $C_n$ is the $B_n$ coefficient of the Fourier sine series. We thus obtain
 $$
 u(z, t)=\sum_{n=1}^{\infty} B_n \phi_n(z) e^{-\lambda_n K t}, \quad 0<z<L, \quad t>0 .
 $$
@@ -280,10 +280,49 @@ Here as mentioned above, $B_n$ can be directly computed as coefficients of the F
 
 \subsubsection{Some linear algebra}
 
+After the separation of the variable in the heat equation, we obtain the following equation
+$$
+\phi^{\prime \prime}(z)+\lambda \phi(z)=0 \quad \Leftrightarrow \quad \phi^{\prime \prime}(z) = -\lambda \phi(z).
+$$
+
+If we denote the second-order derivative operator by $A$, then we get
+$$
+A\phi = -\lambda\phi.
+$$ 
+
+This is very similar to the eigenvalue and eigenvector equation for matrix $M$ in linear algebra.
+\begin{equation}\label{eq.eigenvalue_linear_alg}
+    M v = \lambda v.
+\end{equation}
+
+For a symmetric matrix, we have the following properties.
+
+\begin{theorem}[]\label{th.eigenvalue_symm_linear_alg} Assume that $M$ is a symmetric operator $(M = M^{T})$, and $\langle x, y\rangle$ is the inner product of vectors, then we have
+\begin{enumerate}
+    \item $\langle M x, y\rangle = \langle x, My\rangle$.
+    \item The eigenvalues of $M$ are real numbers.
+    \item If $v$, $w$ are eigenvectors with different eigenvalues $\lambda$ and $\mu$ respectively, then $v\perp w$ $(\langle v, w\rangle = 0)$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+    \textbf{TODO: }
+
+    Notice that $\langle x, y\rangle = x^T y$, then we have $\langle M x, y\rangle = (M x)^T y = x^T M^T y = x^T M y = \langle x, My\rangle$.
+
+    For complex vectors $\langle x, y\rangle = \bar{x}^T y$, $\langle x, M x\rangle = \lambda\langle x, x\rangle$, $\langle M x, x\rangle = \bar{\lambda}\langle x, x\rangle$ and $\langle M x, x\rangle = \langle x, Mx\rangle$. Therefore, $\lambda = \bar{\lambda}$. 
+
+    $\langle v, M w\rangle = \mu\langle v, w\rangle$, $\langle M v, w\rangle = \lambda\langle v, w\rangle$ and $\langle M v, w\rangle = \langle v, Mw\rangle$. Therefore, $\mu\langle v, w\rangle = \lambda \langle v, w\rangle$, which implies that $\langle v, w\rangle$ due to $\lambda\neq\mu$.
+\end{proof}
+
+
+It turns out that $A$ can be viewed as a symmetric matrix, and thus satisfies all properties described by Theorem \ref{th.eigenvalue_symm_linear_alg}.
+
 
 \subsection{The Sturm-Liouville eigenvalue problem}
 
-\subsubsection{Orthogonal functions}
+Now we study the eigenvalue problems for differential operators. Let us first start with the concepts of orthogonal functions and symmetric operators.
+
+\subsubsection{Orthogonal functions and symmetric operators}
 
 \begin{definition}[Inner product] We extend dot product $\varphi \cdot \psi$ and define \underline{inner product} as
 \begin{equation}\label{eq.inner_product}
@@ -315,7 +354,7 @@ Two functions $\varphi, \psi$ are said to be \underline{orthogonal} on $[a, b]$ 
     The set of functions $\sin x, \sin 2 x, \ldots, \sin N x$ is orthogonal on $[0, \pi]$.
 \end{example}
 \begin{example}[]
-    Which of the following pairs of functions are orthogonal on the interval $0 \leq x \leq 1$ ?
+    Which of the following pairs of functions are orthogonal on the interval $0 \leq x \leq 1$?
 $$
 \varphi_1=\sin 2 \pi x, \quad \varphi_2=x, \quad \varphi_3=\cos 2 \pi x, \quad \varphi_4=1 .
 $$
@@ -347,7 +386,143 @@ Note that the minimum of $\left\|f-\left(c_1 \varphi_1+\cdots+c_N \varphi_N\righ
     The functions $\left(\varphi_1, \ldots, \varphi_N\right)$ are orthonormal if $\left\langle\varphi_i, \varphi_j\right\rangle=$ $\delta_{i j}$. Here $\delta_{i j}$ is the Kronecker delta $(\delta_{i j}=0$ if $i \neq j$ and $=1$ if $i=j)$.
 \end{definition}
 
-\subsubsection{The Sturm-Liouville eigenvalue problem}
+\begin{example}[]
+    \textbf{TODO: }
+\end{example}
+
+\begin{definition}[Symmetric operators] Given a differential operator $A$, we say $A$ is \underline{symmetric}, if for any function $\varphi$ and $\psi$,
+\begin{equation}\label{eq.symm_operator}
+    \langle A\varphi, \psi\rangle = \langle \varphi, A\psi\rangle.
+\end{equation}
+
+\begin{example}[]
+    \textbf{TODO: }
+\end{example}
+    
+\end{definition}
+
+\subsubsection{The Sturm-Liouville eigenvalue problem}\label{sec.Sturm_Liouville}
+
+\begin{definition}[Sturm-Liouville problems]
+Let $\phi$ be a function defined on the interval $(a, b)$, the \underline{Sturm-Liouville problems} is the following boundary value problem,
+\begin{equation}\label{eq.Sturm_Liouville}
+    \begin{split}
+        &\left[s(x) \phi^{\prime}(x)\right]^{\prime}+[\lambda \rho(x)-q(x)] \phi(x)=0, \quad a<x<b,
+        \\
+        &\ \phi(a) \cos \alpha-L \phi^{\prime}(a) \sin \alpha=0,
+        \\
+        &\ \phi(b) \cos \beta+L \phi^{\prime}(b) \sin \beta=0
+    \end{split}
+\end{equation}
+where $\rho$ is a positive function $\rho(x)>0$ and $L=b-a$, $\alpha, \beta \in[0, \pi)$ are some parameters. 
+\end{definition}
+
+Define the operator $A$ by 
+\begin{equation}\label{eq.A_op_Sturm_Liouville}
+    A \phi = - \frac{1}{\rho(x)}\left(\left[s(x) \phi^{\prime}(x)\right]^{\prime}+[\lambda \rho(x)-q(x)] \phi(x)\right)
+\end{equation}
+then \eqref{eq.Sturm_Liouville} is equivalent to
+\begin{equation}\label{eq.Sturm_Liouville'}
+    A \phi = \lambda \phi.
+\end{equation}
+
+We have the following theorem, which is an analog of Theorem \ref{th.eigenvalue_symm_linear_alg}
+
+\begin{theorem}[]\label{th.eigenvalue_symm} Assume that $A$ is a differential operator defined by \eqref{eq.A_op_Sturm_Liouville}, and $\langle\varphi, \psi\rangle_\rho$ is the inner product defined by \eqref{eq.inner_product_weight}, then we have
+\begin{enumerate}
+    \item $\langle A \varphi, \psi\rangle = \langle \varphi, A\psi\rangle$.
+    \item The eigenvalues of $A$ are real numbers.
+    \item If $\varphi$, $\psi$ are eigenfunctions with different eigenvalues $\lambda$ and $\mu$ respectively, then $\langle \varphi, \psi\rangle_\rho = 0$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+    The proof is postponed to the end of this section (section \ref{sec.Sturm_Liouville}).
+\end{proof}
+
+
+Example 8 (Bessel functions). By setting $s(x)=\rho(x)=x^{d-1}, q(x)=\mu x^{d-3}$, and $\lambda=1$ with $a=0$ and $b=\infty$, we obtain
+$$
+\phi^{\prime \prime}+(d-1) \frac{\phi^{\prime}}{x}+\left(1-\frac{\mu}{x^2}\right) \phi=0,
+$$
+where $d$ is the dimension and $\mu$ is the angular index. In the case of $d=2$ and $\mu=m^2$, the function $\phi(x)=J_m(x)$ is called the Bessel function ${ }^{12}$. In the case of $d=3$ and $\mu=k(k+1)(k=0,1,2, \ldots)$, the function $\phi(x)=j_k(x)$ is called the spherical Bessel function 13 ..
+
+Example 9 (Legendre polynomials). By setting $s(x)=1-x^2, \rho(x)=1, q(x)=$ $m^2 / \mathrm{s}(x)$, and $\lambda=k(k+1)(k=0,1,2, \ldots)$ with $a=-1$ and $b=1$, we obtain
+$$
+\left(1-x^2\right) \phi^{\prime \prime}-2 x \phi^{\prime}+\left(k(k+1)-\frac{m^2}{1-x^2}\right) \phi=0 .
+$$
+
+The function $\phi(x)=P_k^m(x)$ is called the associated Legendre polynomial ${ }^{14}$. When $m=0$, the function $P_k(x)$ is called the Legendre polynomial.
+
+Example 10 (Hermite polynomials). By setting $s(x)=\rho(x)=\exp \left(-x^2 / 2\right), q(x)=$ $0, \lambda=n(n=0,1,2, \ldots)$ with $a=-\infty$ and $b=\infty$, we obtain
+$$
+\phi^{\prime \prime}-x \phi^{\prime}+n \phi=0 \text {. }
+$$
+
+The function $\phi(x)=H_n(x)$ is called the Hermite polynomial.
+
+\begin{theorem}[]
+    \textbf{TODO: how to reduce ODE to Sturm Liouville}
+\end{theorem}
+\begin{proof}
+    \textbf{TODO: }
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{th.eigenvalue_symm}] \textbf{TODO: }
+Let us begin with
+$$
+\left[s(x) \phi_1^{\prime}(x)\right]^{\prime}+\left[\lambda_1 \rho(x)-q(x)\right] \phi_1(x)=0, \quad\left[s(x) \phi_2^{\prime}(x)\right]^{\prime}+\left[\lambda_2 \rho(x)-q(x)\right] \phi_2(x)=0 .
+$$
+
+We multiply the first equation by $\phi_2(x)$ and the second equation by $\phi_1(x)$, and integrate them.
+
+$$
+\left\{\begin{array}{l}
+\int_a^b \phi_2(x)\left[s(x) \phi_1^{\prime}(x)\right]^{\prime} d x+\int_a^b \phi_2(x)\left[\lambda_1 \rho(x)-q(x)\right] \phi_1(x) d x=0, \\
+\int_a^b \phi_1(x)\left[s(x) \phi_2^{\prime}(x)\right]^{\prime} d x+\int_a^b \phi_1(x)\left[\lambda_2 \rho(x)-q(x)\right] \phi_2(x) d x=0 .
+\end{array}\right.
+$$
+
+By integration by parts, we obtain
+$$
+\left\{\begin{array}{l}
+{\left[\phi_2(x) s(x) \phi_1^{\prime}(x)\right]_a^b-\int_a^b \phi_2^{\prime}(x) s(x) \phi_1^{\prime}(x) d x+\int_a^b \phi_2(x)\left[\lambda_1 \rho(x)-q(x)\right] \phi_1(x) d x=0,} \\
+{\left[\phi_1(x) s(x) \phi_2^{\prime}(x)\right]_a^b-\int_a^b \phi_1^{\prime}(x) s(x) \phi_2^{\prime}(x) d x+\int_a^b \phi_1(x)\left[\lambda_2 \rho(x)-q(x)\right] \phi_2(x) d x=0 .}
+\end{array}\right.
+$$
+
+We subtract these equations. Noting that $\phi_1(x)$ and $\phi_2(x)$ satisfy (2.7), we have
+$$
+\begin{aligned}
+& {\left[\phi_2(x) s(x) \phi_1^{\prime}(x)\right]_a^b-\left[\phi_1(x) s(x) \phi_2^{\prime}(x)\right]_a^b } \\
+= & s(b)\left[\phi_2(b) \phi_1^{\prime}(b)-\phi_1(b) \phi_2^{\prime}(b)\right]-s(a)\left[\phi_2(a) \phi_1^{\prime}(a)-\phi_1(a) \phi_2^{\prime}(a)\right] \\
+= & s(b)[0]-s(a)[0]=0 .
+\end{aligned}
+$$
+
+Therefore, we obtain
+$$
+\left(\lambda_1-\lambda_2\right) \int_a^b \phi_1(x) \phi_2(x) \rho(x) d x=0 .
+$$
+
+Since $\lambda_1 \neq \lambda_2$, this integral must be zero.
+Next, let us suppose $\lambda_1=\lambda_2=\lambda$. We consider
+$$
+\psi(x)= \begin{cases}\phi_2(a) \phi_1(x)-\phi_1(a) \phi_2(x), & \text { if } \alpha \neq 0 \\ \phi_2^{\prime}(a) \phi_1(x)-\phi_1^{\prime}(a) \phi_2(x), & \text { if } \alpha=0 .\end{cases}
+$$
+
+This $\psi(x)$ obeys (2.8). We have $\psi(a)=0$. Also $\psi^{\prime}(a)=0$ by (2.7). Thus $\psi(x)$ is a solution to (2.8) with initial conditions $\psi(a)=\psi^{\prime}(a)=0$. We can conclude that $\psi(x)=0, a<x<b$. Therefore,
+$$
+\phi_2(x)=C \phi_1(x), \quad C=\frac{\phi_2(a)}{\phi_1(a)} \quad \text { or } \quad \frac{\phi_2^{\prime}(a)}{\phi_1^{\prime}(a)} .
+$$
+
+Proof (Theorem 2). Let us set $\lambda_1=\lambda, \phi_1(x)=\phi(x), \lambda_2=\bar{\lambda}$, and $\phi_2(x)=\bar{\phi}(x)$ in (2.9). Then instead of (2.11), we have
+
+$$
+(\lambda-\bar{\lambda}) \int_a^b|\phi(x)|^2 \rho(x) d x=0 .
+$$
+
+Therefore, $\lambda=\bar{\lambda}$. The imaginary part of $\lambda$ is zero.
+\end{proof}
 
 \subsubsection{Convergence of orthogonal series}
 
