@@ -230,7 +230,7 @@ We have two observations from the above example
 \begin{proof}
     We only consider the even case. The odd case can be proved similarly. 
     
-    Since $f(x)$ is even, we know that $\frac{1}{L} \int_{-L}^L f(x) \sin \frac{n \pi x}{L} d x$ is odd. By \eqref{eq.fourier_coefficient}, all the $B_n$ vanishes. Therefore, we only have $\cos$ term in the Fourier series.
+    Since $f(x)$ is even, we know that $\frac{1}{L} \int_{-L}^L f(x) \sin \frac{n \pi x}{L} d x$ is odd. By \eqref{eq.fourier_coefficient}, all the $B_n$ vanishes. Therefore, we only have the $\cos$ term in the Fourier series.
 \end{proof}
 
 \begin{proposition}[]
@@ -239,7 +239,7 @@ We have two observations from the above example
 \begin{proof}
     We will not prove this proposition. Instead, we draw the graph of $y = x$ and its Fourier series
 
-    The Fourier series coincides with $y = x$ only in the domain $-L < x < L$. But the Fourier series is a periodic function since it is a sum of several periodic functions $\cos/\sin$. Since $y = x$ is not a periodic function, Fourier series cannot agree with it for all $x$.
+    The Fourier series coincides with $y = x$ only in the domain $-L < x < L$. But the Fourier series is a periodic function since it is a sum of several periodic functions $\cos/\sin$. Since $y = x$ is not a periodic function, the Fourier series cannot agree with it for all $x$.
     \begin{figure}[H]
         \begin{tikzpicture}
             \node at (0,0) {\scalebox{0.1}{      
@@ -597,7 +597,7 @@ If $f(x)$ is continuous on $[-L, L]$ and $f(-L)=f(L)$ in addition to the conditi
         \item The Fourier series of $f(x)=x$, $-L<x<L$ does not uniformly converge but converges at any point to $f(x)$ except for $x = -L$, $L$. 
     \end{enumerate}
 
-    As in the following picture, the Fourier series of $f(x)=x$, $-L<x<L$ has a very bad convergence near $x = -L$, $L$, but series of $f(x)=|x|$ has a much better convergence.
+    As in the following picture, the Fourier series of $f(x)=x$, $-L<x<L$ has a very bad convergence near $x = -L$, $L$, but the series of $f(x)=|x|$ has much better convergence.
 
     \textbf{TODO: add a picture}
 \end{example}
@@ -616,7 +616,7 @@ The proof of \eqref{eq.Pythagorean} is given by
     |v|^2 = \left\langle\sum_{j = 1}^{n}v_j e_j, \sum_{k = 1}^{n}v_k e_k\right\rangle = \sum_{j = 1}^{n}\sum_{k = 1}^{n}v_jv_k\underbrace{\langle e_j, e_k\rangle}_{= 0\textit{ if }j\neq k} = \sum_{j = 1}^{n}v_j^2 |e_j|^2
 \end{equation*}
 
-For Fourier series, the following theorem claims that a similar identity is true.
+For the Fourier series, the following theorem claims that a similar identity is true.
 
 \begin{theorem}[Parseval's theorem]
     Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with Fourier series 
@@ -721,7 +721,7 @@ We note that $\sigma_N^2$ goes to zero as $N \rightarrow \infty$ although we kno
 \begin{theorem}[Integral test]\label{th.int_test}
     Given a monotonic and positive function $f(x)$, we have 
     \begin{equation}\label{eq.integral_test}
-        \int^{\infty}_{N+1} f(x-1) dx \le \sum_{n = N+1}^{\infty} f(n)\le \int^{\infty}_{N+1} f(x) dx
+        \int^{\infty}_{N+1} f(x) dx \le \sum_{n = N+1}^{\infty} f(n)\le \int^{\infty}_{N} f(x) dx
     \end{equation}    
 \end{theorem}
 \begin{proof}
