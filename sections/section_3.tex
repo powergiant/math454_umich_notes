@@ -305,8 +305,6 @@ For a symmetric matrix, we have the following properties.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-    \textbf{TODO: }
-
     Notice that $\langle x, y\rangle = x^T y$, then we have $\langle M x, y\rangle = (M x)^T y = x^T M^T y = x^T M y = \langle x, My\rangle$.
 
     For complex vectors $\langle x, y\rangle = \bar{x}^T y$, $\langle x, M x\rangle = \lambda\langle x, x\rangle$, $\langle M x, x\rangle = \bar{\lambda}\langle x, x\rangle$ and $\langle M x, x\rangle = \langle x, Mx\rangle$. Therefore, $\lambda = \bar{\lambda}$. 
@@ -351,8 +349,13 @@ Two functions $\varphi, \psi$ are said to be \underline{orthogonal} on $[a, b]$ 
     The functions $\varphi(x)=\sin x$ and $\psi(x)=\cos x$ are orthogonal on $[0, \pi]$.
 \end{example}
 \begin{example}[]
-    The set of functions $\sin x, \sin 2 x, \ldots, \sin N x$ is orthogonal on $[0, \pi]$.
+    The set of functions $1, \cos \frac{\pi x}{L}, \sin \frac{\pi x}{L}, \ldots, \cos \frac{N\pi x}{L}, \sin \frac{N\pi x}{L}$ is orthogonal on $[-L, L]$.
 \end{example}
+
+\begin{example}[]
+    The set of functions $\{e^{\frac{in\pi x}{L}}\}_{n\in\mathbb{Z}}$ is orthogonal on $[-L, L]$.
+\end{example}
+
 \begin{example}[]
     Which of the following pairs of functions are orthogonal on the interval $0 \leq x \leq 1$?
 $$
@@ -369,37 +372,77 @@ $$
 We note that the norm is always nonnegative. The norm $\|\varphi-\psi\|$ is the distance between two functions $\varphi$ and $\psi$.
 \end{definition}
 
-\begin{definition}[Projection]
-    Let $\left(\varphi_1, \ldots, \varphi_N\right)$ be a set of orthogonal functions with $\left\|\varphi_i\right\| \neq 0$. Let $f(x)$ be a function. Then $\hat{c}_1 \varphi_1+\cdots+\hat{c}_N \varphi_N$ with $\hat{c}_i=$ $\left\langle f, \varphi_i\right\rangle /\left\|\varphi_i\right\|^2$ is the projection of $f$ onto $\left(\varphi_1, \ldots, \varphi_N\right) . \hat{c}_i$ is called the $i$ th Fourier coefficient of $f$. 
-
-    \textbf{TODO: revise this}
-\end{definition}
-
-
-Note that the minimum of $\left\|f-\left(c_1 \varphi_1+\cdots+c_N \varphi_N\right)\right\|$ is achieved when $c_i=\hat{c}_i$.
-    
-\begin{example}[]
-    Find the projection of $f(x)=1$ onto $\left(\varphi_1, \varphi_2\right)=(\sin x, \sin 2 x)$ on the interval $0 \leq x \leq \pi$. By $\left\langle f, \varphi_1\right\rangle=2,\left\langle f, \varphi_2\right\rangle=0$, and $\left\|\varphi_1\right\|^2=\left\|\varphi_2\right\|^2=\frac{\pi}{2}$, we obtain $\frac{4}{\pi} \sin x$.   
-\end{example}
-
 \begin{definition}[Orthonormal]
     The functions $\left(\varphi_1, \ldots, \varphi_N\right)$ are orthonormal if $\left\langle\varphi_i, \varphi_j\right\rangle=$ $\delta_{i j}$. Here $\delta_{i j}$ is the Kronecker delta $(\delta_{i j}=0$ if $i \neq j$ and $=1$ if $i=j)$.
 \end{definition}
 
+\begin{definition}[Normalization]
+    Let $\{\varphi_1, \varphi_2, \ldots, \varphi_N\}$ be a set of orthogonal functions satisfying $\varphi_i \perp \varphi_j$ for $i \neq j$. Each function $\varphi_i$ can be \underline{normalized} to obtain an orthogonal sequence $\{\psi_i\}_{i = 1, \dots, N}$:
+    \[
+    \psi_i = \frac{\varphi_i}{\|\varphi_i\|}
+    \]
+    where $\|\varphi_i\|$ denotes the norm of the function $\varphi_i$.
+    
+\end{definition}
+
 \begin{example}[]
-    \textbf{TODO: }
+    After normalize the orthogonal functions $\cos x$, $\sin x$ on $[0, \pi]$, we obtain $\sqrt{\frac{2}{\pi}}\cos x$, $\sqrt{\frac{2}{\pi}}\sin x$.
 \end{example}
 
-\begin{definition}[Symmetric operators] Given a differential operator $A$, we say $A$ is \underline{symmetric}, if for any function $\varphi$ and $\psi$,
+\begin{definition}[Differential Operator]
+    A \underline{differential operator} $A$ is an operator satisfying the following
+    \begin{enumerate}
+        \item $A$ is of the form $A = \sum_{i=0}^{n} a_i(x) \frac{d^i}{dx^i}$.
+        \item The operator $A$ has a domain $\mathrm{Dom}(A)$, which means that $A$ does accept all smooth functions as its input. (See Example \ref{ex.symm_op} for an example of $\mathrm{Dom}(A)$)
+    \end{enumerate}  
+    \noindent where $n$ is a non-negative integer representing the \underline{order} of the differential operator, $a_i(x)$ are the \underline{coefficient} of $A$, and $\frac{d^i}{dx^i}$ represents the $i$-th derivative with respect to $x$, with $\frac{d^0}{dx^0}$ interpreted as the identity operator.
+
+\end{definition}
+
+\begin{definition}[Symmetric operators] Given a differential operator $A$, we say $A$ is \underline{symmetric}, if for any functions $\varphi, \psi\in \mathrm{Dom}(A)$,
 \begin{equation}\label{eq.symm_operator}
     \langle A\varphi, \psi\rangle = \langle \varphi, A\psi\rangle.
 \end{equation}
-
-\begin{example}[]
-    \textbf{TODO: }
-\end{example}
     
 \end{definition}
+
+\begin{example}[]\label{ex.symm_op}
+The differential operator $A$ defined by the following is a symmetric operator,
+\begin{equation}
+A = -\frac{d^2}{dx^2},\qquad \mathrm{Dom}(A) = \{\varphi(x): x\in [a, b],\,\varphi(a) = \varphi(b) = 0\}
+\end{equation}
+
+To show that $A$ is symmetric, we need to verify that:
+\begin{equation}\label{eq.ex_symm_op_1}
+\langle \varphi, A\psi \rangle = \langle A\varphi, \psi \rangle
+\end{equation}
+for all functions $\varphi(x)$ and $\psi(x)$ in the domain of $A$. This condition translates into the following integral equality,
+\begin{equation}
+\int_a^b \varphi(x) \left(-\psi''(x)\right) dx = \int_a^b \left(-\varphi''(x)\right) \psi(x) dx
+\end{equation}
+Applying integration by parts and using the boundary conditions $\varphi(a) = \varphi(b) = \psi(a) = \psi(b) = 0$, the boundary terms vanish, leading to
+\begin{equation}
+-\int_a^b \varphi(x) \psi''(x) dx = \int_a^b \varphi'(x) \psi'(x) dx = -\int_a^b \varphi''(x) \psi(x) dx
+\end{equation}
+This equality confirms \eqref{eq.ex_symm_op_1} and thus the fact that $A$ is symmetric on the given domain $\mathrm{Dom}(A)$.
+\end{example}
+
+\begin{example}
+    \textbf{TODO: symmetric operator depends on domain}
+\end{example}
+
+% \begin{definition}[Projection]
+%     Let $\left(\varphi_1, \ldots, \varphi_N\right)$ be a set of orthogonal functions with $\left\|\varphi_i\right\| \neq 0$. Let $f(x)$ be a function. Then $\hat{c}_1 \varphi_1+\cdots+\hat{c}_N \varphi_N$ with $\hat{c}_i=$ $\left\langle f, \varphi_i\right\rangle /\left\|\varphi_i\right\|^2$ is the projection of $f$ onto $\left(\varphi_1, \ldots, \varphi_N\right) . \hat{c}_i$ is called the $i$ th Fourier coefficient of $f$. 
+
+%     \textbf{TODO: revise this}
+% \end{definition}
+
+
+% Note that the minimum of $\left\|f-\left(c_1 \varphi_1+\cdots+c_N \varphi_N\right)\right\|$ is achieved when $c_i=\hat{c}_i$.
+
+% \begin{example}[]
+%     Find the projection of $f(x)=1$ onto $\left(\varphi_1, \varphi_2\right)=(\sin x, \sin 2 x)$ on the interval $0 \leq x \leq \pi$. By $\left\langle f, \varphi_1\right\rangle=2,\left\langle f, \varphi_2\right\rangle=0$, and $\left\|\varphi_1\right\|^2=\left\|\varphi_2\right\|^2=\frac{\pi}{2}$, we obtain $\frac{4}{\pi} \sin x$.   
+% \end{example}
 
 \subsubsection{The Sturm-Liouville eigenvalue problem}\label{sec.Sturm_Liouville}
 
