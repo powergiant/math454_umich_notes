@@ -282,12 +282,12 @@ Here as mentioned above, $B_n$ can be directly computed as coefficients of the F
 
 After the separation of the variable in the heat equation, we obtain the following equation
 $$
-\phi^{\prime \prime}(z)+\lambda \phi(z)=0 \quad \Leftrightarrow \quad \phi^{\prime \prime}(z) = -\lambda \phi(z).
+\phi^{\prime \prime}(z)+\lambda \phi(z)=0 \quad \Leftrightarrow \quad -\phi^{\prime \prime}(z) = \lambda \phi(z).
 $$
 
-If we denote the second-order derivative operator by $A$, then we get
+If we denote the negative second-order derivative operator by $A$, then we get
 $$
-A\phi = -\lambda\phi.
+A\phi = \lambda\phi.
 $$ 
 
 This is very similar to the eigenvalue and eigenvector equation for matrix $M$ in linear algebra.
@@ -297,7 +297,7 @@ This is very similar to the eigenvalue and eigenvector equation for matrix $M$ i
 
 For a symmetric matrix, we have the following properties.
 
-\begin{theorem}[]\label{th.eigenvalue_symm_linear_alg} Assume that $M$ is a symmetric operator $(M = M^{T})$, and $\langle x, y\rangle$ is the inner product of vectors, then we have
+\begin{theorem}[]\label{th.SL_1_linear_alg} Assume that $M$ is a symmetric operator $(M = M^{T})$, and $\langle x, y\rangle$ is the inner product of vectors, then we have
 \begin{enumerate}
     \item $\langle M x, y\rangle = \langle x, My\rangle$.
     \item The eigenvalues of $M$ are real numbers.
@@ -313,12 +313,12 @@ For a symmetric matrix, we have the following properties.
 \end{proof}
 
 
-It turns out that $A$ can be viewed as a symmetric matrix, and thus satisfies all properties described by Theorem \ref{th.eigenvalue_symm_linear_alg}.
+It turns out that $A$ can be viewed as a symmetric matrix, and thus satisfies all properties described by Theorem \ref{th.SL_1_linear_alg}.
 
 
 \subsection{The Sturm-Liouville eigenvalue problem}
 
-Now we study the eigenvalue problems for differential operators. Let us first start with the concepts of orthogonal functions and symmetric operators.
+Now we study the eigenvalue problems for differential operators. Let us first start with the concepts of orthogonal functions and symmetric operators. \textbf{TODO: we encounter so much orthogonality, which looks like a magic, explain the source of orthogonality}
 
 \subsubsection{Orthogonal functions and symmetric operators}
 
@@ -412,23 +412,33 @@ The differential operator $A$ defined by the following is a symmetric operator,
 A = -\frac{d^2}{dx^2},\qquad \mathrm{Dom}(A) = \{\varphi(x): x\in [a, b],\,\varphi(a) = \varphi(b) = 0\}
 \end{equation}
 
-To show that $A$ is symmetric, we need to verify that:
+To show that $A$ is symmetric, we need to verify that
 \begin{equation}\label{eq.ex_symm_op_1}
 \langle \varphi, A\psi \rangle = \langle A\varphi, \psi \rangle
 \end{equation}
-for all functions $\varphi(x)$ and $\psi(x)$ in the domain of $A$. This condition translates into the following integral equality,
+for all functions $\varphi(x)$ and $\psi(x)$ satisfying $\varphi(a) = \varphi(b) = \psi(a) = \psi(b) = 0$. This condition translates into the following integral equality,
 \begin{equation}
-\int_a^b \varphi(x) \left(-\psi''(x)\right) dx = \int_a^b \left(-\varphi''(x)\right) \psi(x) dx
+\int_a^b \varphi(x) \psi''(x) dx = \int_a^b \varphi''(x) \psi(x) dx
 \end{equation}
-Applying integration by parts and using the boundary conditions $\varphi(a) = \varphi(b) = \psi(a) = \psi(b) = 0$, the boundary terms vanish, leading to
+Applying integration by parts and using the boundary conditions $\varphi(a) = \varphi(b) = \psi(a) = \psi(b) = 0$, we get
 \begin{equation}
--\int_a^b \varphi(x) \psi''(x) dx = \int_a^b \varphi'(x) \psi'(x) dx = -\int_a^b \varphi''(x) \psi(x) dx
+\begin{split}
+    \int_a^b \varphi''(x) \psi(x) dx =& \underbrace{\left[\varphi'(x) \psi(x)\right]_a^b}_{ = 0} - \int_a^b \varphi'(x) \psi'(x) dx 
+    \\
+    =& - \int_a^b \varphi'(x) \psi'(x) dx = -\underbrace{\left[\varphi(x) \psi'(x)\right]_a^b}_{ = 0} + \int_a^b \varphi(x) \psi''(x) dx
+    \\
+    =& \int_a^b \varphi(x) \psi''(x) dx
+\end{split}
 \end{equation}
 This equality confirms \eqref{eq.ex_symm_op_1} and thus the fact that $A$ is symmetric on the given domain $\mathrm{Dom}(A)$.
 \end{example}
 
 \begin{example}
-    \textbf{TODO: symmetric operator depends on domain}
+    The definition of symmetric operator depends on domain. For example, if we define $A$ by 
+    \begin{equation}
+        A = -\frac{d^2}{dx^2},\qquad \mathrm{Dom}(A) = \{\varphi(x): x\in [a, b]\}
+    \end{equation}
+    which is almost the same operator as the last example but with a different domain. This operator is NOT symmetric. If we take $\varphi(x) = 1$ and $\psi(x) = x$, then a straightforward computation gives $\langle \varphi, A\psi \rangle = 0$ and  $\langle A\varphi, \psi \rangle \neq 0$. Therefore, $A$ is not symmetric.
 \end{example}
 
 % \begin{definition}[Projection]
@@ -462,93 +472,214 @@ where $\rho$ is a positive function $\rho(x)>0$ and $L=b-a$, $\alpha, \beta \in[
 
 Define the operator $A$ by 
 \begin{equation}\label{eq.A_op_Sturm_Liouville}
-    A \phi = - \frac{1}{\rho(x)}\left(\left[s(x) \phi^{\prime}(x)\right]^{\prime}+[\lambda \rho(x)-q(x)] \phi(x)\right)
+    A \phi = - \frac{1}{\rho(x)}\left(\left[s(x) \phi^{\prime}(x)\right]^{\prime}-q(x) \phi(x)\right)
+\end{equation}
+with domain
+\begin{equation}\label{eq.A_op_Sturm_Liouville_dom}
+    \left\{\phi(x),\, x\in [a, b]\,\Bigg|\begin{aligned}
+        &\ \phi(a) \cos \alpha-L \phi^{\prime}(a) \sin \alpha=0,
+        \\
+        &\ \phi(b) \cos \beta+L \phi^{\prime}(b) \sin \beta=0
+    \end{aligned}
+    \right\}
 \end{equation}
 then \eqref{eq.Sturm_Liouville} is equivalent to
 \begin{equation}\label{eq.Sturm_Liouville'}
     A \phi = \lambda \phi.
 \end{equation}
 
-We have the following theorem, which is an analog of Theorem \ref{th.eigenvalue_symm_linear_alg}
 
-\begin{theorem}[]\label{th.eigenvalue_symm} Assume that $A$ is a differential operator defined by \eqref{eq.A_op_Sturm_Liouville}, and $\langle\varphi, \psi\rangle_\rho$ is the inner product defined by \eqref{eq.inner_product_weight}, then we have
+The following theorem claims that all symmetric second order differential operators are of the form given by \eqref{eq.A_op_Sturm_Liouville} and \eqref{eq.A_op_Sturm_Liouville_dom}.
+
+\begin{theorem}
+    A symmetric second order differential operator $A$ must be of the form given by \eqref{eq.A_op_Sturm_Liouville} and \eqref{eq.A_op_Sturm_Liouville_dom}.
+\end{theorem}
+\begin{proof}
+    The proof go beyond the scope of this course.
+\end{proof}
+
+The following theorem explain the procedure of reducing an arbitrary second order differential operator to a Sturm-Liouville operator. Since it is abstract, it is good to first jump to the examples below the theorem.
+\begin{theorem}[]\label{th.reduction_to_SL}
+    Given an arbitrary second order linear differential equation $a(x)y'' + b(x)y' + c(x)y = 0$, it can be reduced to the Sturm-Liouville equation \eqref{eq.Sturm_Liouville} by the following procedure.
+    \begin{enumerate}
+        \item Divide both sides by $a(x)$ to obtain $y'' + p(x)y' + q(x)y = 0$.
+        \item Solve the equation $\widehat{y}' = p(x)\widehat{y}$.
+        \item Multiply both sides of $y'' + p(x)y' + q(x)y = 0$ by $\widehat{y}$
+        \begin{equation}
+            \widehat{y}(y'' + p(x)y') + \widehat{y}q(x)y = 0\quad \Rightarrow\quad (\widehat{y}y')' + \widehat{y}q(x)y = 0
+        \end{equation}
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    There is nothing to prove.
+\end{proof}
+
+\begin{example}[Bessel functions] The \underline{Bessel functions} are solutions of the following ODEs.
+\begin{equation}\label{eq.Bessel}
+    \phi^{\prime \prime}+(d-1) \frac{\phi^{\prime}}{x}+\left(1-\frac{\mu}{x^2}\right) \phi=0.
+\end{equation}
+We can apply the procedure in Theorem \ref{th.reduction_to_SL} to reduce the above equation to a Sturm-Liouville equation.
+
 \begin{enumerate}
-    \item $\langle A \varphi, \psi\rangle = \langle \varphi, A\psi\rangle$.
+    \item There is nothing to do with this step since $a(x) = 1$.
+    \item We first solve $\widehat{y}' = \frac{d-1}{x}\widehat{y}$ and obtain $\widehat{y}(x) = x^{d-1}$.
+    \item Multiply both side of $\phi^{\prime \prime}+(d-1) \frac{\phi^{\prime}}{x}+\left(1-\frac{\mu}{x^2}\right) \phi=0$ by $x^{d-1}$, then we get 
+    \begin{equation}
+        x^{d-1}\cdot\left(\phi^{\prime \prime}+(d-1) \frac{\phi^{\prime}}{x}+\left(1-\frac{\mu}{x^2}\right) \phi\right)=0 \quad \Rightarrow\quad (x^{d-1}\phi')'+\left(x^{d-1}-\mu x^{d-3}\right) \phi=0.
+    \end{equation}
+\end{enumerate}
+Finally, we get
+\begin{equation}\label{eq.Bessel_SL}
+    (x^{d-1}\phi'(x))'+\left(x^{d-1}-\mu x^{d-3}\right) \phi(x)=0.
+\end{equation}
+This is a Sturm-Liouville equation by setting $s(x)=\rho(x)=x^{d-1}$, $q(x)=\mu x^{d-3}$, and $\lambda=1$.
+
+In the case of $d=2$ and $\mu=m^2$ with $m\in \mathbb{N}$, the function $\phi(x)=J_m(x)$ is called the \underline{standard Bessel function}. In the case of $d=3$ and $\mu=k(k+1)(k=0,1,2, \ldots)$, the function $\phi(x)=j_k(x)$ is called the \underline{spherical Bessel function}.
+\end{example}
+
+\begin{example}[Legendre polynomials] The \underline{Legendre polynomials} $P_k^m(x)$ are solutions of the following ODEs.
+    \begin{equation}\label{eq.Legendre}
+        (1-x^2) \phi^{\prime \prime}-2 x \phi^{\prime}+\left(k(k+1)-\frac{m^2}{1-x^2}\right) \phi=0.
+    \end{equation}
+    We can apply the procedure in Theorem \ref{th.reduction_to_SL} to reduce the above equation to a Sturm-Liouville equation.
+    
+    \begin{enumerate}
+        \item Divide both sides by $(1-x^2)$, then we get
+        \begin{equation}\label{eq.ex_Legendre_1}
+            \phi^{\prime \prime}-\frac{2x}{1-x^2} \phi^{\prime}+\left(\frac{k(k+1)}{1-x^2}-\frac{m^2}{(1-x^2)^2}\right) \phi=0 .
+        \end{equation}
+        \item We first solve $\widehat{y}' = -\frac{2x}{1-x^2}\widehat{y}$ and obtain $\widehat{y}(x) = 1-x^2$.
+        \item Multiply both side $1-x^2$ (This step undo the operation of step 1 which sometimes appears), then we get 
+        \begin{equation}
+            (1-x^2) \phi^{\prime \prime}-2 x \phi^{\prime}+\left(k(k+1)-\frac{m^2}{1-x^2}\right) \phi=0  \ \  \Rightarrow\ \ ((1-x^2) \phi')'+\left(k(k+1)-\frac{m^2}{1-x^2}\right) \phi=0 .
+        \end{equation}
+    \end{enumerate}
+Finally, we get
+\begin{equation}\label{eq.Legendre_SL}
+    ((1-x^2) \phi')'+\left(k(k+1)-\frac{m^2}{1-x^2}\right) \phi=0.
+\end{equation}
+This is a Sturm-Liouville equation by setting $s(x)=1-x^2$, $\rho(x)=1$, $q(x)=m^2 / (1-x^2)$, and $\lambda=k(k+1)$ ($k=0,1,2, \ldots$) with $a=-1$ and $b=1$.
+\end{example}
+
+\begin{example}[Hermite polynomials] The \underline{Hermite polynomials} $H_n(x)$ are solutions of the following ODEs.
+    \begin{equation}\label{eq.Hermite}
+        \phi^{\prime \prime}-x \phi^{\prime}+n \phi=0 .
+    \end{equation}
+    We can apply the procedure in Theorem \ref{th.reduction_to_SL} to reduce the above equation to a Sturm-Liouville equation.
+    
+    \begin{enumerate}
+        \item There is nothing to do with this step since $a(x) = 1$.
+        \item We first solve $\widehat{y}' = -x\widehat{y}$ and obtain $\widehat{y}(x) = e^{-\frac{x^2}{2}}$.
+        \item Multiply both side by $e^{-\frac{x^2}{2}}$, then we get 
+        \begin{equation}
+            e^{-\frac{x^2}{2}}(\phi^{\prime \prime}-x \phi^{\prime})+n e^{-\frac{x^2}{2}} \phi=0 \quad \Rightarrow\quad \left(e^{-\frac{x^2}{2}}\phi'\right)'+n e^{-\frac{x^2}{2}}\phi=0.
+        \end{equation}
+    \end{enumerate}
+    Finally, we get
+    \begin{equation}\label{eq.Hermite_SL}
+        \left(e^{-\frac{x^2}{2}}\phi'\right)'+n e^{-\frac{x^2}{2}}\phi=0.
+    \end{equation}
+    This is a Sturm-Liouville equation by setting $s(x)=\rho(x)=\exp \left(-x^2 / 2\right)$, $q(x)=0$, $\lambda=n$ $(n=0,1,2, \ldots)$ with $a=-\infty$ and $b=\infty$.
+\end{example}
+
+
+\subsubsection{The Sturm-Liouville theorem}
+Recall that the Sturm-Liouville problem is equivalent to the eigenvalue problem $A \phi = \lambda \phi$ of the operator $A$ defined in \eqref{eq.A_op_Sturm_Liouville} and \eqref{eq.A_op_Sturm_Liouville_dom}, which are copied below. 
+\begin{equation}\label{eq.A_op_Sturm_Liouville'}
+    A \phi = - \frac{1}{\rho(x)}\left(\left[s(x) \phi^{\prime}(x)\right]^{\prime}-q(x) \phi(x)\right)
+\end{equation}
+with domain
+\begin{equation}\label{eq.A_op_Sturm_Liouville_dom'}
+    \left\{\phi(x),\, x\in [a, b]\,\Bigg|\begin{aligned}
+        &\ \phi(a) \cos \alpha-L \phi^{\prime}(a) \sin \alpha=0,
+        \\
+        &\ \phi(b) \cos \beta+L \phi^{\prime}(b) \sin \beta=0
+    \end{aligned}
+    \right\}
+\end{equation}
+
+
+We have the following theorem, which is an analog of Theorem \ref{th.SL_1_linear_alg}
+\begin{theorem}[Sturm-Liouville theorem I]\label{th.SL_1} Assume that $A$ is a differential operator defined by \eqref{eq.A_op_Sturm_Liouville} and \eqref{eq.A_op_Sturm_Liouville_dom}, and $\langle\varphi, \psi\rangle_\rho=\int_a^b \varphi(x) \psi(x) \rho(x) dx$ is the inner product defined by \eqref{eq.inner_product_weight} , then we have
+\begin{enumerate}
+    \item $\langle A \phi, \psi\rangle = \langle \phi, A\psi\rangle$.
     \item The eigenvalues of $A$ are real numbers.
     \item If $\varphi$, $\psi$ are eigenfunctions with different eigenvalues $\lambda$ and $\mu$ respectively, then $\langle \varphi, \psi\rangle_\rho = 0$.
+    \item Assume that $\{\lambda_1,\lambda_2,\dots\}$ are the set of all eigenfunctions of $A$, then this set is infinite and discrete. \textbf{TODO: picture}
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-    The proof is postponed to the end of this section (section \ref{sec.Sturm_Liouville}).
+    1. $A$ is symmetric. Consider $\langle A\phi, \psi \rangle$, and apply integration by parts
+    \begin{equation}\label{eq.proof_SL_integral_parts}
+    \begin{split}
+        \langle A\phi, \psi \rangle =& \int_a^b \left(-\frac{1}{\rho(x)}[(s(x)\phi'(x))' - q(x)\phi(x)]\right) \psi(x) \rho(x) \, dx. 
+        \\
+        =& \int_a^b \left( -(s(x)\phi'(x))' + q(x)\phi(x) \right)\psi(x) \, dx. 
+        \\
+        =&-[s(x)\phi'(x)\psi(x)]_a^b + \int_a^b s(x)\phi'(x)\psi'(x) \, dx - \int_a^b q(x)\phi(x)\psi(x) \, dx.
+    \end{split} 
+    \end{equation}
+
+    Similarly for $\langle \phi, A\psi\rangle = \langle A\psi, \phi\rangle$, we also have
+    \begin{equation}\label{eq.proof_SL_integral_parts'}
+    \begin{split}
+        \langle A\psi, \phi\rangle =& \int_a^b \left(-\frac{1}{\rho(x)}[(s(x)\psi'(x))' - q(x)\psi(x)]\right) \phi(x) \rho(x) \, dx. 
+        \\
+        =& \int_a^b \left( -(s(x)\psi'(x))' + q(x)\psi(x) \right)\phi(x) \, dx. 
+        \\
+        =&-[s(x)\psi'(x)\phi(x)]_a^b + \int_a^b s(x)\psi'(x)\phi'(x) \, dx - \int_a^b q(x)\psi(x)\phi(x) \, dx.
+    \end{split} 
+    \end{equation}
+    
+    It suffices to show that the boundary terms are equal
+    \begin{equation}\label{eq.proof_SL_boundary}
+        [s(x)\phi'(x)\psi(x)]_a^b = [s(x)\psi'(x)\phi(x)]_a^b
+    \end{equation}
+
+    \textbf{TODO: finish the proof}
+    
+    2.  The eigenvalues of $A$ are real. Since the eigenvalues and eigenfunctions at this point may not be real, we consider the complex inner product. Let $\lambda$ be an eigenvalue with eigenfunction $\phi$,
+    \begin{equation}
+    A\phi = \lambda \phi.
+    \end{equation}
+    
+    Consider the inner product $\langle \phi, A\phi \rangle$ and $\langle A\phi, \phi \rangle$,
+    \begin{equation}
+    \langle A\phi, \phi \rangle =  \langle \lambda\phi, \phi \rangle = \lambda \|\phi\|^2.
+    \end{equation}
+    \begin{equation}
+        \langle \phi, A\phi \rangle =  \langle \phi, \lambda\phi \rangle = \overline{\lambda} \|\phi\|^2.
+    \end{equation}
+    
+    Since $A$ is symmetric, we have $\langle \phi, A\phi \rangle$ and $\langle A\phi, \phi \rangle$, which implies that
+    \begin{equation}
+    \lambda \|\phi\|^2 = \overline{\lambda} \|\phi\|^2.
+    \end{equation}
+    
+    Hence, $\lambda = \overline{\lambda}$, implying that $\lambda$ is real.
+    
+    3. Orthogonality of eigenfunctions with different eigenvalues. Now the eigenvalues and eigenfunctions at this point are real, we consider the real inner product.
+    
+    Suppose $A\phi = \lambda \phi$ and $A\psi = \mu \psi$ with $\lambda \neq \mu$. Consider
+    \begin{equation}
+    \lambda \langle \phi, \psi \rangle = \langle A\phi, \psi \rangle = \langle \phi, A\psi \rangle = \mu \langle \phi, \psi \rangle.
+    \end{equation}
+    
+    Thus, $(\lambda - \mu) \langle \phi, \psi \rangle = 0$, implying $\langle \phi, \psi \rangle = 0$ if $\lambda \neq \mu$.
+    
+    4. Discreteness of the eigenvalue set. 
+    \textbf{TODO: finish the proof}
 \end{proof}
 
-
-Example 8 (Bessel functions). By setting $s(x)=\rho(x)=x^{d-1}, q(x)=\mu x^{d-3}$, and $\lambda=1$ with $a=0$ and $b=\infty$, we obtain
-$$
-\phi^{\prime \prime}+(d-1) \frac{\phi^{\prime}}{x}+\left(1-\frac{\mu}{x^2}\right) \phi=0,
-$$
-where $d$ is the dimension and $\mu$ is the angular index. In the case of $d=2$ and $\mu=m^2$, the function $\phi(x)=J_m(x)$ is called the Bessel function ${ }^{12}$. In the case of $d=3$ and $\mu=k(k+1)(k=0,1,2, \ldots)$, the function $\phi(x)=j_k(x)$ is called the spherical Bessel function 13 ..
-
-Example 9 (Legendre polynomials). By setting $s(x)=1-x^2, \rho(x)=1, q(x)=$ $m^2 / \mathrm{s}(x)$, and $\lambda=k(k+1)(k=0,1,2, \ldots)$ with $a=-1$ and $b=1$, we obtain
-$$
-\left(1-x^2\right) \phi^{\prime \prime}-2 x \phi^{\prime}+\left(k(k+1)-\frac{m^2}{1-x^2}\right) \phi=0 .
-$$
-
-The function $\phi(x)=P_k^m(x)$ is called the associated Legendre polynomial ${ }^{14}$. When $m=0$, the function $P_k(x)$ is called the Legendre polynomial.
-
-Example 10 (Hermite polynomials). By setting $s(x)=\rho(x)=\exp \left(-x^2 / 2\right), q(x)=$ $0, \lambda=n(n=0,1,2, \ldots)$ with $a=-\infty$ and $b=\infty$, we obtain
-$$
-\phi^{\prime \prime}-x \phi^{\prime}+n \phi=0 \text {. }
-$$
-
-The function $\phi(x)=H_n(x)$ is called the Hermite polynomial.
-
-\begin{theorem}[]
-    \textbf{TODO: how to reduce ODE to Sturm Liouville}
+\textbf{TODO: the following property are unique to SL problem, multiplicity 1}
+\begin{theorem}[Sturm-Liouville theorem II]\label{th.SL_2} Assume that $A$ is a differential operator defined by \eqref{eq.A_op_Sturm_Liouville} and $\phi_1$ and $\phi_2$ are the eigenfunctions of the same eigenvalue $\lambda$, then we exists a constant $C$ such that 
+    \begin{equation}\label{eq.SL_multiplicity_one}
+        \phi_1(x) = C\phi_2(x).
+    \end{equation}
 \end{theorem}
+
 \begin{proof}
-    \textbf{TODO: }
-\end{proof}
-
-\begin{proof}[Proof of Theorem \ref{th.eigenvalue_symm}] \textbf{TODO: }
-Let us begin with
-$$
-\left[s(x) \phi_1^{\prime}(x)\right]^{\prime}+\left[\lambda_1 \rho(x)-q(x)\right] \phi_1(x)=0, \quad\left[s(x) \phi_2^{\prime}(x)\right]^{\prime}+\left[\lambda_2 \rho(x)-q(x)\right] \phi_2(x)=0 .
-$$
-
-We multiply the first equation by $\phi_2(x)$ and the second equation by $\phi_1(x)$, and integrate them.
-
-$$
-\left\{\begin{array}{l}
-\int_a^b \phi_2(x)\left[s(x) \phi_1^{\prime}(x)\right]^{\prime} d x+\int_a^b \phi_2(x)\left[\lambda_1 \rho(x)-q(x)\right] \phi_1(x) d x=0, \\
-\int_a^b \phi_1(x)\left[s(x) \phi_2^{\prime}(x)\right]^{\prime} d x+\int_a^b \phi_1(x)\left[\lambda_2 \rho(x)-q(x)\right] \phi_2(x) d x=0 .
-\end{array}\right.
-$$
-
-By integration by parts, we obtain
-$$
-\left\{\begin{array}{l}
-{\left[\phi_2(x) s(x) \phi_1^{\prime}(x)\right]_a^b-\int_a^b \phi_2^{\prime}(x) s(x) \phi_1^{\prime}(x) d x+\int_a^b \phi_2(x)\left[\lambda_1 \rho(x)-q(x)\right] \phi_1(x) d x=0,} \\
-{\left[\phi_1(x) s(x) \phi_2^{\prime}(x)\right]_a^b-\int_a^b \phi_1^{\prime}(x) s(x) \phi_2^{\prime}(x) d x+\int_a^b \phi_1(x)\left[\lambda_2 \rho(x)-q(x)\right] \phi_2(x) d x=0 .}
-\end{array}\right.
-$$
-
-We subtract these equations. Noting that $\phi_1(x)$ and $\phi_2(x)$ satisfy (2.7), we have
-$$
-\begin{aligned}
-& {\left[\phi_2(x) s(x) \phi_1^{\prime}(x)\right]_a^b-\left[\phi_1(x) s(x) \phi_2^{\prime}(x)\right]_a^b } \\
-= & s(b)\left[\phi_2(b) \phi_1^{\prime}(b)-\phi_1(b) \phi_2^{\prime}(b)\right]-s(a)\left[\phi_2(a) \phi_1^{\prime}(a)-\phi_1(a) \phi_2^{\prime}(a)\right] \\
-= & s(b)[0]-s(a)[0]=0 .
-\end{aligned}
-$$
-
-Therefore, we obtain
-$$
-\left(\lambda_1-\lambda_2\right) \int_a^b \phi_1(x) \phi_2(x) \rho(x) d x=0 .
-$$
-
-Since $\lambda_1 \neq \lambda_2$, this integral must be zero.
-Next, let us suppose $\lambda_1=\lambda_2=\lambda$. We consider
+We consider
 $$
 \psi(x)= \begin{cases}\phi_2(a) \phi_1(x)-\phi_1(a) \phi_2(x), & \text { if } \alpha \neq 0 \\ \phi_2^{\prime}(a) \phi_1(x)-\phi_1^{\prime}(a) \phi_2(x), & \text { if } \alpha=0 .\end{cases}
 $$
@@ -558,14 +689,8 @@ $$
 \phi_2(x)=C \phi_1(x), \quad C=\frac{\phi_2(a)}{\phi_1(a)} \quad \text { or } \quad \frac{\phi_2^{\prime}(a)}{\phi_1^{\prime}(a)} .
 $$
 
-Proof (Theorem 2). Let us set $\lambda_1=\lambda, \phi_1(x)=\phi(x), \lambda_2=\bar{\lambda}$, and $\phi_2(x)=\bar{\phi}(x)$ in (2.9). Then instead of (2.11), we have
-
-$$
-(\lambda-\bar{\lambda}) \int_a^b|\phi(x)|^2 \rho(x) d x=0 .
-$$
-
-Therefore, $\lambda=\bar{\lambda}$. The imaginary part of $\lambda$ is zero.
 \end{proof}
+
 
 \subsubsection{Convergence of orthogonal series}
 

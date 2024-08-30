@@ -77,6 +77,9 @@ The second-order linear PDEs can always be written as
 \end{equation}
 We assume $a^2+b^2+c^2 \neq 0$ for any $x$, $y$ (at least one of $a, b, c$ is nonzero). 
 \end{proposition}
+\begin{proof}
+    This go beyond the scope of this course.
+\end{proof}
 
 \begin{definition}[]
     We call $a, b, c, d, e, f$ \underline{coefficients} and $g$ \underline{source term}. 
@@ -127,6 +130,9 @@ where we note that $a, b, c$ are functions of $x, y$ and the inequalities in \eq
         y(x) = Ce^{-\int p(x)dx}
     \end{equation}
 \end{theorem}
+\begin{proof}
+    There is nothing to prove.
+\end{proof}
 
 \begin{example}[]
     Let us solve the following ODEs
@@ -183,6 +189,9 @@ where we note that $a, b, c$ are functions of $x, y$ and the inequalities in \eq
         \end{equation*}
     \end{enumerate}
 \end{theorem}
+\begin{proof}
+    There is nothing to prove.
+\end{proof}
 \begin{remark}[]
     In (2), we applied the following equation
     \begin{equation*}
@@ -195,14 +204,16 @@ where we note that $a, b, c$ are functions of $x, y$ and the inequalities in \eq
 \end{remark}
 
 \begin{example}[]
-    $(x^2+1) y^{\prime}+3 x y=6 x, y(0)=3$ is solved as $y(x)=2+(x^2+1)^{-3 / 2}$ by the procedure in Theorem \ref{th.linear_ODE}.
+    $(x^2+1) y^{\prime}+3 x y=6 x$, $y(0)=3$ is solved as $y(x)=2+(x^2+1)^{-3 / 2}$ by the procedure in Theorem \ref{th.linear_ODE}.
+
+    To apply Theorem \ref{th.linear_ODE}, we divide both sides by $(x^2+1)$.
+    \begin{equation*}
+        (x^2+1) y^{\prime}+3 x y=6x 
+        \quad\Rightarrow\quad
+        y^{\prime} + \frac{3 x}{x^2+1} y = \frac{6x}{x^2+1}
+    \end{equation*}
+    then we apply the three steps in  Theorem \ref{th.linear_ODE}.
     \begin{enumerate}
-        \item Divide both sides by $(x^2+1)$.
-        \begin{equation*}
-            (x^2+1) y^{\prime}+3 x y=6x 
-            \quad\Rightarrow\quad
-            y^{\prime} + \frac{3 x}{x^2+1} y = \frac{6x}{x^2+1}
-        \end{equation*}
         \item Solve the corresponding separable equation $y' - \frac{3 x}{x^2+1}y = 0$ to obtain a solution $(x^2+1)^{\frac{3}{2}}$.
         \item Multiply the linear ODE by $(x^2+1)^{\frac{3}{2}}$ and rewrite the ODE
         \begin{equation*}
@@ -222,6 +233,11 @@ where we note that $a, b, c$ are functions of $x, y$ and the inequalities in \eq
             \end{split} 
         \end{equation*}
     \end{enumerate}
+
+We note that the solutions with undetermined constant $C$ are called \underline{general solutions}. Finally, we apply the initial condition $y(0)=3$ to obtain $C = 1$, so the solution of the initial value problem is 
+\begin{equation*}
+    y = 2 + (x^2+1)^{-\frac{3}{2}}.
+\end{equation*}
 \end{example}
 
 \begin{definition}[Second order ODEs]
@@ -250,6 +266,9 @@ where we note that $a, b, c$ are functions of $x, y$ and the inequalities in \eq
         where $c_1=C_1+C_2$, $c_2=i(C_1-C_2)$.
     \end{enumerate}
 \end{theorem}
+\begin{proof}
+    This was explained in your ODE course.
+\end{proof}
 
 \begin{example}[]
     $y'' - 3y' + 2y = 0$ is solved as $y(x)=C_1e^{x}+C_2e^{2x}$ by the procedure in Theorem \ref{th.2nd_ODE}.
@@ -284,8 +303,8 @@ where we note that $a, b, c$ are functions of $x, y$ and the inequalities in \eq
     \end{enumerate}
 \end{example}
 
-\subsection{Boundary value problem}
-\textbf{TODO: }
+% \subsection{Boundary value problem}
+% \textbf{TODO: }
 
 \subsection{Separation of variables}
 Many linear PDEs can be reduced to linear ODEs with the method of separation of
