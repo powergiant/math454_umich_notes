@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1724974806 "c:/Users/mxiao/Documents/Projects/math454_umich_notes/main.tex" "main.pdf" "main" 1724974807 0
+["pdflatex"] 1725377148 "c:/Users/mxiao/Documents/Projects/math454_umich_notes/main.tex" "main.pdf" "main" 1725377149 0
   "C:/Program Files/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233951848 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1233951854 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -142,11 +142,11 @@
   "C:/Users/mxiao/AppData/Roaming/MiKTeX/tex/latex/float/float.sty" 1469023953 6916 f35860e0302c70cb81cb70b0a7937693 ""
   "C:/Users/mxiao/AppData/Roaming/MiKTeX/tex/latex/import/import.sty" 1585736816 6201 0ad8b5da8e12f60a88d546b2198a56f2 ""
   "c:/Users/mxiao/Documents/Projects/math454_umich_notes/main.tex" 1706825352 1067 c1ea45227de092dd67a7d5d82c9d1958 ""
-  "main.aux" 1724974807 13017 00d0a54fb547ad5258bb707ddebb1fdb "pdflatex"
+  "main.aux" 1725377149 13017 00d0a54fb547ad5258bb707ddebb1fdb "pdflatex"
   "pictures/fourier_x.png" 1706824699 87740 441c2588899a8a98857a4f905cebfc2a ""
   "pictures/heat_region.png" 1706760795 12459 9df5820b9d8102defddbcc0e4e3bdfe0 ""
   "pictures/normal_vector.png" 1706825072 21484 be593e6db2137c1cdf59034f98f2d239 ""
-  "sections/section_1.tex" 1724968563 20033 753f946cbd7aaa2d154e012fcb09a2f1 ""
+  "sections/section_1.tex" 1725377147 20043 0d4f4bfdfa4d2987f169736c593d7cb7 ""
   "sections/section_2.tex" 1707404315 37415 3174f059e8beeee9e49cb7b49e3257ce ""
   "sections/section_3.tex" 1724974803 34660 33875553e0f8f0edef9a127393dd5df3 ""
   (generated)

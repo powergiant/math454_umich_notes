@@ -429,8 +429,9 @@ In \eqref{eq.basis_separated_final}, we have three cases.
 
 \begin{enumerate}
     \item $u=\left(A_1 x+A_2\right)\left(B_1 y+B_2\right)$. In this case, $u$ satisfies boundary conditions $u(0, y)=u(L, y)=0$ in \eqref{eq.solve_boundary_value_2} if and only if $u = 0$.
-    \item $u = \left(A_1 \cos (k x)+A_2 \sin (k x)\right)\left(B_1 \cosh (k y)+B_2 \sinh (k y)\right)$. In this case, $u$ satisfies boundary conditions $u(0, y)=u(L, y)=0$ only when $A_1=A_2=0$. That is, only the solution $u=0$ satisfies the boundary conditions.
-    \item $u = \left(A_1 \cosh (l x)+A_2 \sinh (l x)\right)\left(B_1 \cos (l y)+B_2 \sin (l y)\right)$. In this case, $u$ satisfies boundary conditions $u(0, y)=u(L, y)=0$ when $A_1=0$ and $k=n \pi / L$, where $n$ is an integer. Furthermore we find $B_1=0$ by the condition $u(x, 0)=0$. That is, the solution $A_2 B_2 \sin (k x) \sinh (k y)$ with $k=n \pi / L(n=0, \pm 1, \pm 2, \ldots)$ satisfies the boundary conditions.
+    \item $u = \left(A_1 \cos (k x)+A_2 \sin (k x)\right)\left(B_1 \cosh (k y)+B_2 \sinh (k y)\right)$. In this case, $u$ satisfies boundary conditions $u(0, y)=u(L, y)=0$ when $A_1=0$ and $k=n \pi / L$, where $n$ is an integer. Furthermore we find $B_1=0$ by the condition $u(x, 0)=0$. That is, the solution $A_2 B_2 \sin (k x) \sinh (k y)$ with $k=n \pi / L$ $(n=0, \pm 1, \pm 2, \ldots)$ satisfies the boundary conditions.
+     
+    \item $u = \left(A_1 \cosh (l x)+A_2 \sinh (l x)\right)\left(B_1 \cos (l y)+B_2 \sin (l y)\right)$. In this case, $u$ satisfies boundary conditions $u(0, y)=u(L, y)=0$ only when $A_1=A_2=0$. That is, only the solution $u=0$ satisfies the boundary conditions.
 \end{enumerate}
 
 Therefore we obtain the following separated solutions of Laplace's equation satisfying the boundary conditions.
