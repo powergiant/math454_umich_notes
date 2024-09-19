@@ -538,7 +538,7 @@ For Fourier sine series, we also have orthogonality relations and \eqref{eq.four
 
 \subsection{Convergence of Fourier series}
 
-\textbf{TODO: in this section we study pointwise convergence}
+In this section, we study the convergence of Fourier series of piecewise continuous functions.
 
 \begin{definition}[Left and right limits]
 For a given $f(x)$, let us write
@@ -623,13 +623,13 @@ For the Fourier series, the following theorem claims that a similar identity is 
     \begin{equation}\label{eq.Parseval_assumption}
         f(x) = A_0+\sum_{n=1}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]
     \end{equation}
-    Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
+    Then, the mean square $\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ of $f(x)$ satisfies the following identity
     \begin{equation}\label{eq.Parseval_fourier}
         \frac{1}{2 L} \int_{-L}^L f(x)^2 d x=A_0^2+\frac{1}{2} \sum_{n=1}^{\infty}\left(A_n^2+B_n^2\right)
     \end{equation}
 \end{theorem}
 \begin{proof}
-    Since $\cos (1 \pi x / L) = 1$ and $\sin (n \pi x / L) = 0$, we know that \eqref{eq.Parseval_assumption} is equivalent to 
+    Since $\cos (0 \pi x / L) = 1$ and $\sin (0 \pi x / L) = 0$, we know that \eqref{eq.Parseval_assumption} is equivalent to 
     \begin{equation}\label{eq.proof_Parseval_1}
         \begin{split}
             f(x) =& \sum_{n=0}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]
@@ -765,7 +765,7 @@ Thus the Fourier series of $x$ converges as $O(1 / N)$ and the Fourier series of
     \begin{equation}\label{eq.Parseval_complex_assumption}
         f(x)=\sum_{n=-\infty}^{\infty} \alpha_n e^{i n \pi x / L}
     \end{equation}
-    Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
+    Then, the mean square $\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ of $f(x)$ satisfies the following identity
     \begin{equation}\label{eq.Parseval_complex}
         \frac{1}{2 L} \int_{-L}^L |f(x)|^2 d x=\sum_{n=-\infty}^{\infty}\left|\alpha_n\right|^2 .
     \end{equation}
@@ -801,7 +801,7 @@ $$
     \begin{equation}\label{eq.Parseval_cosine_assumption}
         f(x)=A_0 + \sum_{n=1}^{\infty} A_n \cos \frac{n \pi x}{L}
     \end{equation}
-    Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
+    Then, the mean square $\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ of $f(x)$ satisfies the following identity
     \begin{equation}\label{eq.Parseval_cosine}
         \frac{1}{2 L} \int_{-L}^L |f(x)|^2 d x=A_0^2 + \frac{1}{2}\sum_{n=1}^{\infty}A_n^2 .
     \end{equation}
@@ -815,7 +815,7 @@ $$
     \begin{equation}\label{eq.Parseval_sine_assumption}
         f(x)=\sum_{n=1}^{\infty} B_n \sin \frac{n \pi x}{L}
     \end{equation}
-    Then, mean square of $f(x)=\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ satisfies the following identity
+    Then, the mean square $\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ of $f(x)$ satisfies the following identity
     \begin{equation}\label{eq.Parseval_sine}
         \frac{1}{L} \int_{0}^L f(x)^2 d x=\frac{1}{2}\sum_{n=1}^{\infty} B_n^2 .
     \end{equation}
