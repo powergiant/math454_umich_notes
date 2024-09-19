@@ -635,8 +635,11 @@ We have the following theorem, which is an analog of Theorem \ref{th.SL_1_linear
     \begin{equation}\label{eq.proof_SL_boundary}
         [s(x)\phi'(x)\psi(x)]_a^b = [s(x)\psi'(x)\phi(x)]_a^b
     \end{equation}
-
-    \textbf{TODO: finish the proof}
+    which is equivalent to 
+    \begin{equation}\label{eq.proof_SL_boundary_1}
+        s(b) \Big(\phi'(b) \psi(b) - \psi'(b) \phi(b)\Big) = s(a) \Big(\phi'(a) \psi(a) - \psi'(a) \phi(a)\Big).
+    \end{equation}
+    If we can show that $\phi'(a) \psi(a) = \psi'(a) \phi(a)$ and $\phi'(b) \psi(b) = \psi'(b) \phi(b)$, then \eqref{eq.proof_SL_boundary_1} follows and the proof of conclusion 1 is completed. Since $\phi$ and $\psi$ belong to the domain of $A$, by \eqref{eq.A_op_Sturm_Liouville_dom'}, $\frac{\phi'(a)}{\phi(a)} = \frac{\cos \alpha}{L\sin \alpha} = \frac{\psi'(a)}{\psi(a)}$, which implies $\phi'(a) \psi(a) = \psi'(a) \phi(a)$. The second equation at $b$ can be proved similarly.
     
     2.  The eigenvalues of $A$ are real. Since the eigenvalues and eigenfunctions at this point may not be real, we consider the complex inner product. Let $\lambda$ be an eigenvalue with eigenfunction $\phi$,
     \begin{equation}
@@ -671,7 +674,7 @@ We have the following theorem, which is an analog of Theorem \ref{th.SL_1_linear
     \textbf{TODO: finish the proof}
 \end{proof}
 
-\textbf{TODO: the following property are unique to SL problem, multiplicity 1}
+The following property implies that the eigenvalues of all Sturm-Liouville problems are of multiplicity one. This property does not holds true for eigenvalues of matrices.
 \begin{theorem}[Sturm-Liouville theorem II]\label{th.SL_2} Assume that $A$ is a differential operator defined by \eqref{eq.A_op_Sturm_Liouville} and $\phi_1$ and $\phi_2$ are the eigenfunctions of the same eigenvalue $\lambda$, then we exists a constant $C$ such that 
     \begin{equation}\label{eq.SL_multiplicity_one}
         \phi_1(x) = C\phi_2(x).
@@ -679,16 +682,33 @@ We have the following theorem, which is an analog of Theorem \ref{th.SL_1_linear
 \end{theorem}
 
 \begin{proof}
+We will use the following conclusion from the theory of ODE without proof. 
+\begin{equation}\label{eq.proof_SL_II_1}
+    \left\{
+        \begin{aligned}
+            &a(x)f'' + b(x)f' + c(x)f = 0
+            \\
+            & f(x_0) = f'(x_0) = 0
+        \end{aligned}
+    \right.\qquad\Rightarrow\qquad f(x)\equiv 0
+\end{equation}
+This is the uniqueness theorem of the initial value problem of second order ODEs.
+
 We consider
 $$
-\psi(x)= \begin{cases}\phi_2(a) \phi_1(x)-\phi_1(a) \phi_2(x), & \text { if } \alpha \neq 0 \\ \phi_2^{\prime}(a) \phi_1(x)-\phi_1^{\prime}(a) \phi_2(x), & \text { if } \alpha=0 .\end{cases}
+\psi(x)= \begin{cases}
+    \phi_2(a) \phi_1(x)-\phi_1(a) \phi_2(x), & \text { if } \alpha \neq 0 
+    \\ 
+    \phi_2^{\prime}(a) \phi_1(x)-\phi_1^{\prime}(a) \phi_2(x), & \text { if } \alpha=0 .\end{cases}
 $$
 
-This $\psi(x)$ obeys (2.8). We have $\psi(a)=0$. Also $\psi^{\prime}(a)=0$ by (2.7). Thus $\psi(x)$ is a solution to (2.8) with initial conditions $\psi(a)=\psi^{\prime}(a)=0$. We can conclude that $\psi(x)=0, a<x<b$. Therefore,
-$$
-\phi_2(x)=C \phi_1(x), \quad C=\frac{\phi_2(a)}{\phi_1(a)} \quad \text { or } \quad \frac{\phi_2^{\prime}(a)}{\phi_1^{\prime}(a)} .
-$$
+This $\psi(x)$ obeys \eqref{eq.Sturm_Liouville}. If we can show that $\psi(a)=0$ and $\psi^{\prime}(a)=0$, then by \eqref{eq.proof_SL_II_1}, we know that $\psi(x)\equiv 0$ for $ a<x<b$. Therefore,
+\begin{equation}
+    \phi_2(x)=C \phi_1(x), \quad C=\frac{\phi_2(a)}{\phi_1(a)} \quad \text { or } \quad \frac{\phi_2^{\prime}(a)}{\phi_1^{\prime}(a)},
+\end{equation}
+which proves \eqref{eq.SL_multiplicity_one}
 
+Let us only consider the case of $\alpha \neq 0$, where $\phi(x) = \phi_2(a) \phi_1(x)-\phi_1(a) \phi_2(x)$. This obviously implies $\psi(a)=0$. To prove $\psi^{\prime}(a)=0$, we notice that by \eqref{eq.A_op_Sturm_Liouville_dom'}, both $\phi_1$ and $\phi_2$ satisfy $\phi(a) \cos \alpha-L \phi^{\prime}(a) \sin \alpha=0$ as they belong to the domain of $A$. This implies that $\frac{\phi_1'(a)}{\phi_1(a)} = \frac{\cos \alpha}{L\sin \alpha} = \frac{\phi_2'(a)}{\phi_2(a)}$. Therefore, we conclude that $\psi^{\prime}(a) = \phi_2(a) \phi'_1(a)-\phi_1(a) \phi'_2(a) =0$.
 \end{proof}
 
 
