@@ -280,7 +280,7 @@ Here as mentioned above, $B_n$ can be directly computed as coefficients of the F
 
 \subsubsection{Some linear algebra}
 
-After the separation of the variable in the heat equation, we obtain the following equation
+The orthogonality play an important role in computing the Fourier coefficients. Next, we'll explore the origin of orthogonality in the separation of variables method. Let us explain. After separation of the variable in the heat equation, we obtain the following equation
 $$
 \phi^{\prime \prime}(z)+\lambda \phi(z)=0 \quad \Leftrightarrow \quad -\phi^{\prime \prime}(z) = \lambda \phi(z).
 $$
@@ -318,7 +318,7 @@ It turns out that $A$ can be viewed as a symmetric matrix, and thus satisfies al
 
 \subsection{The Sturm-Liouville eigenvalue problem}
 
-Now we study the eigenvalue problems for differential operators. Let us first start with the concepts of orthogonal functions and symmetric operators. \textbf{TODO: we encounter so much orthogonality, which looks like a magic, explain the source of orthogonality}
+Now we study the eigenvalue problems for differential operators. Let us first start with the concepts of orthogonal functions and symmetric operators. 
 
 \subsubsection{Orthogonal functions and symmetric operators}
 
@@ -712,8 +712,39 @@ Let us only consider the case of $\alpha \neq 0$, where $\phi(x) = \phi_2(a) \ph
 \end{proof}
 
 
-\subsubsection{Convergence of orthogonal series}
+\subsubsection{Generalized Fourier series}
 
+Just like the usual Fourier series, we can express a function $f(x)$ in terms of orthogonal eigenfunctions of a Sturm-Liouville operator,
+\begin{theorem}[Generalized Fourier series]
+    Given a Sturm-Liouville operator $A$ of the form \eqref{eq.A_op_Sturm_Liouville} with coefficient $\rho(x)$, let $\{\phi_n\}_{n\in \mathbb{N}}\subseteq \textit{Dom}(A)$ be its eigenfunctions and $f(x)\in \textit{Dom}(A)$ be an arbitrary piecewise smooth function. Then we have the following expansion
+    \begin{equation}\label{eq.general_Fourier}
+        f(x) =\sum_{n=1}^\infty c_n \phi_n(x),
+    \end{equation}
+    where the coefficients $\{c_n\}_{n\in \mathbb{N}}$ can be computed by
+    \begin{equation}\label{eq.general_Fourier_coef}
+        c_n=\frac{\left\langle f, \phi_n\right\rangle_\rho}{\left\|\phi_n\right\|^2}
+    \end{equation}
+\end{theorem}
+
+We have the following convergence theorem of general orthogonal expansion, which is similar to Theorem \ref{th.convergence}.
+\begin{theorem}[Convergence]
+Given a Sturm-Liouville operator $A$ and a function $f(x)\in \textit{Dom}(A)$, define the partial summation by $f_N(x)=\sum_{n=1}^N c_n \phi_n(x)$. Then we have
+\begin{enumerate}
+    \item Let $f(x)$ be a piecewise smooth function, then we have 
+    \begin{equation}
+        f_N(x) \rightarrow \frac{1}{2}[f(x+0)+f(x-0)] \quad \text { on } \quad x \in(a, b) \quad \text { as } \quad N \rightarrow \infty
+    \end{equation}
+    \item If additionally assume that $f(x)$ is continuous,then $f_N(x)$ converges uniformly to $f(x)$ on $[a, b]$.    
+    \item Let $\left\|f\right\|^2 = \int_a^b f(x)^2 \rho(x) d x$ and $\sigma_N = \left\|f - f_N\right\|$, then we have the Parseval's identity
+    \begin{equation}\label{eq.Parseval_general}
+        \left\|f\right\|^2 = \sum_{n=1}^\infty |c_n|^2\left\|\phi_n\right\|^2
+    \end{equation}
+    and
+    \begin{equation}\label{eq.mean_square_error_Parseval_general}
+        \sigma_N^2 = \sum_{n= N+1}^\infty |c_n|^2\left\|\phi_n\right\|^2.
+    \end{equation}
+\end{enumerate}
+\end{theorem}
 \subsection{The heat equation}
 
 \subsubsection{Physics of heat conduction}

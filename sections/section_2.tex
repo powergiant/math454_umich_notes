@@ -563,7 +563,7 @@ where $\varepsilon>0$.
     The function $f(x)=|x|,-L<x<L$, is piecewise smooth. The function $f(x)=x^2 \sin (1 / x)$,$-L<x<L$, is piecewise continuous but is not piecewise smooth because $\lim _{\varepsilon \rightarrow 0} f^{\prime}(0 \pm \varepsilon)$ does not exist. The function $f(x)=1 /\left(x^2-L^2\right)$, $-L<x<L$, is not piecewise continuous because $f(-L+0)$ and $f(L-0)$ are not finite.
 \end{example}
 
-\begin{definition}[Convergence]
+\begin{definition}[Convergence]\label{def.convergence}
 Given a Fourier series $f(x) = A_0+\sum_{n=1}^{\infty}[A_n \cos (n \pi x / L)+B_n \sin (n \pi x / L)]$, we define
 \begin{enumerate}
     \item \textbf{Partial sums.} The \underline{partial sum}, denoted by $f_N(x)$, is defined to be
@@ -583,7 +583,7 @@ Given a Fourier series $f(x) = A_0+\sum_{n=1}^{\infty}[A_n \cos (n \pi x / L)+B_
 
 \end{definition}
 
-\begin{theorem}[Convergence theorem]
+\begin{theorem}[Convergence theorem]\label{th.convergence}
 Let $f(x)$, $-L<x<L$, be piecewise smooth. Then the Fourier series of $f$ converges for all $x$ to the value $\frac{1}{2}[\bar{f}(x+0)+\bar{f}(x-0)]$, where $\bar{f}$ is the $2 L$-periodic function which equals to $f$ on $-L<x<L$.
 
 If $f(x)$ is continuous on $[-L, L]$ and $f(-L)=f(L)$ in addition to the conditions assumed in the above theorem, then the Fourier series uniformly converges.
