@@ -1,6 +1,6 @@
-\section{PDEs in rectangular coordinates}
+\section{Boundary value problem and the Sturm-Liouville theory}
 
-In this section, we will consider the separation of variables for more general equations in rectangular coordinates, possibly with variable coefficients and more general boundary conditions. 
+In this section, we will consider the separation of variables for more general equations, which leads to the Sturm-Liouville eigenvalue problems. Then we introduce the notion of orthogonality, symmetric differential operators and prove the important Sturm-Liouville theorem. 
 
 \subsection{Boundary conditions for general PDEs}
 
@@ -280,7 +280,7 @@ Here as mentioned above, $B_n$ can be directly computed as coefficients of the F
 
 \subsubsection{Some linear algebra}
 
-The orthogonality play an important role in computing the Fourier coefficients. Next, we'll explore the origin of orthogonality in the separation of variables method. Let us explain. After separation of the variable in the heat equation, we obtain the following equation
+The orthogonality play an important role in computing the Fourier coefficients. Next, we'll explore the origin of orthogonality in the separation of variables method. After separation of the variable in the heat equation, we obtain the following equation
 $$
 \phi^{\prime \prime}(z)+\lambda \phi(z)=0 \quad \Leftrightarrow \quad -\phi^{\prime \prime}(z) = \lambda \phi(z).
 $$
@@ -453,6 +453,8 @@ This equality confirms \eqref{eq.ex_symm_op_1} and thus the fact that $A$ is sym
 % \begin{example}[]
 %     Find the projection of $f(x)=1$ onto $\left(\varphi_1, \varphi_2\right)=(\sin x, \sin 2 x)$ on the interval $0 \leq x \leq \pi$. By $\left\langle f, \varphi_1\right\rangle=2,\left\langle f, \varphi_2\right\rangle=0$, and $\left\|\varphi_1\right\|^2=\left\|\varphi_2\right\|^2=\frac{\pi}{2}$, we obtain $\frac{4}{\pi} \sin x$.   
 % \end{example}
+
+\subsubsection{Separation of variables of second-order PDEs}
 
 \subsubsection{The Sturm-Liouville eigenvalue problem}\label{sec.Sturm_Liouville}
 
@@ -725,6 +727,9 @@ Just like the usual Fourier series, we can express a function $f(x)$ in terms of
         c_n=\frac{\left\langle f, \phi_n\right\rangle_\rho}{\left\|\phi_n\right\|^2}
     \end{equation}
 \end{theorem}
+\begin{proof}
+    The proof is beyond the scope of this course. 
+\end{proof}
 
 We have the following convergence theorem of general orthogonal expansion, which is similar to Theorem \ref{th.convergence}.
 \begin{theorem}[Convergence]
@@ -745,27 +750,6 @@ Given a Sturm-Liouville operator $A$ and a function $f(x)\in \textit{Dom}(A)$, d
     \end{equation}
 \end{enumerate}
 \end{theorem}
-\subsection{The heat equation}
-
-\subsubsection{Physics of heat conduction}
-
-\subsubsection{The homogeneous case}
-
-\subsubsection{The non-homogeneous case}
-
-\subsection{The wave equation}
-
-\subsubsection{Physics of string vibration}
-
-\subsubsection{The homogeneous case}
-
-\subsubsection{The non-homogeneous case}
-
-
-\subsection{The Laplace's equation}
-
-\subsubsection{Physics of static electricity}
-
-\subsubsection{The homogeneous case}
-
-\subsubsection{The non-homogeneous case}
+\begin{proof}
+    The proof of 1 and 2 is beyond the scope of this course. The proof of 3 is similar to that of Theorem \ref{th.Parseval}
+\end{proof}
