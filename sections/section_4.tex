@@ -4,11 +4,206 @@ In this section, we will consider the separation of variables for more general e
 
 \subsection{The heat equation}
 
-\textbf{TODO: say something}
+\textbf{TODO: explain different senarios, non-homogeneous, time dependent}
 
-\subsubsection{The homogeneous case}
+\subsubsection{The homogeneous case} \textbf{TODO: compared with Sturm-Liouville theorem}
 
-\subsubsection{The non-homogeneous case}
+
+
+\subsubsection{The non-homogeneous case} \textbf{TODO: homogeneous has been considered previously, now non-homogeneous}
+
+Let us consider the heat equation in the slab $0<z<L$,
+\begin{equation}\label{eq.heat_and_boundary'}
+    \left\{\begin{aligned} 
+        &u_t=K u_{z z} + r(z), && 0<z<L, \quad t>0, 
+        \\ 
+        &u \cos \alpha-L u_z \sin \alpha=T_1,\quad && z=0, \quad t>0, 
+        \\ 
+        &u \cos \beta+L u_z \sin \beta=T_2, && z=L, \quad t>0, 
+        \\
+        &u=f(z), && 0<z<L, \quad t=0,
+    \end{aligned}\right.
+\end{equation}
+where $f(z), 0<z<L$, is a piecewise smooth function, and $K>0$ and $\alpha, \beta \in[0, \pi)$ are constants. The equation is nonhomogeneous because there is an internal source $r(z)$. The boundary conditions are nonhomogeneous because $T_1$ and $T_2$ are nonzero. 
+
+The approach to solving this equation is analogous to solving the ODE $f^{\prime \prime}+f=e^x$. First, a particular solution $\hat{f}=\frac{1}{2} e^x$ is found by assuming $\hat{f}=C e^x$ and determining $C=\frac{1}{2}$. Then, the general solution is obtained by considering $g=f-\hat{f}$, where $g$ satisfies the homogeneous equation associated with the original ODE.
+
+For the PDE, the method is similar. We first find a particular solution by considering time-independent solutions, which leads to the following definition.
+
+
+\begin{definition}
+    A solution $U(z, t)$ to the first three equations of \eqref{eq.heat_and_boundary'} satisfying $\partial_t U(z, t)=0$ is called a \underline{time-independent solution} or \underline{stationary solution}. This implies that $U(z, t)=U(z)$ satisfies the following ODE,
+    \begin{equation}\label{eq.time_independent_sol}
+        \left\{\begin{aligned} 
+            &K u_{z z} + r(z) = 0, && 0<z<L
+            \\ 
+            &u \cos \alpha-L u_z \sin \alpha=T_1,\quad && z=0, 
+            \\ 
+            &u \cos \beta+L u_z \sin \beta=T_2, && z=L
+        \end{aligned}\right.
+    \end{equation}
+\end{definition}
+
+The PDE can be solved using the following theorem:
+\begin{theorem}
+    The solution to \eqref{eq.heat_and_boundary'} can be obtained by the following steps.
+    \begin{enumerate}
+        \item Solve for the time-independent solution $U(z)$ using the following ODE.
+        \begin{equation}
+        \left\{\begin{aligned} 
+            &K U_{z z}(z) + r(z) = 0, && 0<z<L
+            \\ 
+            &U \cos \alpha-L U_z \sin \alpha=T_1,\quad && z=0, 
+            \\ 
+            &U \cos \beta+L U_z \sin \beta=T_2, && z=L
+        \end{aligned}\right.
+    \end{equation}
+    \item Define $v(z, t) = u(z, t) - U(z)$. One can compute that $v(z, t)$ satisfies the homogeneous PDE,
+    \begin{equation}\label{eq.heat_homogenized}
+        \left\{\begin{aligned} 
+            &v_t=K v_{z z} + r(z), && 0<z<L, \quad t>0, 
+            \\ 
+            &v \cos \alpha-L v_z \sin \alpha=T_1,\quad && z=0, \quad t>0, 
+            \\ 
+            &v \cos \beta+L v_z \sin \beta=T_2, && z=L, \quad t>0, 
+            \\
+            &v(z, o)=f(z)-U(z), && 0<z<L, \quad t=0,
+        \end{aligned}\right.
+    \end{equation}
+    Then solve $v(z, t)$ from the above equation.
+    \item Finally, compute $u(z, t)$ as $u(z, t) = v(z, t) + U(z)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    The only non-trivial step is showing that $v(z, t)$ satisfies \eqref{eq.heat_homogenized}, which can be verified by a straightforward computation.
+\end{proof}
+
+Let us explain the above procedure using the following examples.
+
+\begin{example}
+    Let us solve the following heat equation in a slab.
+
+    \begin{equation}
+        \left\{
+        \begin{aligned}
+            &u_t=K u_{z z},\quad && t>0, \quad 0<z<L \\
+            &u(0, t)=T_1,\ u(L, t)=T_2 && t>0 \\
+            &u(z, 0)=1,\quad && 0<z<L
+        \end{aligned}
+        \right.
+    \end{equation}
+    
+    
+    Step 1: We will obtain $U(z)$ which obeys
+    $$
+    U^{\prime \prime}(z)=0, \quad 0<z<L, \quad U(0)=T_1, \quad U(L)=T_2
+    $$
+    
+    
+    The coefficients of the general solution $U(z)=A+B z$ are determined by the boundary conditions as $A=T_1, B=\left(T_2-T_1\right) / L$. 
+    
+    Step 2 : We then consider $v(z, t)=$ $u(z, t)-U(z)$ which satisfies
+    $$
+    \begin{aligned}
+    & v_t=K v_{z z}, \quad t>0, \quad 0<z<L \\
+    & v(0, t)=v(L, t)=0, \quad t>0, \quad v(z, 0)=1-U(z), \quad 0<z<L
+    \end{aligned}
+    $$
+    
+    
+    Step 3: By separation of variable we write $v(z, t)=\phi(z) T(t)$. The function $T(t)$ is obtained as $T(t)=e^{-\lambda K t}$ with the separation constant $\lambda$. The function $\phi(z)$ satisfies the Sturm-Liouville problem: $\phi^{\prime \prime}+\lambda \phi=0,0<z<L, \phi(0)=\phi(L)=0$. Hence we obtain
+    
+    $$
+    \phi(z)=\sin \frac{n \pi z}{L}, \quad \lambda=\left(\frac{n \pi}{L}\right)^2, \quad n=1,2, \ldots
+    $$
+    
+    
+    We can write $v(z, t)$ as
+    
+    $$
+    v(z, t)=\sum_{n=1}^{\infty} A_n \sin \frac{n \pi z}{L} e^{-(n \pi / L)^2 K t}
+    $$
+    
+    
+    The coefficients $A_n$ are determined by the initial condition as
+    
+    $$
+    \sum_{n=1}^{\infty} A_n \sin \frac{n \pi z}{L}=1-U(z)=1-T_1-\frac{T_2-T_1}{L} z
+    $$
+    
+    
+    Using the orthogonality relations $\int_0^L \sin (n \pi z / L) \sin (m \pi z / L) d z=(L / 2) \delta_{n m}$, and the integrals $\int_0^L \sin (n \pi z / L) d z=L\left(1-(-1)^n\right) /(n \pi)$ and $\int_0^L z \sin (n \pi z / L) d z=L^2(-1)^{n+1} /(n \pi)$, we find $A_n$. Finally we obtain
+    
+    $$
+    u(z, t)=T_1+\frac{T_2-T_1}{L} z+\frac{2}{\pi} \sum_{n=1}^{\infty} \frac{1-T_1-(-1)^n\left(1-T_2\right)}{n} \sin \frac{n \pi z}{L} e^{-(n \pi / L)^2 K t}
+    $$       
+\end{example}
+
+Example 12. Let us solve the following heat equation in a slab.
+
+$$
+\left\{\begin{aligned}
+u_t=K u_{z z}, & t>0, \quad 0<z<L, \\
+u_z(0, t)=\Phi, & t>0 \\
+u_z(L, t)=\Phi, & t>0 \\
+u(z, 0)=1, & 0<z<L .
+\end{aligned}\right.
+$$
+
+
+Step 1: We will obtain $U(z)$ which obeys ${ }^{17}$
+
+$$
+U^{\prime \prime}(z)=0, \quad 0<z<L, \quad U^{\prime}(0)=U^{\prime}(L)=\Phi
+$$
+
+
+The general solution is obtained as $U(z)=A+B z$. From the boundary conditions, $B=\Phi$. So far, $A$ is an arbitrary constant. Step 2 : We then consider $v(z, t)=u(z, t)-$ $U(z)$ which satisfies
+
+$$
+\begin{aligned}
+& v_t=K v_{z z}, \quad t>0, \quad 0<z<L \\
+& v_z(0, t)=v_z(L, t)=0, \quad t>0, \quad v(z, 0)=1-U(z), \quad 0<z<L
+\end{aligned}
+$$
+
+Step 3: By separation of variable we write $v(z, t)=\phi(z) T(t)$. The function $T(t)$ is obtained as $T(t)=e^{-\lambda K t}$ with the separation constant $\lambda$. The function $\phi(z)$ satisfies the Sturm-Liouville problem: $\phi^{\prime \prime}+\lambda \phi=0,0<z<L, \phi^{\prime}(0)=\phi^{\prime}(L)=0$. Hence we obtain
+
+$$
+\phi(z)=\cos \frac{n \pi z}{L}, \quad \lambda=\left(\frac{n \pi}{L}\right)^2, \quad n=0,1,2, \ldots
+$$
+
+
+We can write $v(z, t)$ as
+
+$$
+v(z, t)=\sum_{n=0}^{\infty} A_n \cos \frac{n \pi z}{L} e^{-(n \pi / L)^2 K t}
+$$
+
+
+The coefficients $A_n$ are determined by the initial condition as
+
+$$
+\sum_{n=0}^{\infty} A_n \cos \frac{n \pi z}{L}=1-U(z)=1-A-\Phi z
+$$
+
+
+According to the Sturm-Liouville theory we have $\int_0^L \cos (n \pi z / L) \cos (m \pi z / L) d z=0$ $(n \neq m)$. Also using the integrals $\int_0^L \cos (n \pi z / L) d z=L \delta_{n 0}, \int_0^L z \cos (n \pi z / L) d z=$ $\left((-1)^n-1\right) L^2 /(n \pi)^2(n \neq 0), \int_0^L \cos ^2(n \pi z / L) d z=L / 2(n \neq 0)$, we obtain
+
+$$
+A_0=1-A-\frac{L \Phi}{2}, \quad A_n=2 L \Phi \frac{1-(-1)^n}{(n \pi)^2}
+$$
+
+
+Finally we obtain
+
+$$
+u(z, t)=1+\left(z-\frac{L}{2}\right) \Phi+\frac{2 L \Phi}{\pi^2} \sum_{n=1}^{\infty} \frac{1-(-1)^n}{n^2} \cos \frac{n \pi z}{L} e^{-(n \pi / L)^2 K t} .
+$$
+
+
+
+
 
 \subsubsection{Physics of heat conduction}
 
