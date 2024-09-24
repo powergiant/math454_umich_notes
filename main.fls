@@ -246,6 +246,10 @@ INPUT .\pictures\heat_region.png
 INPUT .\pictures\heat_region.png
 INPUT .\pictures\heat_region.png
 INPUT .\pictures\heat_region.png
+INPUT .\sections\section_4.tex
+INPUT sections\section_4.tex
+INPUT .\sections\section_4.tex
+INPUT sections\section_4.tex
 INPUT main.aux
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
