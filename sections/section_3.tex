@@ -247,17 +247,17 @@ Let us consider the linear combination of separated solution and match with the 
 
 The linear combination is 
 $$
-u(z, t)=\sum_{n=1}^{\infty} C_n \phi_n(z) e^{-\lambda_n K t},
+u(z, t)=\sum_{n=1}^{\infty} B_n \phi_n(z) e^{-\lambda_n K t},
 $$
-where $C_n$ are constants. 
+where $B_n$ are constants. 
 
 By $u(z, 0) = f(z)$, we know that 
 
 $$
-f(z) = u(z, 0) = \sum_{n=1}^{\infty} C_n \phi_n(z) = \sum_{n=1}^{\infty} C_n \sin \frac{n\pi z}{L}.
+f(z) = u(z, 0) = \sum_{n=1}^{\infty} B_n \phi_n(z) = \sum_{n=1}^{\infty} B_n \sin \frac{n\pi z}{L}.
 $$
 
-From this, we know that $C_n$ is the $B_n$ coefficient of the Fourier sine series. We thus obtain
+From this, we know that $B_n$ is the coefficient of the Fourier sine series. We thus obtain
 $$
 u(z, t)=\sum_{n=1}^{\infty} B_n \phi_n(z) e^{-\lambda_n K t}, \quad 0<z<L, \quad t>0 .
 $$
@@ -438,7 +438,7 @@ This equality confirms \eqref{eq.ex_symm_op_1} and thus the fact that $A$ is sym
     \begin{equation}
         A = -\frac{d^2}{dx^2},\qquad \mathrm{Dom}(A) = \{\varphi(x): x\in [a, b]\}
     \end{equation}
-    which is almost the same operator as the last example but with a different domain. This operator is NOT symmetric. If we take $\varphi(x) = 1$ and $\psi(x) = x$, then a straightforward computation gives $\langle \varphi, A\psi \rangle = 0$ and  $\langle A\varphi, \psi \rangle \neq 0$. Therefore, $A$ is not symmetric.
+    which is almost the same operator as the last example but with a different domain. This operator is NOT symmetric. If we take $\varphi(x) = 1$ and $\psi(x) = x^2$, then a straightforward computation gives $\langle \varphi, A\psi \rangle = 0$ and  $\langle A\varphi, \psi \rangle \neq 0$. Therefore, $A$ is not symmetric.
 \end{example}
 
 % \begin{definition}[Projection]
@@ -455,6 +455,8 @@ This equality confirms \eqref{eq.ex_symm_op_1} and thus the fact that $A$ is sym
 % \end{example}
 
 \subsubsection{Separation of variables of second-order PDEs}
+
+\textbf{TODO: how does this leads to Sturm Liouville}
 
 \subsubsection{The Sturm-Liouville eigenvalue problem}\label{sec.Sturm_Liouville}
 

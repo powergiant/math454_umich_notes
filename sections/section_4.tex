@@ -2,17 +2,116 @@
 
 In this section, we will consider the separation of variables for more general equations in rectangular coordinates, possibly with variable coefficients and more general boundary conditions. 
 
-\subsection{The heat equation}
+\subsection{The Heat Equation}
 
-\textbf{TODO: explain different senarios, non-homogeneous, time dependent}
-
-\subsubsection{The homogeneous case} \textbf{TODO: compared with Sturm-Liouville theorem}
+The general form of the heat equation is given by $u_t = K u_{zz} + r(z, t)$ where $r(z, t)$ is the source term. Depending on the nature of the source term, the heat equation can be classified into three distinct cases: homogeneous where $r(z, t) = 0$, inhomogeneous with a time-independent source where $r(z)$ depends only on the spatial variable, inhomogeneous with a time-dependent source where $r(z, t)$ varies with both space and time. In the following sections, we will examine the solutions corresponding to each of these cases.
 
 
+\subsubsection{The homogeneous case} We begin with the homogeneous case of the heat equation. The most general form of the homogeneous heat equation is given by:
+\begin{equation}\label{eq.homogeneous_heat_general}
+    \left\{
+    \begin{aligned} 
+        &u_t = K u_{zz}, && 0 < z < L, \quad t > 0, \\
+        &u \cos \alpha - L u_z \sin \alpha = 0, && z = 0, \quad t > 0, \\
+        &u \cos \beta + L u_z \sin \beta = 0, && z = L, \quad t > 0, \\
+        &u(z, 0) = f(z), && 0 < z < L, \quad t = 0.
+    \end{aligned}
+    \right.
+\end{equation}
+where $f(z), 0<z<L$, is a piecewise smooth function, and $K>0$ and $\alpha, \beta \in[0, \pi)$ are constants.
 
-\subsubsection{The non-homogeneous case} \textbf{TODO: homogeneous has been considered previously, now non-homogeneous}
+The homogeneous heat equation can be solved using the method of separation of variables, as detailed in the following theorem.
 
-Let us consider the heat equation in the slab $0<z<L$,
+\begin{theorem}\label{th.solve_homogeneous_heat}
+    The solution to \eqref{eq.homogeneous_heat_general} can be obtained by the following steps:
+    \begin{enumerate}
+        \item Assume a separable solution of the form $u(z, t) = Z(z)T(t)$, and substitute into the PDE to obtain two ordinary differential equations (ODEs): one for $Z(z)$ and one for $T(t)$.
+        \[
+            T'(t) + \lambda K T(t) = 0, \qquad Z''(z) + \lambda Z(z) = 0.
+        \]
+        The spatial equation for $Z(z)$ is a Sturm-Liouville problem with equation $Z''(z) + \lambda Z(z) = 0$
+        subject to the boundary conditions
+        \[
+        Z(0) \cos \alpha - L Z'(0) \sin \alpha = 0, \quad Z(L) \cos \beta + L Z'(L) \sin \beta = 0.
+        \]
+        
+        \item Solving this Sturm-Liouville problem yields a set of eigenvalues $\lambda_n$ and corresponding eigenfunctions $Z_n(z)$. For each $\lambda_n$, solve the time-dependent ODE $T'(t) + K \lambda_n T(t) = 0$ and obtain $T_n(t) = c_n e^{-K \lambda_n t}$.
+        The general solution is given by an infinite sum of the separated solutions:
+        \[
+        u(z, t) = \sum_{n=1}^{\infty} c_n Z_n(z) e^{-K \lambda_n t}.
+        \]
+        \item To match the initial condition $u(z, 0) = f(z)$, express $f(z)$ as a generalized Fourier series:
+        \[
+        f(z) = \sum_{n=1}^{\infty} c_n Z_n(z).
+        \]
+        The coefficients $c_n$ are determined by the orthogonality of the eigenfunctions $Z_n(z)$, using the formula
+        \begin{equation}\label{eq.coef_formula_homogeneous}
+            c_n = \frac{\int_0^L f(z) Z_n(z) \, dz}{\int_0^L Z_n^2(z) \, dz}.
+        \end{equation}
+        which is a corollary of the \eqref{eq.general_Fourier_coef} with $\rho(x) = 1$.
+    \end{enumerate}
+\end{theorem}
+
+
+
+Let us use an example to demonstrate the execution of the procedure in the above theorem. 
+\begin{example}
+    Let us solve the following heat equation in a slab.
+    \begin{equation}
+        \left\{
+        \begin{aligned}
+            &u_t=K u_{z z},\quad && t>0, \quad 0<z<L \\
+            &u(0, t) = u_z(L, t)=0 && t>0 \\
+            &u(z, 0)=1,\quad && 0<z<L
+        \end{aligned}
+        \right.
+    \end{equation}
+\end{example}
+\begin{proof}[Solution] We solve the equation following the steps listed in Theorem \ref{th.solve_homogeneous_heat}.
+
+\textit{Step 1.} The separated solution is written as $u(z, t)=Z(z) T(t)$. Thus we obtain
+$$
+T^{\prime}(t)+\lambda K T(t)=0, \quad Z^{\prime \prime}(z)+\lambda Z(z)=0 .
+$$
+The boundary conditions are written as
+$$
+Z(0)=Z'(L)=0 .
+$$
+
+\textit{Step 2.} Solving the ODE, we obtain
+$$
+T(t)=e^{-\lambda K t}, \quad Z=A \sin (\sqrt{\lambda} z)+B \cos (\sqrt{\lambda} z), \quad \lambda>0 .
+$$
+
+By plugging $Z=A \sin (\sqrt{\lambda} z)+B \cos (\sqrt{\lambda} z)$ into the boundary conditions, we find that $B=0$ and $\sqrt{\lambda} L = (n+\frac{1}{2})\pi$ where $n$ is an integer. Therefore we obtain
+$$
+Z(z)=Z_n(z)=\sin \left(\sqrt{\lambda_n} z\right), \quad \lambda_n=\left(\frac{(n+\frac{1}{2}) \pi}{L}\right)^2, \quad n=1,2, \ldots,
+$$
+where we set the arbitrary constant in $Z_n(z)$ to be $1$. Thus the general solutions are obtained as 
+$$
+u(z, t)=\sum_{n=1}^{\infty} C_n  e^{-\lambda_n K t} \sin \frac{(n+\frac{1}{2}) \pi z}{L},
+$$
+where $C_n$ are constants. 
+
+\textit{Step 3.} By $u(z, 0) = f(z) = 1$, we know that 
+
+$$
+1 = u(z, 0) = \sum_{n=1}^{\infty} C_n Z_n(z) = \sum_{n=1}^{\infty} C_n \sin \frac{(n+\frac{1}{2}) \pi z}{L}.
+$$
+
+$C_n$ can be computed by \eqref{eq.coef_formula_homogeneous}
+$$
+C_n= \frac{2}{L} \int_0^L 1\cdot \sin \frac{(n+\frac{1}{2}) \pi z}{L} d x = \frac{4}{(2n+1)\pi}.
+$$
+
+Therefore, we obtain 
+$$
+u(z, t)=\sum_{n=1}^{\infty} \frac{4}{(2n+1)\pi} e^{-\left(\frac{(n+\frac{1}{2}) \pi}{L}\right)^2 K t} \sin \frac{(n+\frac{1}{2}) \pi z}{L}, \quad 0<z<L, \quad t>0 .
+$$
+This provides the complete solution to the homogeneous heat equation.
+\end{proof}
+
+\subsubsection{The non-homogeneous case} Now we consider the time-independent non-homogeneous heat equation on the slab $0<z<L$,
 \begin{equation}\label{eq.heat_and_boundary'}
     \left\{\begin{aligned} 
         &u_t=K u_{z z} + r(z), && 0<z<L, \quad t>0, 
@@ -24,7 +123,7 @@ Let us consider the heat equation in the slab $0<z<L$,
         &u=f(z), && 0<z<L, \quad t=0,
     \end{aligned}\right.
 \end{equation}
-where $f(z), 0<z<L$, is a piecewise smooth function, and $K>0$ and $\alpha, \beta \in[0, \pi)$ are constants. The equation is nonhomogeneous because there is an internal source $r(z)$. The boundary conditions are nonhomogeneous because $T_1$ and $T_2$ are nonzero. 
+where $f(z), 0<z<L$, is a piecewise smooth function, and $K>0$ and $\alpha, \beta \in[0, \pi)$ are constants. The equation is non-homogeneous because there is an internal source $r(z)$. The boundary conditions are non-homogeneous because $T_1$ and $T_2$ are nonzero. 
 
 The approach to solving this equation is analogous to solving the ODE $f^{\prime \prime}+f=e^x$. First, a particular solution $\hat{f}=\frac{1}{2} e^x$ is found by assuming $\hat{f}=C e^x$ and determining $C=\frac{1}{2}$. Then, the general solution is obtained by considering $g=f-\hat{f}$, where $g$ satisfies the homogeneous equation associated with the original ODE.
 
@@ -45,7 +144,7 @@ For the PDE, the method is similar. We first find a particular solution by consi
 \end{definition}
 
 The PDE can be solved using the following theorem:
-\begin{theorem}\label{th.solve_nonhomogeneous}
+\begin{theorem}\label{th.solve_non-homogeneous_heat}
     The solution to \eqref{eq.heat_and_boundary'} can be obtained by the following steps.
     \begin{enumerate}
         \item Solve for the time-independent solution $U(z)$ using the following ODE.
@@ -92,7 +191,7 @@ Let us explain the above procedure using the following examples.
         \right.
     \end{equation}
 \end{example}
-\begin{proof}[Solution] We solve the equation following the steps listed in Theorem \ref{th.solve_nonhomogeneous}.
+\begin{proof}[Solution] We solve the equation following the steps listed in Theorem \ref{th.solve_non-homogeneous_heat}.
 
 \textit{Step 1.} For this problem, \eqref{eq.time_independent_sol'} can be simplified to 
 $$
@@ -111,9 +210,9 @@ The general solution is given by $U(z)=A+Bz$, and the coefficients $A$, $B$ are 
         \end{aligned}\right.
     $$
 
-By separation of variable, we write $v(z, t)=\phi(z) T(t)$, where $T^{\prime \prime}+\lambda K T=0$ and $\phi^{\prime \prime}+\lambda \phi=0$. The solutions of the first equation is $T(t)=e^{-\lambda K t}$. Combining the second equation with the Boundary conditions in the PDE, we get the Sturm-Liouville problem, $\phi^{\prime \prime}+\lambda \phi=0$, $0<z<L$, $\phi(0)=\phi(L)=0$, for which we obtain
+By separation of variable, we write $v(z, t)=Z(z) T(t)$, where $T^{\prime \prime}+\lambda K T=0$ and $Z^{\prime \prime}+\lambda Z=0$. The solutions of the first equation is $T(t)=e^{-\lambda K t}$. Combining the second equation with the Boundary conditions in the PDE, we get the Sturm-Liouville problem, $Z^{\prime \prime}+\lambda Z=0$, $0<z<L$, $Z(0)=Z(L)=0$, for which we obtain
     $$
-    \phi(z)=\sin \frac{n \pi z}{L}, \quad \lambda=\left(\frac{n \pi}{L}\right)^2, \quad n=1,2, \ldots
+    Z(z)=\sin \frac{n \pi z}{L}, \quad \lambda=\left(\frac{n \pi}{L}\right)^2, \quad n=1,2, \ldots
     $$
 Therefore, the separated solutions are $v_n(z, t)=\sin \frac{n \pi z}{L} e^{-(n \pi / L)^2 K t}$ and the general solution $v(z, t)$ is
     $$
@@ -147,7 +246,7 @@ Let us solve the following heat equation in a slab.
     \right.
 \end{equation}
 \end{example}
-\begin{proof}[Solution] We solve the equation following the steps listed in Theorem \ref{th.solve_nonhomogeneous}.
+\begin{proof}[Solution] We solve the equation following the steps listed in Theorem \ref{th.solve_non-homogeneous_heat}.
 
 \textit{Step 1.} For this problem, \eqref{eq.time_independent_sol'} can be simplified to 
 $$
@@ -166,9 +265,9 @@ $$
         \end{aligned}\right.
     $$
 
-By separation of variable, we write $v(z, t)=\phi(z) T(t)$, where $T^{\prime \prime}+\lambda K T=0$ and $\phi^{\prime \prime}+\lambda \phi=0$. The solutions of the first equation is $T(t)=e^{-\lambda K t}$. Combining the second equation with the Boundary conditions in the PDE, we get the Sturm-Liouville problem, $\phi^{\prime \prime}+\lambda \phi=0$, $0<z<L$, $\phi'(0)=\phi'(L)=0$, for which we obtain
+By separation of variable, we write $v(z, t)=Z(z) T(t)$, where $T^{\prime \prime}+\lambda K T=0$ and $Z^{\prime \prime}+\lambda Z=0$. The solutions of the first equation is $T(t)=e^{-\lambda K t}$. Combining the second equation with the Boundary conditions in the PDE, we get the Sturm-Liouville problem, $Z^{\prime \prime}+\lambda Z=0$, $0<z<L$, $Z'(0)=Z'(L)=0$, for which we obtain
     $$
-    \phi(z)=\cos \frac{n \pi z}{L}, \quad \lambda=\left(\frac{n \pi}{L}\right)^2, \quad n=0,1,2, \ldots
+    Z(z)=\cos \frac{n \pi z}{L}, \quad \lambda=\left(\frac{n \pi}{L}\right)^2, \quad n=0,1,2, \ldots
     $$
 Therefore, the separated solutions are $v_n(z, t)=\cos \frac{n \pi z}{L} e^{-(n \pi / L)^2 K t}$ and the general solution $v(z, t)$ is
     $$
@@ -195,22 +294,263 @@ and
 This completes the solution.
 \end{proof}
 
+\subsubsection{Uniqueness theorem of heat equation}
+
+It is not immediately obvious that every solution to the heat equation can be expressed as a linear combination of separated solutions. The logic behind the method of separation of variables is that we first solve the equation using this method and then show that this solution is unique. Therefore, the solution obtained from separation of variables must be the only possible solution to the problem.
+
+\begin{theorem}[Uniqueness]
+    The heat equation below has a unique solution.
+    \begin{equation}
+        \left\{\begin{aligned} 
+            &u_t=K u_{z z} + r(z), && 0<z<L, \quad t>0, 
+            \\ 
+            &u(0, t)=T_1,\quad && z=0, \quad t>0, 
+            \\ 
+            &u(L, t)=T_2, && z=L, \quad t>0, 
+            \\
+            &u=f(z), && 0<z<L, \quad t=0,
+        \end{aligned}\right.
+    \end{equation}
+\end{theorem}
+\begin{remark} 
+    The uniqueness theorem applies to a much broader class of PDEs, but for simplicity, we consider only this specific case. 
+\end{remark}
+\begin{proof} Suppose that $u_1$ and $u_2$ are solutions. Define their difference $u=u_1-u_2$. Then we have $u_t=K u_{z z}$, $u(0, t)=u(L, t)=0$, and $u(z, 0)=0$. By multiplying $u$ on both sides, we have
+$$
+u_t=K u_{z z} \quad \Rightarrow \quad u u_t=K u u_{z z} 
+$$
+By integrating both sides, we obtain
+$$
+\frac{1}{2} \partial_t \int_0^L u^2 d z=K\left(\left.\frac{1}{2} \partial_z (u^2)\right|_0 ^L-\int_0^L u_z^2 d z\right)=\left.K u u_z\right|_0 ^L-K \int_0^L u_z^2 d z
+$$
+We introduce
+$$
+w(t)=\frac{1}{2} \int_0^L u(z, t)^2 d z
+$$
+We have
+$$
+w^{\prime}(t)=-K \int_0^L u_z(z, t)^2 d z
+$$
+Thus we have
+$$
+w(t) \geq 0, \quad w^{\prime}(t) \leq 0
+$$
+The initial condition $u(z, 0)=0$ implies
+$$
+w(0)=0.
+$$
+Therefore $w(t)=0$ $(t \geq 0)$. This then implies $u_1=u_2$ ($t \geq 0$, $0 \leq z \leq L$).
+\end{proof}
+
 \subsubsection{Physics of heat conduction}
 
-\subsubsection{The case of time-dependent source}
+\subsubsection{The case of time-dependent source} Now we consider the time-dependent non-homogeneous heat equation on the slab $0<z<L$,
+\begin{equation}\label{eq.heat_time_dependent}
+    \left\{\begin{aligned} 
+        &u_t=K u_{z z} + r(z, t), && 0<z<L, \quad t>0, 
+        \\ 
+        &u(0, t) \cos \alpha-L u_z(0, t) \sin \alpha=T_1(t),\quad && z=0, \quad t>0, 
+        \\ 
+        &u(L, t) \cos \beta+L u_z(L, t) \sin \beta=T_2(t), && z=L, \quad t>0, 
+        \\
+        &u(z, 0)=f(z), && 0<z<L, \quad t=0,
+    \end{aligned}\right.
+\end{equation}
+where $f(z), 0<z<L$, is a piecewise smooth function, and $K>0$ and $\alpha, \beta \in[0, \pi)$ are constants. The equation is non-homogeneous because there is an internal source $r(z)$. The boundary conditions are non-homogeneous because $T_1(t)$ and $T_2(t)$ are nonzero. 
+
+Now, let's assume temporarily that $T_1(t) = T_2(t) = 0$. Define the operator $A$ by
+\begin{equation}
+    A \phi = - \partial_{zz}\phi
+\end{equation}
+with the domain defined as,
+\begin{equation}
+    \left\{\phi(x),\, x\in [a, b]\,\Bigg|\begin{aligned}
+        &\ \phi(a) \cos \alpha-L \phi^{\prime}(a) \sin \alpha=0,
+        \\
+        &\ \phi(b) \cos \beta+L \phi^{\prime}(b) \sin \beta=0
+    \end{aligned}
+    \right\}
+\end{equation}
+With this, equation \eqref{eq.heat_time_dependent} becomes 
+\begin{equation}\label{eq.heat_time_dependent'}
+    \left\{\begin{aligned} 
+        &u_t= - KA u + r(\cdot, t), 
+        \\
+        &u|_{t = 0}=f.
+    \end{aligned}\right.
+\end{equation}
+Now, if we view $- KA$ as a matrix $M$, this equation resembles the vector-valued ODE,
+\begin{equation}\label{eq.higher_dim_ODE}
+    \left\{\begin{aligned} 
+        &\frac{\mathrm{d}\vec{u}}{\mathrm{d}t} = M\vec{u} + \vec{r}(t), 
+        \\
+        &\vec{u}|_{t = 0}=\vec{f}.
+    \end{aligned}\right.
+\end{equation}
+A common technique to solve this is using an eigenvector expansion. Consider the eigenvalues and eigenfunctions $\{(\lambda_1, \vec{v}_1), \dots, (\lambda_n, \vec{v}_n)\}$ of $M$. We can expand $\vec{u}(t)$, $\vec{r}(t)$ and $\vec{f}$ in terms of these eigenvectors. Then we get $\vec{u}(t) = \sum_{i = 1}^n u_i(t)\, \vec{v}_i$ and similar equalities for $\vec{r}(t)$ and $\vec{f}$. Inserting this expansion of $\vec{u}(t)$ to the ODE \eqref{eq.higher_dim_ODE}, we get
+\begin{equation}
+    \left\{\begin{aligned} 
+        &\sum_{i = 1}^n (u'_i(t) - \lambda_i u_i(t) - r_i(t))\, \vec{v}_i = 0, 
+        \\
+        &u_i(0)=\vec{f}_i.
+    \end{aligned}\right.
+\end{equation}
+Thus, we obtain the system of equations
+\begin{equation}
+    \left\{\begin{aligned} 
+        &u'_i(t) = \lambda_i u_i(t) + r_i(t), 
+        \\
+        &u_i(0)=f_i.
+    \end{aligned}\right.
+\end{equation}
+This is a scalar linear ODE and can be solved using standard ODE techniques.
+
+For the PDE, the similar works method is similar in the case when $T_1(t) = T_2(t) = 0$. For the general case, we need to reduce to the case of $T_1(t) = T_2(t) = 0$ by subtracting a suitable function, as explained by the following theorem.
+\begin{theorem}\label{th.solve_time_dependent_heat}
+    The solution to \eqref{eq.heat_time_dependent} can be obtained by the following steps.
+    \begin{enumerate}
+        \item Solve for the solution $U(z, t)$ of the following ODE. Note that this ODE is analogous to the equation for the time-independent solution, 
+        \begin{equation}\label{eq.reducing_boundary}
+        \left\{\begin{aligned} 
+            &U_{z z}(z, t) = 0, && 0<z<L
+            \\ 
+            &u(0, t) \cos \alpha-L u_z(0, t) \sin \alpha=T_1(t),\quad && z=0, 
+            \\ 
+            &u(L, t) \cos \beta+L u_z(L, t) \sin \beta=T_2(t), && z=L
+        \end{aligned}\right.
+    \end{equation}
+    \item Define $v(z, t) = u(z, t) - U(z, t)$ and compute $R(z, t) = r(z, t)-U_t(z, t)$ and $F(z) = f(z)-U(z)$. One can compute that $v(z, t)$ satisfies the homogeneous PDE,
+    \begin{equation}\label{eq.heat_time_dependent_homogeneized}
+        \left\{\begin{aligned} 
+            &v_t=K v_{z z} + R(z, t), && 0<z<L, \quad t>0, 
+            \\ 
+            &v(0, t) \cos \alpha-L v_z(0, t) \sin \alpha=0,\quad && z=0, \quad t>0, 
+            \\ 
+            &v(L, t) \cos \beta+L v_z(L, t) \sin \beta=0, && z=L, \quad t>0, 
+            \\
+            &v(z, 0)=F(z), && 0<z<L, \quad t=0,
+        \end{aligned}\right.
+    \end{equation}
+    \item Compute the eigenvalues and eigenfunctions $\{(\lambda_n, \phi_n)\}_n$ of the following operator
+    \begin{equation}
+        A \phi = - \partial_{zz}\phi,
+    \end{equation}
+    \begin{equation}
+        \textit{Dom}(A) = \left\{\phi(x),\, x\in [a, b]\,\Bigg|\begin{aligned}
+            &\ \phi(a) \cos \alpha-L \phi^{\prime}(a) \sin \alpha=0,
+            \\
+            &\ \phi(b) \cos \beta+L \phi^{\prime}(b) \sin \beta=0
+        \end{aligned}
+        \right\}.
+    \end{equation}
+    \item Compute the expansion coefficients of $R(t) = \sum_{n = 1}^\infty R_n(t)\, \phi_n$ and $F(t) = \sum_{n = 1}^\infty F_n(t)\, \phi_n$. Insert these expansions together with $v(z, t) = \sum_{n = 1}^\infty v_n(t)\, \phi_n$ into \eqref{eq.heat_time_dependent_homogeneized}. Then we get the following equation for $v_n(t)$ 
+    \begin{equation}\label{eq.ODE_for_Fourier}
+        \left\{\begin{aligned} 
+            &v'_n(t) = \lambda_n v_n(t) + R_n(t), 
+            \\
+            &v_n(0)=F_n.
+        \end{aligned}\right.
+    \end{equation}
+    Solve $v_n(z, t)$ from the above equation.
+    \item Finally, compute $v(z, t)$ as $v(z, t) = \sum_{n = 1}^\infty v_n(t)\, \phi_n$ and compute $u(z, t)$ as $u(z, t) = v(z, t) + U(z, t)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    The only non-trivial step is showing that $v(z, t)$ satisfies \eqref{eq.heat_time_dependent_homogeneized} and $v_n(z, t)$ satisfies \eqref{eq.ODE_for_Fourier}, which can be verified by a straightforward computation. \textbf{TODO: add the proof of the second}
+\end{proof}
+
+Let us explain the above procedure using the following examples.
+
+\begin{example}
+    Let us solve the following heat equation in a slab.
+    \begin{equation}
+        \left\{
+        \begin{aligned}
+            &u_t=K u_{z z},\quad && t>0, \quad 0<z<L \\
+            &u(0, t)=0,\ u(L, t)=t && t>0 \\
+            &u(z, 0)=0,\quad && 0<z<L
+        \end{aligned}
+        \right.
+    \end{equation}
+\end{example}
+\begin{proof}[Solution] We solve the equation following the steps listed in Theorem \ref{th.solve_time_dependent_heat}.
+
+\textit{Step 1.} For this problem, \eqref{eq.reducing_boundary} can be simplified to 
+$$
+U^{\prime \prime}(z)=0, \quad 0<z<L, \quad U(0)=0, \quad U(L)=t
+$$
+The general solution is given by $U(z, t)=A(t)+B(t)z$, and the coefficients $A$, $B$ are determined by the boundary conditions as $A(t)=0, B(t)=t/L$. Therefore, $U(z, t)=\frac{zt}{L}$
+    
+\textit{Step 2.} We then consider $v(z, t)=u(z, t)-U(z, t)$, which satisfies $v_t = Kv_{zz} - U_t$. $v$ is a solution of the following boundary value problem
+$$
+\left\{\begin{aligned}
+    & v_t=K v_{z z} - \frac{z}{L}, \quad t>0, \quad 0<z<L 
+    \\
+    & v(0, t)=v(L, t)=0, \quad t>0, 
+    \\
+    &v(z, 0)=1-U(z), \quad 0<z<L
+    \end{aligned}\right.
+$$
+
+\textit{Step 3.} We now compute the eigenvalues and eigenfunctions of the operator $A$ defined by
+\[
+    A \phi = -\partial_{zz} \phi,\qquad \textit{Dom}(A) = \{\phi(z): \phi(0) = 0, \quad \phi(L) = 0\}.
+\]
+
+The eigenfunctions $\phi_n(z)$ and eigenvalues $\lambda_n$ of this operator are given by
+\[
+    \phi_n(z) = \sin\left( \frac{n \pi z}{L} \right), \quad \lambda_n = \left( \frac{n \pi}{L} \right)^2, \quad n = 1, 2, 3, \dots
+\]
+
+\textit{Step 4.} Next, we expand $v(z, t)$ and $v(z, 0)$ in terms of the eigenfunctions $\phi_n(z)$:
+\[
+    v(z, t) = \sum_{n=1}^\infty v_n(t) \phi_n(z), \quad v(z, 0) = \sum_{n=1}^\infty F_n \phi_n(z).
+\]
+In this case, since $v(z, 0) = 0$ (as $u(z, 0) = 0$ and $U(z, 0) = 0$), we have $F_n = 0$ for all $n$.
+
+We also expand $U_t$ as a function of time, which is simply
+\[
+    U_t(z, t) = \frac{z}{L}.
+\]
+Thus, $R(z, t) = -U_t(z, t) = -\frac{z}{L}$.
+
+We now compute the coefficients $R_n(t)$ of $R(z, t)$ in terms of the eigenfunctions:
+\[
+    R(z, t) = -\frac{z}{L} = \sum_{n=1}^\infty R_n(t) \phi_n(z),
+\]
+and using the orthogonality of the sine functions, we compute $R_n(t)$ by integrating:
+\[
+    R_n(t) = -\frac{2}{L} \int_0^L \frac{z}{L} \sin\left( \frac{n \pi z}{L} \right) dz.
+\]
+This integral can be evaluated as
+\[
+    R_n(t) = \frac{2 (-1)^n}{n \pi}.
+\]
+
+\textit{Step 5.} The equation for $v_n(t)$ now becomes
+\[
+    v_n'(t) = -\lambda_n v_n(t) + R_n(t),
+\]
+with the initial condition $v_n(0) = 0$. This is a standard linear ODE, and its solution is given by
+\[
+    v_n(t) = \frac{R_n(t)}{\lambda_n} \left( 1 - e^{-\lambda_n t} \right).
+\]
+
+\textit{Step 6.} Finally, we compute $v(z, t)$ by summing over the eigenfunctions:
+\[
+    v(z, t) = \sum_{n=1}^\infty v_n(t) \sin\left( \frac{n \pi z}{L} \right).
+\]
+The full solution for $u(z, t)$ is then given by
+\[
+    u(z, t) = v(z, t) + U(z, t) = \sum_{n=1}^\infty v_n(t) \sin\left( \frac{n \pi z}{L} \right) + \frac{zt}{L}.
+\]
+This is the complete solution to the given heat equation.
+
+\end{proof}
 
 \subsection{The wave equation}
 
 \subsubsection{Physics of string vibration}
-
-\subsubsection{The homogeneous case}
-
-\subsubsection{The non-homogeneous case}
-
-
-\subsection{The Laplace's equation}
-
-\subsubsection{Physics of static electricity}
 
 \subsubsection{The homogeneous case}
 
