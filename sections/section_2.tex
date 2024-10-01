@@ -441,7 +441,7 @@ where
 
 For Fourier cosine series, we also have orthogonality relations and \eqref{eq.fourier_cosine_coefficient} can be computed from these orthogonality relations.
 
-\begin{theorem}[Orthogonality relations of cosine Fourier series]
+\begin{theorem}[Orthogonality relations of Fourier cosine series]
     \begin{equation}\label{eq.cosine_orthogonality}
         \int_{0}^L \cos \frac{n \pi x}{L} \cos \frac{m \pi x}{L} d x=\left\{
                 \begin{aligned}
@@ -520,7 +520,7 @@ where
 
 For Fourier sine series, we also have orthogonality relations and \eqref{eq.fourier_sine_coefficient} can be computed from these orthogonality relations.
 
-\begin{theorem}[Orthogonality relations of sine Fourier series]
+\begin{theorem}[Orthogonality relations of Fourier sine series]
     \begin{equation}\label{eq.sine_orthogonality}
         \int_{0}^L \sin \frac{n \pi x}{L} \sin \frac{m \pi x}{L} d x=\left\{
                 \begin{aligned}
@@ -757,7 +757,7 @@ Therefore we obtain
 Thus the Fourier series of $x$ converges as $O(1 / N)$ and the Fourier series of $|x|$ converges as $O\left(1 / N^3\right)$. Equations \eqref{eq.x_fourier_mse_converge} and \eqref{eq.|x|_fourier_mse_converge} explain the difference between figure \ref{fig.}.
 \end{proof}
 
-\subsubsection{Parseval's theorem for complex, cosine and sine Fourier series}
+\subsubsection{Parseval's theorem for complex, cosine and Fourier sine series}
 
 
 \begin{theorem}[Parseval's theorem for complex Fourier series]
@@ -797,7 +797,7 @@ $$
 
 \end{proof}
 
-\begin{theorem}[Parseval's theorem for cosine Fourier series] Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with cosine Fourier series 
+\begin{theorem}[Parseval's theorem for Fourier cosine series] Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with Fourier cosine series 
     \begin{equation}\label{eq.Parseval_cosine_assumption}
         f(x)=A_0 + \sum_{n=1}^{\infty} A_n \cos \frac{n \pi x}{L}
     \end{equation}
@@ -810,8 +810,8 @@ $$
     This is homework.
 \end{proof}
 
-\begin{theorem}[Parseval's theorem for sine Fourier series]
-    Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with sine Fourier series 
+\begin{theorem}[Parseval's theorem for Fourier sine series]
+    Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with Fourier sine series 
     \begin{equation}\label{eq.Parseval_sine_assumption}
         f(x)=\sum_{n=1}^{\infty} B_n \sin \frac{n \pi x}{L}
     \end{equation}
