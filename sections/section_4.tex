@@ -414,12 +414,12 @@ For the PDE, the similar works method is similar in the case when $T_1(t) = T_2(
         \left\{\begin{aligned} 
             &U_{z z}(z, t) = 0, && 0<z<L
             \\ 
-            &u(0, t) \cos \alpha-L u_z(0, t) \sin \alpha=T_1(t),\quad && z=0, 
+            &U(0, t) \cos \alpha-L U_z(0, t) \sin \alpha=T_1(t),\quad && z=0, 
             \\ 
-            &u(L, t) \cos \beta+L u_z(L, t) \sin \beta=T_2(t), && z=L
+            &U(L, t) \cos \beta+L U_z(L, t) \sin \beta=T_2(t), && z=L
         \end{aligned}\right.
     \end{equation}
-    \item Define $v(z, t) = u(z, t) - U(z, t)$ and compute $R(z, t) = r(z, t)-U_t(z, t)$ and $F(z) = f(z)-U(z)$. One can compute that $v(z, t)$ satisfies the homogeneous PDE,
+    \item Define $v(z, t) = u(z, t) - U(z, t)$ and compute $R(z, t) = r(z, t)-U_t(z, t)$ and $F(z) = f(z)-U(z, 0)$. One can compute that $v(z, t)$ satisfies the homogeneous PDE,
     \begin{equation}\label{eq.heat_time_dependent_homogeneized}
         \left\{\begin{aligned} 
             &v_t=K v_{z z} + R(z, t), && 0<z<L, \quad t>0, 
@@ -504,7 +504,7 @@ The eigenfunctions $\phi_n(z)$ and eigenvalues $\lambda_n$ of this operator are 
 
 \textit{Step 4.} Next, we expand $R = -\frac{z}{L}$ and $F = 0$ in terms of the eigenfunctions $\phi_n(z)$. 
 \begin{equation}\label{eq.sol_ex_time_independent_1}
-    R(z, t) = -\frac{z}{L} = \sum_{n=1}^\infty R_n(t) \phi_n(z),\qquad F(z) = 1 = \sum_{n=1}^\infty F_n \phi_n(z)
+    R(z, t) = -\frac{z}{L} = \sum_{n=1}^\infty R_n(t) \phi_n(z),\qquad F(z) = 0 = \sum_{n=1}^\infty F_n \phi_n(z)
 \end{equation}
 
 We now compute the coefficients $R_n(t)$ of $R(z, t)$ in terms of the eigenfunctions:
@@ -683,7 +683,7 @@ which implies the formula of the coefficients.
 
 We will use separation of variable to solve the 2D wave equation. The following lemma (which is an analog of Lemma \ref{lem.separation_var}) is important
 \begin{lemma}[]\label{lem.separation_var_2D}
-    $f(x) = g(y) + h(z)$ implies that $f(x) = c$ $g(y) = c_1$ and $h(z) = c_2$ where the constants satisfy $c = c_1 + c_2$.
+    $f(x) = g(y) + h(z)$ implies that $f(x) = c$, $g(y) = c_1$ and $h(z) = c_2$ and the constants satisfy $c = c_1 + c_2$.
 \end{lemma}
 \begin{proof}
     $f(x) = g(y) + h(z)$ $\Rightarrow$ $f'(x) = \partial_x (g(y)) = 0$ $\Rightarrow$ $f(x) = \textit{const}$.
