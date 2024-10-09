@@ -1,0 +1,159 @@
+\section{PDEs in cylindrical coordinates}
+
+\subsection{Laplace equation in cylindrical coordinates}
+
+In this section, we will discuss how to solve the Laplace equation $\Delta u = 0$ in cylindrical coordinates. The operator $\Delta$, often refered to as Laplacian, is defined by the following
+\begin{equation}\label{eq.Laplacian}
+    \Delta = \partial_{xx} + \partial_{yy} \quad \textrm{(in 2D)},\qquad\qquad \Delta = \partial_{xx} + \partial_{yy} + \partial_{zz} \quad \textrm{(in 3D)}
+\end{equation}
+
+We consider the cylindrical domain $\{(x, y, z): R_1^2\le x^2 + y^2 \le R_2^2,\,, z\in [-L, L]\}$, for which cylindrical coordinates \((\rho, \phi, z)\) are particularly useful. The transformation from cartesian coordinates \((x, y, z)\) to cylindrical coordinates can simplify the domain to $\{(x, y, z): R_1\le r \le R_2,\,\phi\in [0, 2\pi],\,z\in [-L, L]\}$.
+
+The relationship between Cartesian coordinates \((x, y, z)\) and cylindrical coordinates \((\rho, \phi, z)\) is given by
+\begin{equation}\label{eq.from_cartesian_to_cylindrical}
+    x = \rho \cos(\phi), \quad y = \rho \sin(\phi), \quad z = z.
+\end{equation}
+
+Additionally, we have the inverse relationships,
+\begin{equation}\label{eq.from_cylindrical_to_cartesian}
+    \rho = \sqrt{x^2 + y^2}, \quad \phi = \arctan\left(\frac{y}{x}\right), \quad z = z.
+\end{equation}
+
+To convert PDEs from Cartesian to cylindrical coordinates, we need to express the partial derivatives with respect to \(x\) and \(y\) in terms of \(\rho\), \(\phi\), and \(z\).
+
+The first-order partial derivatives transform as,
+\begin{equation}
+    \begin{gathered}
+        \frac{\partial f}{\partial x} = \cos(\phi) \frac{\partial f}{\partial \rho} - \frac{\sin(\phi)}{\rho} \frac{\partial f}{\partial \phi}
+        \\
+        \frac{\partial f}{\partial y} = \sin(\phi) \frac{\partial f}{\partial \rho} + \frac{\cos(\phi)}{\rho} \frac{\partial f}{\partial \phi}
+        \\
+        \frac{\partial f}{\partial z} = \frac{\partial f}{\partial z}
+    \end{gathered}
+\end{equation}
+
+The Laplacian transforms as
+
+\[
+\frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} = \frac{1}{\rho} \frac{\partial}{\partial \rho} \left( \rho \frac{\partial f}{\partial \rho} \right) + \frac{1}{\rho^2} \frac{\partial^2 f}{\partial \phi^2}
+\]
+
+This expression is crucial for solving PDEs such as the Laplace equation or the wave equation in cylindrical coordinates.
+
+---
+
+Separation of Variables in Cylindrical Coordinates
+
+Separation of variables is a common technique used to solve PDEs, especially in systems with boundary conditions. Let's consider solving the equation
+
+\[
+-\Delta u = \lambda u, \quad R_1 \leq \rho \leq R_2
+\]
+
+where \( \Delta \) is the Laplacian operator in cylindrical coordinates.
+
+Boundary Conditions
+
+We impose the following boundary conditions:
+
+\[
+u(R_1, \phi) = u_1(\phi), \quad u(R_2, \phi) = u_2(\phi)
+\]
+
+We seek solutions of the form:
+
+\[
+u(\rho, \phi) = R(\rho) \Phi(\phi)
+\]
+
+4.2 Angular Equation
+
+Substituting the assumed solution into the Laplace equation, we obtain two separate ODEs. The angular equation is:
+
+\[
+\frac{1}{\Phi} \frac{d^2 \Phi}{d \phi^2} = -m^2
+\]
+
+The general solution to this equation is:
+
+\[
+\Phi(\phi) = A \cos(m \phi) + B \sin(m \phi)
+\]
+
+where \( m \) is an integer due to the periodicity of the angular variable \( \phi \).
+
+4.3 Radial Equation
+
+For the radial component, the equation becomes:
+
+\[
+\frac{d}{d \rho} \left( \rho \frac{dR}{d \rho} \right) - m^2 R = 0
+\]
+
+The general solution depends on the value of \(m\):
+
+- When \( m = 0 \):
+
+\[
+R(\rho) = C \ln(\rho) + D
+\]
+
+- When \( m \neq 0 \):
+
+\[
+R(\rho) = C \rho^m + D \rho^{-m}
+\]
+
+
+
+5. Example: Solving Laplace's Equation in a Disk
+
+Consider a disk of radius \(R\), where we solve Laplace's equation:
+
+\[
+-\left( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} \right) = 0
+\]
+
+with the boundary condition:
+
+\[
+u(R, \phi) = u_1(\phi)
+\]
+
+We apply separation of variables and find that the general solution is:
+
+\[
+u(\rho, \phi) = A_0 + B_0 \ln(\rho) + \sum_{m=1}^{\infty} (C_m \rho^m + D_m \rho^{-m})(A_m \cos(m \phi) + B_m \sin(m \phi))
+\]
+
+For finite values of \( u \) as \( \rho \to 0 \), we set \( D_m = 0 \) for all \( m \). This reduces the general solution to:
+
+\[
+u(\rho, \phi) = A_0 + \sum_{m=1}^{\infty} \rho^m (A_m \cos(m \phi) + B_m \sin(m \phi))
+\]
+
+---
+
+6. Bessel Functions
+
+When solving PDEs in cylindrical coordinates, Bessel functions often arise. Consider the differential equation:
+
+\[
+y'' + \frac{1}{x} y' + \left( 1 - \frac{m^2}{x^2} \right) y = 0
+\]
+
+This is Bessel's equation, and its solutions are known as Bessel functions, denoted by \( J_m(x) \).
+
+The general solution to the radial part of many problems can be written as:
+
+\[
+R(\rho) = J_m(\lambda \rho)
+\]
+
+where \( J_m(\lambda \rho) \) is the Bessel function of the first kind.
+
+---
+
+7. Conclusion
+
+Cylindrical coordinates provide a powerful framework for solving PDEs, particularly in systems with radial symmetry. The method of separation of variables, along with Bessel functions, allows for elegant solutions to complex problems. By transforming Cartesian coordinates to cylindrical, we simplify the equations and exploit the symmetry of the problem.
