@@ -93,11 +93,11 @@ This completes the proof.
 This expression is crucial for solving PDEs such as the Laplace equation or the wave equation in cylindrical coordinates.
 
 \subsection{Separation of Variables for the 2D Laplace equation}
-Separation of variables is a common technique used to solve PDEs, especially in systems with boundary conditions. Let's consider solving the equation
+Separation of variables is a common technique used to solve PDEs, especially in systems with boundary conditions. Let's consider solving the equation on a cylindrical domain
 \begin{equation} 
     \Delta u = 0, \quad R_1 \leq \sqrt{x^2+y^2} \leq R_2
 \end{equation}
-where $\Delta$ is the Laplacian operator in cylindrical coordinates.
+where $\Delta$ is the Laplacian operator.
 
 \subsubsection{The case of $R_1 = 0$ and $R_2 = R$}
 Let us find separated solutions of Laplace's equation $\Delta u = 0$ on the domain $0 \leq \sqrt{x^2+y^2} \leq R$. In terms of cylindrical coordinates, the domain becomes $0\le \rho \le R$, $-\pi \leq \varphi \leq \pi$ and the Laplacian becomes $\frac{1}{\rho} ( \rho u_\rho)_\rho + \frac{1}{\rho^2} u_{\varphi\varphi}$. Assume that $u$ is smooth and is independent of $z$. The boundary value problem should be written as
@@ -186,7 +186,7 @@ $$
 
 
 By introducing the separation constant $\lambda$, we have
-\begin{equation}\label{eq.Laplace_separation_var}
+\begin{equation}\label{eq.Laplace_separation_var_general}
 \left\{\begin{aligned}
     &\Phi^{\prime \prime}+\lambda \Phi=0, \quad \Phi(-\pi)=\Phi(\pi), \quad \Phi^{\prime}(-\pi)=\Phi^{\prime}(\pi), 
     \\
@@ -213,45 +213,432 @@ u(\rho, \varphi)=\left\{
 
 Everything up to this point is the same as the case of $R_1 = 0$, $R_2 = R$. For general annulus domain, we do not have the condition that $|u| < \infty$ as $\rho \rightarrow 0$. Therefore, $D_m$ are not necessarily vanishing and the general solution can be written as
 $$
-u(\rho, \varphi)=\sum_{m = 0}^\infty\left(C_m\rho^m + D_m\rho^{-m}\right)\left(A_m \cos m \varphi+B_m \sin m \varphi\right), \quad m=0,1,2, \ldots
+\begin{aligned}
+    u(\rho, \varphi)=&\sum_{m = 0}^\infty\left(C_m\rho^m + D_m\rho^{-m}\right)\left(A_m \cos m \varphi+B_m \sin m \varphi\right)
+    \\
+    =& \sum_{m = 0}^\infty\left(A^{(1)}_m\rho^m + A^{(2)}_m\rho^{-m}\right)\cos m \varphi + \left(B^{(1)}_m\rho^m + B^{(2)}_m\rho^{-m}\right)\sin m \varphi
+\end{aligned}
+$$
+where in the second line, we introduced the new constants $A^{(1)}_m = C_mA_m$, $A^{(2)}_m = D_mA_m$, $B^{(1)}_m = C_mB_m$ and $B^{(2)}_m = D_mB_m$.
+
+Finally, to decide the coefficients $A^{(1)}_m$, $B^{(1)}_m$, $A^{(2)}_m$ and $B^{(2)}_m$, we use the boundary condition in \eqref{eq.boundary_value_cylindrical_disk}.
+$$
+u_1(\varphi) = u(R_1, \varphi)=\sum_{m = 0}^\infty\left(A^{(1)}_mR_1^m + A^{(2)}_mR_1^{-m}\right)\cos m \varphi + \left(B^{(1)}_mR_1^m + B^{(2)}_mR_1^{-m}\right)\sin m \varphi
+$$
+$$
+u_2(\varphi) = u(R_2, \varphi)=\sum_{m = 0}^\infty\left(A^{(1)}_mR_2^m + A^{(2)}_mR_2^{-m}\right)\cos m \varphi + \left(B^{(1)}_mR_2^m + B^{(2)}_mR_2^{-m}\right)\sin m \varphi
 $$
 
-Finally, to decide the coefficients $A_m$, $B_m$, $C_m$ and $D_m$, we use the boundary condition in \eqref{eq.boundary_value_cylindrical_disk}.
+Therefore, $\alpha^{(1)}_m = A^{(1)}_mR_1^m + A^{(2)}_mR_1^{-m}$ and $\beta^{(1)}_m = B^{(1)}_mR_1^m + B^{(2)}_mR_1^{-m}$ are Fourier coefficients of the function $u_1(\varphi)$; $\alpha^{(2)}_m = A^{(1)}_mR_2^m + A^{(2)}_mR_2^{-m}$ and $\beta^{(2)}_m = B^{(1)}_mR_2^m + B^{(2)}_mR_2^{-m}$ are Fourier coefficients of the function $u_2(\varphi)$, which can be computed using the formula of coefficients \eqref{eq.fourier_coefficient}. After solving $\alpha^{(1)}_m$, $\beta^{(1)}_m$, $\alpha^{(2)}_m$, $\beta^{(2)}_m$, we can solve $A^{(1)}_m$, $B^{(1)}_m$, $A^{(2)}_m$ and $B^{(2)}_m$ from them.
+
+\subsection{The Bessel function}
+
+When applying separation of variables to more general PDEs involving the Laplacian operator, a new class of functions, known as Bessel functions, will emerge.
+
+\subsubsection{Eigenfunctions of the Laplacian}
+Let us find separated solutions more general PDE on a disk $-\Delta u = \lambda u$ on the domain $0 \leq \sqrt{x^2+y^2} \leq R$. In terms of cylindrical coordinates, the domain becomes $0\le \rho \le R$, $-\pi \leq \varphi \leq \pi$ and the Laplacian becomes $\frac{1}{\rho} ( \rho u_\rho)_\rho + \frac{1}{\rho^2} u_{\varphi\varphi}$. Assume that $u$ is smooth and is independent of $z$. The boundary value problem should be written as
+\begin{equation}\label{eq.boundary_value_cylindrical_helmholtz_disk}
+\left\{\begin{aligned}
+    &\Delta u = \frac{1}{\rho} ( \rho u_\rho)_\rho + \frac{1}{\rho^2} u_{\varphi\varphi} = -\lambda u, \quad && 0\leq \rho \leq R, \quad -\pi \leq \varphi \leq \pi
+    \\
+    &u(R, \varphi)=u_2(\varphi), && -\pi \leq \varphi \leq \pi. 
+\end{aligned}\right.
+\end{equation}
+
+By plugging $u(\rho, \varphi)=R(\rho)\, \Phi(\varphi)$ into $\Delta u = -\lambda u$, we obtain
 $$
-u_1(\varphi) = u(R_1, \varphi)=\sum_{m = 0}^\infty \left(C_mR_1^m + D_mR_1^{-m}\right)\left(A_m \cos m \varphi+B_m \sin m \varphi\right), \quad m=0,1,2, \ldots
-$$
-$$
-u_2(\varphi) = u(R_2, \varphi)=\sum_{m = 0}^\infty \left(C_mR_2^m + D_mR_2^{-m}\right)\left(A_m \cos m \varphi+B_m \sin m \varphi\right), \quad m=0,1,2, \ldots
+-\lambda R(\rho)\, \Phi(\varphi)=\frac{1}{\rho}(\rho R^{\prime})^{\prime} \Phi+\frac{1}{\rho^2} R \Phi^{\prime \prime}
 $$
 
-Therefore, $\alpha^1_m = A_m(C_mR_1^m + D_mR_1^{-m})$ and $\beta^1_m = B_m(C_mR_1^m + D_mR_1^{-m})$ are Fourier coefficients of the function $u_1(\varphi)$; $\alpha^2_m = A_m(C_mR_2^m + D_mR_2^{-m})$ and $\beta^2_m = B_m(C_mR_2^m + D_mR_2^{-m})$ are Fourier coefficients of the function $u_2(\varphi)$, which can be computed using the formula of coefficients \eqref{eq.fourier_coefficient}. After solving $\alpha^1_m$, $\beta^1_m$, $\alpha^2_m$, $\beta^2_m$, we can solve $A_m$, $B_m$, $C_m$ and $D_m$ from them.
+Dividing by $R \Phi$ and multiplying by $\rho^2$, we have
+$$
+\frac{\rho(\rho R^{\prime})^{\prime} + \lambda \rho^2 R}{R} = - \frac{\Phi^{\prime \prime}}{\Phi} = m^2
+$$
+where we introduced the separation constant $m^2$, we have
+\begin{equation}\label{eq.helmholtz_separation_var}
+\left\{\begin{aligned}
+    &\Phi^{\prime \prime}+m^2 \Phi=0, \quad \Phi(-\pi)=\Phi(\pi), \quad \Phi^{\prime}(-\pi)=\Phi^{\prime}(\pi), 
+    \\
+    &\rho(\rho R^{\prime})^{\prime} + (\lambda \rho^2 - m^2) R = 0.
+\end{aligned}
+\right.
+\end{equation}
 
-\subsection{Eigenfunctions of Laplacian and the Bessel's function}
+Solve the eigenvalue and eigenfunction $\lambda$ and $\Phi$. We get that $\lambda=m^2$ and $\Phi_m(\varphi)=A_m \cos m \varphi+B_m \sin m \varphi$ ($m=0,1,2, \ldots$). 
 
-6. Bessel Functions
+There is no elementary expression for the solution of the equation of $R(\rho)$. However, if we take $R(\rho) = J_m(\sqrt{\lambda}\rho)$, then the equation can be simplified to 
+\begin{equation}
+    \rho(\rho J_m^{\prime})^{\prime} + (\rho^2 - m^2) J_m = 0.
+\end{equation}
+The solution $J_m(\rho)$ to the above equation satisfying $J_m(0) < \infty$ is refered to as the Bessel function.
 
-When solving PDEs in cylindrical coordinates, Bessel functions often arise. Consider the differential equation:
+Therefore, the separated solutions are obtained as
+\begin{equation}
+u(\rho, \varphi)=J_m(\sqrt{\lambda}\rho)\left(A_m \cos m \varphi+B_m \sin m \varphi\right),\quad m=1,2, \ldots.
+\end{equation}
 
-\[
-y'' + \frac{1}{x} y' + \left( 1 - \frac{m^2}{x^2} \right) y = 0
-\]
+The general solution can be written as
+\begin{equation}\label{eq.helmholtz_general_sol}
+    u(\rho, \varphi)=\sum_{m = 0}^\infty J_m(\sqrt{\lambda}\rho)\left(A_m \cos m \varphi+B_m \sin m \varphi\right)
+\end{equation}
 
-This is Bessel's equation, and its solutions are known as Bessel functions, denoted by $ J_m(x) $.
+Finally, to decide the coefficients $A_m$ and $B_m$, we use the boundary condition in \eqref{eq.boundary_value_cylindrical_disk}.
+\begin{equation}
+    u_2(\varphi) = u(R, \varphi)=\sum_{m = 0}^\infty J_m(\sqrt{\lambda}R)\left(A_m \cos m \varphi+B_m \sin m \varphi\right), \quad m=0,1,2, \ldots
+\end{equation}
 
-The general solution to the radial part of many problems can be written as:
+Therefore, $A_m J_m(\sqrt{\lambda}R)$ and $B_m J_m(\sqrt{\lambda}R)$ are Fourier coefficients of the function $u_2(\varphi)$, which can be computed using the formula of coefficients \eqref{eq.fourier_coefficient}. 
 
-\[
-R(\rho) = J_m(\lambda \rho)
-\]
+\subsubsection{The Bessel function}
 
-where $ J_m(\lambda \rho) $ is the Bessel function of the first kind.
+\begin{definition}[The Bessel function] The following ODE is refered to as the \underline{Bessel equation}
+\begin{equation}\label{eq.Bessel_ODE}
+    x(x J_m^{\prime}(x))^{\prime} + (x^2 - m^2) J_m(x) = 0.
+\end{equation}
+The solution $J_m(x)$ to the above equation satisfying $J_m(0) < \infty$ is refered to as the \underline{Bessel function}. 
+\end{definition}
+\begin{remark}[]
+    The Bessel function defined in this manner has an ambiguity in constants, as any solution of the form $C J_m(x)$ also satisfies the above equation. This ambiguity is resolved by defining $J_m(x)$ using \eqref{eq.Bessel_int_formula} below.
+\end{remark}
 
----
+\begin{lemma}[]
+The Bessel equation is equivalent to the following equation.
+$$
+    J_m^{\prime \prime}(x)+\frac{1}{x} J_m^{\prime}(x)+\left(1-\frac{m^2}{x^2}\right) J_m(x)=0 .
+$$
+\end{lemma}
+\begin{proof}
+    This follows from a simple computation.
+\end{proof}
 
-7. Conclusion
+\begin{proposition}[Integral formula for the Bessel function] We have (up to a constant)
+\begin{equation}\label{eq.Bessel_int_formula}
+    J_m(x)=\frac{1}{2 \pi i^m} \int_{-\pi}^\pi e^{i x \cos \theta} e^{-i m \theta} d \theta, \quad m=0,1,2, \ldots .
+\end{equation}
+\end{proposition}
+\begin{proof}
+Since $e^{iy} = e^{i\rho \cos \varphi}$ is a solution to the equation $-\Delta u = u$, by the expression for the general solution \eqref{eq.helmholtz_general_sol} (taking $\lambda = 1$), we know that 
+\begin{equation}
+    e^{i\rho \cos \varphi} = \sum_{m = 0}^\infty J_m(\rho)\left(A_m \cos m \varphi+B_m \sin m \varphi\right)
+\end{equation}
+Transforming to complex Fourier series, we get 
+\begin{equation}
+    e^{i\rho \cos \varphi} = \sum_{m = 0}^\infty J_m(\rho)\left(\alpha_m e^{i m \varphi}+\beta_m e^{-i m \varphi}\right)
+\end{equation}
+Therefore, $\alpha_m J_m(\rho)$ is the complex Fourier coefficients of the function $e^{i\rho \cos \varphi}$. Using the formula of coefficients, we know that \eqref{eq.fourier_complex_coefficients}
+\begin{equation}
+    \alpha_m J_m(\rho) = \frac{1}{2 \pi} \int_{-\pi}^\pi e^{i\rho \cos \varphi} e^{- i m \varphi} d\varphi
+\end{equation}
+Therefore, $J_m(\rho)$ is proportional to $\frac{1}{2 \pi} \int_{-\pi}^\pi e^{i\rho \cos \varphi} e^{- i m \varphi} d\varphi$. If we choose the constant $\alpha_m = i^{m}$, then $J_m(\rho)$ is a real value function \textbf{TODO: add a proof to this}. Under this choice of constants, we prove \eqref{eq.Bessel_int_formula}. 
+\end{proof}
 
-Cylindrical coordinates provide a powerful framework for solving PDEs, particularly in systems with radial symmetry. The method of separation of variables, along with Bessel functions, allows for elegant solutions to complex problems. By transforming Cartesian coordinates to cylindrical, we simplify the equations and exploit the symmetry of the problem.
+\textbf{TODO: add a picture}
+
+\begin{lemma}[] We have
+\begin{equation}\label{eq.Bessel_value_at_zero}
+    J_m(0) = \left\{\begin{aligned}
+    &1,\quad &&\textit{if } m = 0,
+    \\
+    &0, &&\textit{if } m \neq 0.
+\end{aligned}
+\right.
+\end{equation}
+% \begin{equation}\label{eq.derivative_at_zero}
+%     J'_m(0) = \left\{\begin{aligned}
+%     &\frac{1}{2},\quad &&\textit{if } m = 1,
+%     \\
+%     &0, &&\textit{if } m \neq 0.
+% \end{aligned}
+% \right.
+% \end{equation}
+\end{lemma}
+\begin{proof}
+    \textbf{TODO: }
+\end{proof}
+
+\subsubsection{The recurrence formula}
+\begin{proposition}[]
+The following recurrence formula holds.
+\begin{equation}\label{eq.Bessel_recursion_1}
+    J_m(x)=\frac{x}{2 m}\left[J_{m-1}(x)+J_{m+1}(x)\right], \quad m=1,2, \ldots .
+\end{equation}
+\begin{equation}\label{eq.Bessel_recursion_2}
+    J_m^{\prime}(x)=\frac{1}{2}\left[J_{m-1}(x)-J_{m+1}(x)\right], \quad m=0,1,2, \ldots .
+\end{equation}
+\begin{equation}\label{eq.Bessel_recursion_3}
+    \frac{d}{d x}\left[x^m J_m(x)\right]=x^m J_{m-1}(x), \quad m=1,2, \cdots
+\end{equation}
+\begin{equation}\label{eq.Bessel_recursion_4}
+    \frac{d}{d x}\left[x^{-m} J_m(x)\right]=-x^{-m} J_{m+1}(x), \quad m=0,1,2, \cdots
+\end{equation}
+\end{proposition}
+\begin{proof}
+    \textbf{TODO: } By considering $[(3.5)+(m / x)(3.4)] x^m$ and $[(3.5)-(m / x)(3.4)] x^{-m}$, we have
+\end{proof}
+
+\subsubsection{The orthogonality relation}
+\begin{proposition}[]
+Let $\left\{x_n\right\}$ be the nonnegative solutions of the equation
+\begin{equation}\label{eq.Bessel_roots}
+    J_m(x_n) \cos \beta+x_n J_m^{\prime}(x_n) \sin \beta=0,
+\end{equation}
+where $m \geq 0$ and $0 \leq \beta \leq \pi / 2$.
+
+Then we have the following orthogonality relations.
+\begin{equation}\label{eq.Bessel_orthogonality_1}
+    \int_0^1 J_m\left(x x_{n_1}\right) J_m\left(x x_{n_2}\right) x d x=0, n_1 \neq n_2
+\end{equation}
+\begin{equation}\label{eq.Bessel_orthogonality_2}
+    \left\{\begin{aligned}
+    &\int_0^1 J_m\left(x x_n\right)^2 x d x=\frac{1}{2} J_{m+1}(x_n)^2, && \text {if } \beta=0, 
+    \\
+    &\int_0^1 J_m\left(x x_n\right)^2 x d x=\frac{x_n^2-m^2+\cot ^2 \beta}{2 x_n^2} J_m(x_n)^2, && \text{if } 0<\beta \leq \frac{\pi}{2} .
+    \end{aligned}\right.
+\end{equation}
+\end{proposition}
+\begin{proof} $J_m\left(x x_{n}\right)$ are solutions of the following equation. 
+\begin{equation}\label{eq.proof_Bessel_orthogonality_1}
+    \rho(\rho R^{\prime})^{\prime} + (x_n^2 \rho^2 - m^2) R = 0.
+\end{equation}
+
+If we view $m$ as fixed, then the above equation is a Sturm-Liouville eigenvalue problem with eigenvalues $\lambda=x_n^2$. From the Sturm-Liouville theory, the first equation \eqref{eq.Bessel_orthogonality_1} (orthogonality) holds. For the second and third equations \eqref{eq.Bessel_orthogonality_2}, we multiply \eqref{eq.proof_Bessel_orthogonality_1} by $2 R^{\prime}$.
+$$
+2 \rho R^{\prime}\, (\rho R^{\prime})^{\prime} +\left(x_n^2 \rho^2-m^2\right) 2 R R^{\prime}=0
+$$
+
+We can rewrite this as
+$$
+\left[\left(\rho R^{\prime}\right)^2\right]^{\prime}+\left(x_n^2 \rho^2-m^2\right)\left(R^2\right)^{\prime}=0
+$$
+
+By integrating both sides and using integration by parts, we get
+$$
+\left.\left(\rho R^{\prime}\right)^2\right|_{\rho=1}-\left.\left(\rho R^{\prime}\right)^2\right|_{\rho=0}+\left.\left(x_n^2 \rho^2-m^2\right) R^2\right|_0 ^1-\int_0^1 2 x_n^2 \rho R^2 d \rho=0 .
+$$
+
+Note that $R(\rho)=J_m\left(\rho x_n\right)$ and $R^{\prime}(\rho)=\left.x_m J_m^{\prime}(x)\right|_{x=\rho x_n}$. Hence $R(0)=J_m(0)=0$ $(m=1,2, \cdots)$ by \eqref{eq.Bessel_value_at_zero}. We obtain
+$$
+\left[x_n J_m^{\prime}(x_n)\right]^2+\left(x_n^2-m^2\right) J_m(x_n)^2-2 x_n^2 \int_0^1 J_m\left(\rho x_n\right)^2 \rho d \rho=0 .
+$$
+
+
+Therefore, when $\beta=0$ (in other words, $J_m(x_n)=0$), we have
+$$
+\int_0^1 J_m\left(\rho x_n\right)^2 \rho d \rho=\frac{x_n^2\left[J_m^{\prime}(x_n)\right]^2}{2 x_n^2}=\frac{\left[\frac{m}{x_n} J_m(x_n)-J_{m+1}(x_n)\right]^2}{2}=\frac{J_{m+1}(x_n)^2}{2}
+$$
+where we applied the recurrence formula \eqref{eq.Bessel_recursion_4}. (Notice that $\frac{d}{d x}\left[x^{-m} J_m(x)\right]=-x^{-m} J_{m+1}(x)$ $\Leftrightarrow$ $J_m^{\prime}(x) = \frac{m}{x} J_m(x)-J_{m+1}(x)$).
+
+When $0<\beta \leq \pi / 2$, or in other words, $J_m(x_n) \cos \beta+x_n J_m^{\prime}(x_n)\sin \beta=0$ (which implies that $J_m^{\prime}(x_n) = -\frac{1}{x_n} J_m(x_n) \cot \beta$), we have
+
+$$
+\begin{aligned}
+\int_0^1 J_m\left(\rho x_n\right)^2 \rho d \rho & =\frac{x_n^2\left[J_m^{\prime}(x_n)\right]^2+\left(x_n^2-m^2\right) J_m(x_n)^2}{2 x_n^2} 
+\\
+& =\frac{x_n^2\left[\frac{-1}{x_n} J_m(x_n) \cot \beta\right]^2+\left(x_n^2-m^2\right) J_m(x_n)^2}{2 x_n^2} 
+\\
+& =\frac{\left(x_n^2-m^2+\cot ^2 \beta\right) J_m(x_n)^2}{2 x_n^2}
+\end{aligned}
+$$
+This completes the proof of \eqref{eq.Bessel_orthogonality_2}.
+\end{proof}
+
+Now we introduce the notion of Fourier--Bessel series
+
+\begin{definition}[Fourier-Bessel series]
+    Let us consider the expansion of a piecewise smooth function $f(x)$, $0<x<1$, in a series of the form
+$$
+f(x)=\sum_{n=1}^{\infty} A_n J_m\left(x x_n\right), \quad 0<x<1,
+$$
+where $\left\{x_n\right\}$ are the nonnegative solutions of $J_m(x) \cos \beta+x J_m^{\prime}(x) \sin \beta=0$. This is called a \underline{Fourier--Bessel series}. 
+\end{definition}
+
+We have the following theorem.
+
+\begin{theorem}[]
+Let $m \geq 0$, $0 \leq \beta \leq \pi / 2$, and let $\left\{x_n: n \geq 1\right\}$ be the nonnegative solutions of \eqref{eq.Bessel_roots}. If $f(x)$, defined on $0<x<1$, is a piecewise smooth function, then $f(x)$ can be expanded in terms of Fourier--Bessel series
+$$
+    f(x)=\sum_{n=1}^{\infty} A_n J_m\left(x x_n\right), \quad 0<x<1,
+$$
+where the coefficients $A_n$ can be computed by
+$$
+    A_n=\frac{\int_0^1 f(x) J_m\left(x x_n\right) x d x}{\int_0^1 J_m\left(x x_n\right)^2 x d x}, \quad n=1,2, \cdots
+$$
+Moreover, the series $\sum_{n=1}^{\infty} A_n J_m\left(x x_n\right)$ converges for each $x \in[0,1]$ to $\frac{1}{2}[f(x+0)+f(x-0)]$ for $0<x<1$.
+\end{theorem}
+\begin{proof}
+    \textbf{TODO: } By multiplying (3.10) by $J_m\left(x x_n\right)$ and integrating both sides, we obtain
+\end{proof}
+
+\begin{example}[]
+Let us compute the Fourier--Bessel series of the function $f(x)=1$, $0<x<1$, where $m=0$ and $\beta=0$. We have $1=\sum_{n=1}^{\infty} A_n J_0\left(x x_n\right)$, where $J_0(x_n)=0$ and
+$$
+A_n=\frac{\int_0^1 J_m\left(x x_n\right) x d x}{\int_0^1 J_m\left(x x_n\right)^2 x d x}, \quad n=1,2, \cdots
+$$
+
+First applying a change of variable $t = xx_n$, then applying \eqref{eq.Bessel_recursion_3} and \eqref{eq.Bessel_orthogonality_2}, we obtain
+$$
+A_n=\frac{\frac{1}{x_n^2} \int_0^{x_n} t J_0(t) d t}{\int_0^1 J_0\left(x x_n\right)^2 x d x}\overset{\eqref{eq.Bessel_recursion_3}}{=}\frac{\left.\frac{1}{x_1^2} t J_1(t)\right|_0 ^{x_n}}{\int_0^1 J_0\left(x x_n\right)^2 x d x}\overset{\eqref{eq.Bessel_orthogonality_2}}{=}\frac{\frac{1}{x_n} J_1(x_n)}{\frac{1}{2} J_1(x_n)^2}=\frac{2}{x_n J_1(x_n)} .
+$$
+
+Therefore,
+$$
+1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n\right)}{x_n J_1(x_n)}.
+$$
+\end{example}
+
+
+\subsection{The Taylor series}
+
+Finally, we find the Taylor series solution of the Bessel's equation $x(x J_m^{\prime}(x))^{\prime} + (x^2 - m^2) J_m(x) = 0$ \eqref{eq.Bessel_ODE}. Let $J_m(x)=\sum_{n=0}^{\infty} a_n x^{n+\gamma}$ ($a_0 \neq 0$, $\gamma \geq 0$) be a solution to \eqref{eq.Bessel_ODE}. Inserting this expansion into \eqref{eq.Bessel_ODE}, we obtain
+$$
+\left(\gamma^2-m^2\right) a_0 x^\gamma+\left((1+\gamma)^2-m^2\right) a_1 x^{\gamma+1}+\sum_{n=2}^{\infty}\left[\left((n+\gamma)^2-m^2\right) a_n+a_{n-2}\right] x^{n+\gamma}=0 .
+$$
+Hence,
+$$
+\gamma=m, \quad a_1=0, \quad a_n=\frac{-a_{n-2}}{n(n+2 m)}(n \geq 2)
+$$
+From this, we obtain
+$$
+J_m(x)=a_0 x^m\left[1+\sum_{n=1}^{\infty} \frac{(-1)^n x^{2 n}}{2(2+2 m) 4(4+2 m) \cdots 2 n(2 n+2 m)}\right]
+$$
+
+Let us choose $a_0=2^m / m!$. Then, we have
+$$
+J_m(x)=\sum_{n=0}^{\infty} \frac{(-1)^n x^{2 n+m}}{2^{m+2 n}(m+n)!n!}
+$$
+
 
 \subsection{The vibrating drumhead}
 
+Let us consider small transverse vibrations of a circular membrane.
+$$
+\left\{\begin{aligned}
+&u_{tt}=c^2 \Delta u=c^2\left(u_{\rho \rho}+\frac{1}{\rho} u_\rho+\frac{1}{\rho^2} u_{\varphi \varphi}\right), && 0 \leq \rho<a, \quad t>0, 
+\\
+&u(\rho, \varphi, t)=0, && \rho=a, \quad t>0, 
+\\
+&u(\rho, \varphi, 0)=1, \quad u_t(\rho, \varphi, 0)=0, && 0 \leq \rho<a .
+\end{aligned}\right.
+$$
+We look for separated solutions in the form
+$$
+u(\rho, \varphi, t)=R(\rho) \Phi(\varphi) T(t)
+$$
+
+
+By introducing separation constants as $-\lambda=\left(1 / c^2\right) T^{\prime \prime} / T$ and $-\mu=\Phi^{\prime \prime} / \Phi$, we obtain
+
+$$
+\begin{array}{r}
+\Phi^{\prime \prime}(\varphi)+\mu \Phi(\varphi)=0, \quad \Phi(-\pi)=\Phi(\pi), \quad \Phi^{\prime}(-\pi)=\Phi^{\prime}(\pi) \\
+R^{\prime \prime}(\rho)+\frac{1}{\rho} R^{\prime}(\rho)+\left(\lambda-\frac{\mu}{\rho^2}\right) R(\rho)=0, \quad R(a)=0 \\
+T^{\prime \prime}(t)+\lambda c^2 T(t)=0 .
+\end{array}
+$$
+
+
+In (3.13), nontrivial solutions are obtained when (i) $\mu>0, \sqrt{\mu}=1,2, \cdots$, and (ii) $\mu=0:$
+
+$$
+\Phi(\varphi)=A \cos m \varphi+B \sin m \varphi, \quad m=0,1,2, \cdots
+$$
+
+
+With $\mu=m^2(m=0,1,2, \cdots)$, we obtain $R(\rho)=J_n(\rho \sqrt{\lambda})$. For $R(a)=0$, we obtain $\sqrt{\lambda}=x_n^{(m)} / a$ where $x_m^{(m)}>0, J_m\left(x_m^{(m)}\right)=0$. The separated solutions are obtained as
+
+$$
+\pi(\rho, \varphi, t)=J_m\left(\frac{\rho x_m^{(m)}}{a}\right)(A \cos m \varphi+B \sin m \varphi)\left(\bar{A} \cos \frac{c t x_n^{(m)}}{a}+\bar{B} \sin \frac{c t x_n^{(m)}}{a}\right) .
+$$
+
+
+We will now take the initial conditions into account. The general solution is given as a linear combination (superposition) of (3.16). To satisfy $u_t(\rho, \varphi, 0)=0$, we set $\hat{B}=0$. Now the solution is written as
+
+$$
+u(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left\{\left[A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \cos m \varphi+\left[B_{m m} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \sin m \varphi\right\} \cos \frac{c t x_n^{(m)}}{a}
+$$
+
+
+Consider the Fourier series $m(\rho, \varphi, 0)=1=A_0+\sum_{m=1}^{\infty} A_m \cos (m x)+B_m \sin (m x)$. We can readily find $A_0=1, \quad A_m=B_m=0 \quad(m \geq 1)$. (Of course we can also obtain them as $A_0=\frac{1}{2 \pi} \int_{-\pi}^\pi 1 d \pi, A_m=\frac{1}{\pi} \int_{-\pi}^\pi \cos (m x) d x$, and $B_m=\frac{1}{\pi} \int_{-\pi}^\pi \sin (m x) d x$.) Therefore,
+
+$$
+A_{m n}=B_{m n}=0, \quad \text { for } \quad m \geq 1,
+$$
+
+and
+
+$$
+u(\rho, \varphi, t)=\sum_{n=1}^{\infty} A_{0 n} J_0\left(\frac{\rho x_n^{(0)}}{a}\right) \cos \frac{c t x_n^{(0)}}{a} .
+$$
+
+
+In Example 2, we calculated the Fourier-Bessel expansion $1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(0)}\right)}{x_n^{(0)} J_1\left(x_n^{(0)}\right)}$. By comparison, finally we obtain
+
+$$
+u(\rho, \varphi, t)=2 \sum_{n=1}^{\infty} \frac{1}{x_n^{(0)} J_1\left(x_n^{(0)}\right)} J_0\left(\frac{\rho x_n^{(0)}}{a}\right) \cos \frac{c t x_n^{(0)}}{a} .
+$$
+
+
 \subsection{Heat flow in the infinite cylinder}
+
+Heat flow in the infinite cylinder ${ }^4$
+
+Let us consider the heat transfer in the infinite cylinder $0 \leq \rho<\rho_{\max }$. We will solve the heat equation in polar coordinates
+
+$$
+\left\{\begin{aligned}
+u_t=K \nabla^2 u, & t>0, \quad 0 \leq \rho<\rho_{\max }, \quad-\pi \leq \varphi \leq \pi, \\
+u\left(\rho_{\max }, \varphi, t\right)=T_1, & t>0, \quad-\pi \leq \varphi \leq \pi, \\
+u(\rho, \varphi, 0)=T_2, & 0 \leq \rho<\rho_{\max }, \quad-\pi \leq \varphi \leq \pi,
+\end{aligned}\right.
+$$
+
+where $T_1$ and $T_2$ are positive constants.
+
+Step 1
+To find the steady-state solution, we try $U(\rho)$ because the b. c. is independent of $\varphi$.
+
+$$
+K \nabla^2 U=K\left(\frac{\partial^2 U}{\partial \rho^2}+\frac{1}{\rho} \frac{\partial U}{\partial \rho}+\frac{1}{\rho^2} \frac{\partial^2 U}{\partial \varphi^2}\right)=K\left(U^{\prime \prime}+\frac{1}{\rho} U^{\prime}\right)=0 .
+$$
+
+
+The general solution is obtained as
+
+$$
+U(\rho)=A+B \ln \rho .
+$$
+
+
+Let us exclude the second term and set $B=0$ (otherwise $U(0)$ diverges and the initial condition in Step 2 will also diverge). To satisfy $U\left(\rho_{\max }\right)=T_1$, we choose $A=T_1$. We thus obtain
+
+$$
+U(\rho)=T_1 .
+$$
+
+Step 2
+Define $v(\rho, \varphi, t)=u(\rho, \varphi, t)-U(\rho)$. We have
+
+$$
+\left\{\begin{aligned}
+v_t=K \nabla^2 v, & t>0, \quad 0 \leq \rho<\rho_{\max }, \quad-\pi \leq \varphi \leq \pi, \\
+v\left(\rho_{\max }, \varphi, t\right)=0, & t>0, \quad-\pi \leq \varphi \leq \pi, \\
+v(\rho, \varphi, 0)=T_2-U(\rho), & 0 \leq \rho<\rho_{\max }, \quad-\pi \leq \varphi \leq \pi,
+\end{aligned}\right.
+$$
+
+
+Step 3
+Using separation of variables with $u(\rho, \varphi, t)=R(\rho) \Phi(\varphi) T(t)$, we obtain
+
+$$
+u(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty} J_m\left(\frac{\rho x_n^{(m)}}{\rho_{\max }}\right)\left(A_{m n} \cos m \varphi+B_{m n} \sin m \varphi\right) \exp \left[-\frac{\left(x_n^{(m)}\right)^2 K t}{\rho_{\max }^2}\right] .
+$$
+
+
+Noting that $1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n\right)}{x_n J_1\left(x_n\right)}\left(0<x<1, J_0\left(x_n\right)=0\right)$, the solution is obtained as
+
+$$
+u(\rho, \varphi, t)=T_1+\sum_{n=1}^{\infty} A_n J_0\left(\frac{\rho x_n}{\rho_{\max }}\right) \exp \left[-\frac{x_n^2 K t}{\rho_{\max }^2}\right],
+$$
+
+where $A_n=\frac{2\left(T_2-T_1\right)}{x_n J_1\left(x_n\right)}, J_0\left(x_n\right)=0, n=1,2, \cdots$.
