@@ -353,7 +353,24 @@ Therefore, $J_m(\rho)$ is proportional to $\frac{1}{2 \pi} \int_{-\pi}^\pi e^{i\
 % \end{equation}
 \end{lemma}
 \begin{proof}
-    \textbf{TODO: }
+Let $x = 0$ in \eqref{eq.Bessel_int_formula}. 
+\begin{equation}\label{eq.proof_Bessel_value_at_zero_1}
+    \begin{split}
+    J_m(\omega) =& \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{i0 \cdot \cos \varphi} e^{-im \varphi} \, d\varphi
+    \\
+    =& \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi
+    \end{split}
+\end{equation}
+
+Evaluating this integral gives
+\begin{equation}\label{eq.proof_Bessel_value_at_zero_2}
+    J_m(\omega)=\frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi= 
+    \begin{cases} 
+    1 & \text{if } m = 0 \\ 
+    0 & \text{if } m \neq 0 
+    \end{cases}
+\end{equation}
+This proof uses the orthogonality of Fourier series \eqref{eq.Fourier_complex_orthogonality} by taking $n = 0$ and $L = 2\pi$.
 \end{proof}
 
 \subsubsection{The recurrence formula}
@@ -372,59 +389,134 @@ The following recurrence formula holds.
     \frac{d}{d x}\left[x^{-m} J_m(x)\right]=-x^{-m} J_{m+1}(x), \quad m=0,1,2, \cdots
 \end{equation}
 \end{proposition}
-\begin{proof}
-    \textbf{TODO: } By considering $[(3.5)+(m / x)(3.4)] x^m$ and $[(3.5)-(m / x)(3.4)] x^{-m}$, we have
+\begin{proof} Let us start with the proof of \eqref{eq.Bessel_recursion_1}
+\begin{equation}\label{eq.proof_Bessel_recursion_1}
+\begin{split}
+    J_{m-1}(x) + J_{m+1}(x) =& \frac{1}{2\pi i^m} \left(i\int_{-\pi}^{\pi} e^{ix \cos \varphi} e^{-i(m-1) \varphi} d\varphi - i\int_{-\pi}^{\pi} e^{ix \cos \varphi} e^{-i(m+1) \varphi} d\varphi\right)
+    \\
+    =& \frac{1}{2\pi i^m} \int_{-\pi}^{\pi} e^{ix \cos \varphi} e^{-im \varphi} \underbrace{\left(ie^{i \varphi} - ie^{-i \varphi}\right)}_{2(\cos \varphi)'}d\varphi
+    \\
+    =& \frac{2}{2\pi i^m} \int_{-\pi}^{\pi} \underbrace{e^{ix \cos \varphi}(\cos \varphi)'}_{\frac{1}{ix}\left(e^{ix \cos \varphi}\right)'} e^{-im \varphi} d\varphi
+    \\
+    =& \frac{2}{ix}\frac{1}{2\pi i^m} \int_{-\pi}^{\pi} \left(e^{ix \cos \varphi}\right)' e^{-im \varphi} d\varphi.
+\end{split}
+\end{equation}
+Apply the integration by parts,
+\begin{equation}\label{eq.proof_Bessel_recursion_2}
+\begin{split}
+    J_{m-1}(x) + J_{m+1}(x) =& \frac{2}{ix}\frac{1}{2\pi i^m}\bigg(\underbrace{\left[\left(e^{ix \cos \varphi} e^{-im \varphi} \right)\right]_{-\pi}^{\pi}}_{= 0\ \textrm{by periodicity}} - \int_{-\pi}^{\pi} e^{ix \cos \varphi} \left(e^{-im \varphi}\right)' d\varphi \bigg)
+    \\
+    =& \frac{2m}{x}\frac{1}{2\pi i^m} \int_{-\pi}^{\pi} e^{ix \cos \varphi} e^{-im \varphi} d\varphi = \frac{2m}{x}J_m(x).
+\end{split}
+\end{equation}
+
+Here is the proof of \eqref{eq.Bessel_recursion_2}
+\begin{equation}\label{eq.proof_Bessel_recursion_3}
+\begin{split}
+    J_m'(x) =& \frac{1}{2\pi i^m} \int_{-\pi}^{\pi} \frac{d}{dx} \left( e^{ix \cos \varphi} \right) e^{-im \varphi} d\varphi
+    \\
+    =& \frac{1}{2\pi i^m} \int_{-\pi}^{\pi} e^{ix \cos \varphi} i\cos \varphi \, e^{-im \varphi} d\varphi
+    \\
+    =& \frac{1}{2\pi i^m} \int_{-\pi}^{\pi} e^{ix \cos \varphi} i\frac{e^{i\varphi} + e^{-i\varphi}}{2} \, e^{-im \varphi} d\varphi
+    \\
+    =& \frac{1}{2} \left( \frac{1}{2\pi i^{m-1}} \int_{-\pi}^{\pi} e^{ix \cos \varphi} e^{-i(m-1)\varphi} d\varphi - \frac{1}{2\pi i^{m+1}} \int_{-\pi}^{\pi} e^{ix \cos \varphi} e^{-i(m+1)\varphi} d\varphi \right)
+    \\
+    =& \frac{1}{2} (J_{m-1}(x) - J_{m+1}(x)).
+\end{split}
+\end{equation}
+
+Here is the proof of \eqref{eq.Bessel_recursion_3}. Consider $\eqref{eq.Bessel_recursion_1}\times mx^{m-1} + \eqref{eq.Bessel_recursion_2}\times x^m$,
+\begin{equation}\label{eq.proof_Bessel_recursion_4}
+\begin{split}
+( x^m J_m )' =& m x^{m-1} J_m + x^m J_m'
+\\
+=& m x^{m-1} \frac{x}{2m} ( J_{m-1} + J_{m+1} ) + \frac{x^m}{2} ( J_{m-1} - J_{m+1} )
+\\
+=& \frac{x^m}{2} (J_{m-1} + J_{m+1} + J_{m-1} - J_{m+1})
+\\
+=& x^m J_{m-1}.
+\end{split}
+\end{equation}
+
+Here is the proof of \eqref{eq.Bessel_recursion_4}. Consider $-\eqref{eq.Bessel_recursion_1}\times mx^{-m-1} + \eqref{eq.Bessel_recursion_2}\times x^{-m}$,
+\begin{equation}\label{eq.proof_Bessel_recursion_5}
+\begin{split}
+(x^{-m} J_m)' =& -m x^{-m-1} J_m + x^{-m} J_m' 
+\\
+=& -m x^{-m-1} \frac{x}{2m} ( J_{m-1} + J_{m+1} ) + \frac{x^{-m}}{2} ( J_{m-1} - J_{m+1} )
+\\
+=& \frac{x^{-m}}{2} (-J_{m-1} - J_{m+1} + J_{m-1} - J_{m+1} )
+\\
+=& - x^{-m} J_{m+1}.
+\end{split}
+\end{equation}
+Therefore, the proof has been finished.
 \end{proof}
 
 \subsubsection{The orthogonality relation}
+Consider the following Sturm-Liouville eigenvalues problem,
+\begin{equation}\label{eq.Bessel_SL_problem}
+\left\{
+\begin{aligned}
+    &x(x R')' + (\lambda x^2 - m^2)R = 0,
+    \\
+    &R(0) < \infty,\ R(1)\cos\beta + R'(1)\sin\beta = 0.
+\end{aligned}
+\right.
+\end{equation}
+We know that $R(x) = J_m(\sqrt{\lambda}x)$ is a solution to the above equation. Using the boundary condition, we know that $R(1)\cos\beta + R'(1)\sin\beta = 0$ $\Rightarrow$ $J_m(\sqrt{\lambda})\cos\beta + \sqrt{\lambda}J_m'(\sqrt{\lambda})\sin\beta = 0$. Therefore, if $\left\{x_n^{(m)}\right\}$ are the nonnegative solutions of the equation
+\begin{equation}
+    J_m\left(x_n^{(m)}\right) \cos \beta+x_n^{(m)} J_m^{\prime}\left(x_n^{(m)}\right) \sin \beta=0.
+\end{equation}
+Then $\lambda_n = \left(x_n^{(m)}\right)^2$. Applying the Sturm-Liouville theorem Theorem \ref{th.SL_1}, we get the following proposition.
+
 \begin{proposition}[]
-Let $\left\{x_n\right\}$ be the nonnegative solutions of the equation
+Let $\left\{x_n^{(m)}\right\}$ be the nonnegative solutions of the equation
 \begin{equation}\label{eq.Bessel_roots}
-    J_m(x_n) \cos \beta+x_n J_m^{\prime}(x_n) \sin \beta=0,
+    J_m\left(x_n^{(m)}\right) \cos \beta+x_n^{(m)} J_m^{\prime}\left(x_n^{(m)}\right) \sin \beta=0,
 \end{equation}
 where $m \geq 0$ and $0 \leq \beta \leq \pi / 2$.
 
 Then we have the following orthogonality relations.
 \begin{equation}\label{eq.Bessel_orthogonality_1}
-    \int_0^1 J_m\left(x x_{n_1}\right) J_m\left(x x_{n_2}\right) x d x=0,\ n_1 \neq n_2
+    \int_0^1 J_m\left(x x_{n_1}^{(m)}\right) J_m\left(x x_{n_2}^{(m)}\right) x d x=0,\ n_1 \neq n_2
 \end{equation}
 \begin{equation}\label{eq.Bessel_orthogonality_2}
     \left\{\begin{aligned}
-    &\int_0^1 J_m\left(x x_n\right)^2 x d x=\frac{1}{2} J_{m+1}(x_n)^2, && \text {if } \beta=0, 
+    &\int_0^1 J_m\left(x x_n^{(m)}\right)^2 x d x=\frac{1}{2} J_{m+1}\left(x_n^{(m)}\right)^2, && \text {if } \beta=0, 
     \\
-    &\int_0^1 J_m\left(x x_n\right)^2 x d x=\frac{x_n^2-m^2+\cot ^2 \beta}{2 x_n^2} J_m(x_n)^2, && \text{if } 0<\beta \leq \frac{\pi}{2} .
+    &\int_0^1 J_m\left(x x_n^{(m)}\right)^2 x d x=\frac{x_n^2-m^2+\cot ^2 \beta}{2 x_n^2} J_m\left(x_n^{(m)}\right)^2, && \text{if } 0<\beta \leq \frac{\pi}{2} .
     \end{aligned}\right.
 \end{equation}
 \end{proposition}
-\begin{proof} $J_m\left(x x_{n}\right)$ are solutions of the following equation. 
+\begin{proof} For the ease of notation, let us drop the superscript in $x_n^{(m)}$. We know that $J_m\left(x x_{n}\right)$ are solutions of the following equation. 
 \begin{equation}\label{eq.proof_Bessel_orthogonality_1}
-    \rho(\rho R^{\prime})^{\prime} + (x_n^2 \rho^2 - m^2) R = 0.
+    x(x R^{\prime})^{\prime} + (x_n^2 x^2 - m^2) R = 0.
 \end{equation}
-
-If we view $m$ as fixed, then the above equation is a Sturm-Liouville eigenvalue problem with eigenvalues $\lambda=x_n^2$. From the Sturm-Liouville theory, the first equation \eqref{eq.Bessel_orthogonality_1} (orthogonality) holds. For the second and third equations \eqref{eq.Bessel_orthogonality_2}, we multiply \eqref{eq.proof_Bessel_orthogonality_1} by $2 R^{\prime}$.
+If we view $m$ as fixed, then the above equation is a Sturm-Liouville eigenvalue problem with eigenvalues $\lambda=x_n^2$, $s(x) = \rho(x) = x$ and $q(x) = m^2$. From the Sturm-Liouville theory (Theorem \ref{th.SL_1}), the first equation \eqref{eq.Bessel_orthogonality_1} (orthogonality) holds. For the second and third equations \eqref{eq.Bessel_orthogonality_2}, we multiply \eqref{eq.proof_Bessel_orthogonality_1} by $2 R^{\prime}$.
 $$
-2 \rho R^{\prime}\, (\rho R^{\prime})^{\prime} +\left(x_n^2 \rho^2-m^2\right) 2 R R^{\prime}=0
+2 x R^{\prime}\, (x R^{\prime})^{\prime} +\left(x_n^2 x^2-m^2\right) 2 R R^{\prime}=0
 $$
 
 We can rewrite this as
 $$
-\left[\left(\rho R^{\prime}\right)^2\right]^{\prime}+\left(x_n^2 \rho^2-m^2\right)\left(R^2\right)^{\prime}=0
+\left[\left(x R^{\prime}\right)^2\right]^{\prime}+\left(x_n^2 x^2-m^2\right)\left(R^2\right)^{\prime}=0
 $$
 
 By integrating both sides and using integration by parts, we get
 $$
-\left.\left(\rho R^{\prime}\right)^2\right|_{\rho=1}-\left.\left(\rho R^{\prime}\right)^2\right|_{\rho=0}+\left.\left(x_n^2 \rho^2-m^2\right) R^2\right|_0 ^1-\int_0^1 2 x_n^2 \rho R^2 d \rho=0 .
+\left.\left(x R^{\prime}\right)^2\right|_{x=1}-\left.\left(x R^{\prime}\right)^2\right|_{x=0}+\left.\left(x_n^2 x^2-m^2\right) R^2\right|_0 ^1-\int_0^1 2 x_n^2 x R^2 d x=0 .
 $$
 
-Note that $R(\rho)=J_m\left(\rho x_n\right)$ and $R^{\prime}(\rho)=\left.x_m J_m^{\prime}(x)\right|_{x=\rho x_n}$. Hence $R(0)=J_m(0)=0$ $(m=1,2, \cdots)$ by \eqref{eq.Bessel_value_at_zero}. We obtain
+Note that $R(x)=J_m\left(x x_n\right)$ and $R^{\prime}(x)=x_m J_m^{\prime}(x x_n)$. Hence $R(0)=J_m(0)=0$ $(m=1,2, \cdots)$ by \eqref{eq.Bessel_value_at_zero}. We obtain
 $$
-\left[x_n J_m^{\prime}(x_n)\right]^2+\left(x_n^2-m^2\right) J_m(x_n)^2-2 x_n^2 \int_0^1 J_m\left(\rho x_n\right)^2 \rho d \rho=0 .
+\left[x_n J_m^{\prime}(x_n)\right]^2+\left(x_n^2-m^2\right) J_m(x_n)^2-2 x_n^2 \int_0^1 J_m\left(x x_n\right)^2 x d x=0 .
 $$
 
 
 Therefore, when $\beta=0$ (in other words, $J_m(x_n)=0$), we have
 $$
-\int_0^1 J_m\left(\rho x_n\right)^2 \rho d \rho=\frac{x_n^2\left[J_m^{\prime}(x_n)\right]^2}{2 x_n^2}=\frac{\left[\frac{m}{x_n} J_m(x_n)-J_{m+1}(x_n)\right]^2}{2}=\frac{J_{m+1}(x_n)^2}{2}
+\int_0^1 J_m\left(x x_n\right)^2 x d x=\frac{x_n^2\left[J_m^{\prime}(x_n)\right]^2}{2 x_n^2}=\frac{\left[\frac{m}{x_n} J_m(x_n)-J_{m+1}(x_n)\right]^2}{2}=\frac{J_{m+1}(x_n)^2}{2}
 $$
 where we applied the recurrence formula \eqref{eq.Bessel_recursion_4}. (Notice that $\frac{d}{d x}\left[x^{-m} J_m(x)\right]=-x^{-m} J_{m+1}(x)$ $\Leftrightarrow$ $J_m^{\prime}(x) = \frac{m}{x} J_m(x)-J_{m+1}(x)$).
 
@@ -432,7 +524,7 @@ When $0<\beta \leq \pi / 2$, or in other words, $J_m(x_n) \cos \beta+x_n J_m^{\p
 
 $$
 \begin{aligned}
-\int_0^1 J_m\left(\rho x_n\right)^2 \rho d \rho & =\frac{x_n^2\left[J_m^{\prime}(x_n)\right]^2+\left(x_n^2-m^2\right) J_m(x_n)^2}{2 x_n^2} 
+\int_0^1 J_m\left(x x_n\right)^2 x d x & =\frac{x_n^2\left[J_m^{\prime}(x_n)\right]^2+\left(x_n^2-m^2\right) J_m(x_n)^2}{2 x_n^2} 
 \\
 & =\frac{x_n^2\left[\frac{-1}{x_n} J_m(x_n) \cot \beta\right]^2+\left(x_n^2-m^2\right) J_m(x_n)^2}{2 x_n^2} 
 \\
@@ -447,7 +539,7 @@ Now we introduce the notion of Fourier--Bessel series
 \begin{definition}[Fourier-Bessel series]
     Let us consider the expansion of a piecewise smooth function $f(x)$, $0<x<1$, in a series of the form
 $$
-f(x)=\sum_{n=1}^{\infty} A_n J_m\left(x x_n\right), \quad 0<x<1,
+f(x)=\sum_{n=1}^{\infty} A_n J_m\left(x x_n^{(m)}\right), \quad 0<x<1,
 $$
 where $\left\{x_n\right\}$ are the nonnegative solutions of $J_m(x) \cos \beta+x J_m^{\prime}(x) \sin \beta=0$. This is called a \underline{Fourier--Bessel series}. 
 \end{definition}
@@ -457,32 +549,33 @@ We have the following theorem.
 \begin{theorem}[]
 Let $m \geq 0$, $0 \leq \beta \leq \pi / 2$, and let $\left\{x_n: n \geq 1\right\}$ be the nonnegative solutions of \eqref{eq.Bessel_roots}. If $f(x)$, defined on $0<x<1$, is a piecewise smooth function, then $f(x)$ can be expanded in terms of Fourier--Bessel series
 $$
-    f(x)=\sum_{n=1}^{\infty} A_n J_m\left(x x_n\right), \quad 0<x<1,
+    f(x)=\sum_{n=1}^{\infty} A_n J_m\left(x x_n^{(m)}\right), \quad 0<x<1,
 $$
 where the coefficients $A_n$ can be computed by
 $$
-    A_n=\frac{\int_0^1 f(x) J_m\left(x x_n\right) x d x}{\int_0^1 J_m\left(x x_n\right)^2 x d x}, \quad n=1,2, \cdots
+    A_n=\frac{\int_0^1 f(x) J_m\left(x x_n^{(m)}\right) x d x}{\int_0^1 J_m\left(x x_n^{(m)}\right)^2 x d x}, \quad n=1,2, \cdots
 $$
-Moreover, the series $\sum_{n=1}^{\infty} A_n J_m\left(x x_n\right)$ converges for each $x \in[0,1]$ to $\frac{1}{2}[f(x+0)+f(x-0)]$ for $0<x<1$.
+Moreover, the series $\sum_{n=1}^{\infty} A_n J_m\left(x x_n^{(m)}\right)$ converges for each $x \in[0,1]$ to $\frac{1}{2}[f(x+0)+f(x-0)]$ for $0<x<1$.
 \end{theorem}
 \begin{proof}
-    \textbf{TODO: } By multiplying (3.10) by $J_m\left(x x_n\right)$ and integrating both sides, we obtain
+    \textbf{TODO: } By multiplying (3.10) by $J_m\left(x x_n^{(m)}\right)$ and integrating both sides, we obtain
 \end{proof}
 
 \begin{example}[]
-Let us compute the Fourier--Bessel series of the function $f(x)=1$, $0<x<1$, where $m=0$ and $\beta=0$. We have $1=\sum_{n=1}^{\infty} A_n J_0\left(x x_n\right)$, where $J_0(x_n)=0$ and
+Let us compute the Fourier--Bessel series of the function $f(x)=1$, $0<x<1$, where $m=0$ and $\beta=0$. We have $1=\sum_{n=1}^{\infty} A_n J_0\left(x x_n^{(m)}\right)$, where $J_0(x_n)=0$ and
 $$
-A_n=\frac{\int_0^1 J_m\left(x x_n\right) x d x}{\int_0^1 J_m\left(x x_n\right)^2 x d x}, \quad n=1,2, \cdots
+A_n=\frac{\int_0^1 J_m\left(x x_n^{(m)}\right) x d x}{\int_0^1 J_m\left(x x_n^{(m)}\right)^2 x d x}, \quad n=1,2, \cdots
 $$
 
 First applying a change of variable $t = xx_n$, then applying \eqref{eq.Bessel_recursion_3} and \eqref{eq.Bessel_orthogonality_2}, we obtain
 $$
 A_n=\frac{\frac{1}{x_n^2} \int_0^{x_n} t J_0(t) d t}{\int_0^1 J_0\left(x x_n\right)^2 x d x}\overset{\eqref{eq.Bessel_recursion_3}}{=}\frac{\left.\frac{1}{x_1^2} t J_1(t)\right|_0 ^{x_n}}{\int_0^1 J_0\left(x x_n\right)^2 x d x}\overset{\eqref{eq.Bessel_orthogonality_2}}{=}\frac{\frac{1}{x_n} J_1(x_n)}{\frac{1}{2} J_1(x_n)^2}=\frac{2}{x_n J_1(x_n)} .
 $$
+where we drop the superscript in $x_n^{(m)}$.
 
 Therefore,
 $$
-1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n\right)}{x_n J_1(x_n)}.
+1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(m)}\right)}{x_n^{(m)} J_1\left(x_n^{(m)}\right)}.
 $$
 \end{example}
 
@@ -520,7 +613,9 @@ $$
 &u(\rho, \varphi, 0)=1, \quad u_t(\rho, \varphi, 0)=0, && 0 \leq \rho<a .
 \end{aligned}\right.
 $$
-We look for separated solutions in the form
+We solve the equation in terms of Bessel's function.
+
+We fist look for separated solutions in the form
 $$
 u(\rho, \varphi, t)=R(\rho) \Phi(\varphi) T(t)
 $$
@@ -635,7 +730,7 @@ u(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty} J_m\left(\frac{\rho 
 $$
 
 
-Noting that $1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n\right)}{x_n J_1\left(x_n\right)}\left(0<x<1, J_0\left(x_n\right)=0\right)$, the solution is obtained as
+Noting that $1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(m)}\right)}{x_n J_1\left(x_n\right)}\left(0<x<1, J_0\left(x_n\right)=0\right)$, the solution is obtained as
 
 $$
 u(\rho, \varphi, t)=T_1+\sum_{n=1}^{\infty} A_n J_0\left(\frac{\rho x_n}{\rho_{\max }}\right) \exp \left[-\frac{x_n^2 K t}{\rho_{\max }^2}\right],
