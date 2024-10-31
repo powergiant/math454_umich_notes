@@ -561,7 +561,7 @@ Moreover, the series $\sum_{n=1}^{\infty} A_n J_m\left(x x_n^{(m)}\right)$ conve
     \textbf{TODO: } By multiplying (3.10) by $J_m\left(x x_n^{(m)}\right)$ and integrating both sides, we obtain
 \end{proof}
 
-\begin{example}[]
+\begin{example}[]\label{ex.Fourier_Bessel_1}
 Let us compute the Fourier--Bessel series of the function $f(x)=1$, $0<x<1$, where $m=0$ and $\beta=0$. We have $1=\sum_{n=1}^{\infty} A_n J_0\left(x x_n^{(m)}\right)$, where $J_0(x_n)=0$ and
 $$
 A_n=\frac{\int_0^1 J_m\left(x x_n^{(m)}\right) x d x}{\int_0^1 J_m\left(x x_n^{(m)}\right)^2 x d x}, \quad n=1,2, \cdots
@@ -604,136 +604,182 @@ $$
 \subsection{The vibrating drumhead}
 
 Let us consider small transverse vibrations of a circular membrane.
-$$
+\begin{equation}\label{eq.vibrating_drumhead}
 \left\{\begin{aligned}
-&u_{tt}=c^2 \Delta u=c^2\left(u_{\rho \rho}+\frac{1}{\rho} u_\rho+\frac{1}{\rho^2} u_{\varphi \varphi}\right), && 0 \leq \rho<a, \quad t>0, 
-\\
-&u(\rho, \varphi, t)=0, && \rho=a, \quad t>0, 
-\\
-&u(\rho, \varphi, 0)=1, \quad u_t(\rho, \varphi, 0)=0, && 0 \leq \rho<a .
+    &u_{tt}=c^2 \Delta u=c^2\left(u_{\rho \rho}+\frac{1}{\rho} u_\rho+\frac{1}{\rho^2} u_{\varphi \varphi}\right), && 0 \leq \rho<a, \quad t>0, 
+    \\
+    &u(a, \varphi, t)=0, && t>0, 
+    \\
+    &u(\rho, \varphi, 0)=1, \quad u_t(\rho, \varphi, 0)=0, && 0 \leq \rho<a .
 \end{aligned}\right.
-$$
+\end{equation}
 We solve the equation in terms of Bessel's function.
 
-We fist look for separated solutions in the form
+We first look for separated solutions in the form
 $$
-u(\rho, \varphi, t)=R(\rho) \Phi(\varphi) T(t)
+u(\rho, \varphi, t)=R(\rho) \Phi(\varphi) T(t).
 $$
+Inserting into \eqref{eq.vibrating_drumhead}, we get
+\[
+    \frac{1}{c^2}\frac{T''}{T} = \frac{R''+\frac{1}{\rho} R'}{R} + \frac{1}{\rho^2}\frac{\Phi_{\varphi \varphi}}{\Phi}.
+\]
 
+The left (resp. right) hand side is a function of $t$ (resp. $\rho$, $\varphi$). Therefore, they must be a constant independent of all of three variables.
+\[
+    \frac{1}{c^2}\frac{T''}{T} = -\lambda,\quad \frac{R''+\frac{1}{\rho} R'}{R} + \frac{1}{\rho^2}\frac{\Phi_{\varphi \varphi}}{\Phi} = \lambda.
+\]
+The second equation can be transformed to 
+\[
+    \frac{\rho^2 R'' + \rho R'}{R} - \lambda \rho^2 = - \frac{\Phi_{\varphi \varphi}}{\Phi}
+\]
+Again, the left (resp. right) hand side is a function of $\rho$ (resp. $\varphi$). By introducing the separation constant $\mu$, we have
+\[
+    \frac{1}{c^2}\frac{T''}{T} = -\lambda,\quad \frac{\rho^2 R'' + \rho R'}{R} - \lambda \rho^2 = \mu, \quad - \frac{\Phi_{\varphi \varphi}}{\Phi} = \mu.
+\]
 
-By introducing separation constants as $-\lambda=\left(1 / c^2\right) T^{\prime \prime} / T$ and $-\mu=\Phi^{\prime \prime} / \Phi$, we obtain
-
-$$
-\begin{array}{r}
-\Phi^{\prime \prime}(\varphi)+\mu \Phi(\varphi)=0, \quad \Phi(-\pi)=\Phi(\pi), \quad \Phi^{\prime}(-\pi)=\Phi^{\prime}(\pi) \\
-R^{\prime \prime}(\rho)+\frac{1}{\rho} R^{\prime}(\rho)+\left(\lambda-\frac{\mu}{\rho^2}\right) R(\rho)=0, \quad R(a)=0 \\
-T^{\prime \prime}(t)+\lambda c^2 T(t)=0 .
+From $u(a, \varphi, t)=0$ and $u_t(\rho, \varphi, 0)=0$, we know that $R(a) = 0$ respectively. Then we obtain
+\begin{equation}\label{eq.solve_drumhead_1}
+\begin{array}{l}
+    \Phi^{\prime \prime}(\varphi)+\mu \Phi(\varphi)=0, \quad \Phi(-\pi)=\Phi(\pi), \quad \Phi^{\prime}(-\pi)=\Phi^{\prime}(\pi) \\
+    R^{\prime \prime}(\rho)+\frac{1}{\rho} R^{\prime}(\rho)+\left(\lambda-\frac{\mu}{\rho^2}\right) R(\rho)=0, \quad R(a)=0 \\
+    T^{\prime \prime}(t)+\lambda c^2 T(t)=0.
 \end{array}
-$$
+\end{equation}
 
 
-In (3.13), nontrivial solutions are obtained when (i) $\mu>0, \sqrt{\mu}=1,2, \cdots$, and (ii) $\mu=0:$
-
+In the first equation of \eqref{eq.solve_drumhead_1}, nontrivial solutions are obtained when $\sqrt{\mu} = m = 1,2, \cdots$,
 $$
 \Phi(\varphi)=A \cos m \varphi+B \sin m \varphi, \quad m=0,1,2, \cdots
 $$
 
 
-With $\mu=m^2(m=0,1,2, \cdots)$, we obtain $R(\rho)=J_n(\rho \sqrt{\lambda})$. For $R(a)=0$, we obtain $\sqrt{\lambda}=x_n^{(m)} / a$ where $x_m^{(m)}>0, J_m\left(x_m^{(m)}\right)=0$. The separated solutions are obtained as
-
-$$
-\pi(\rho, \varphi, t)=J_m\left(\frac{\rho x_m^{(m)}}{a}\right)(A \cos m \varphi+B \sin m \varphi)\left(\bar{A} \cos \frac{c t x_n^{(m)}}{a}+\bar{B} \sin \frac{c t x_n^{(m)}}{a}\right) .
-$$
-
-
-We will now take the initial conditions into account. The general solution is given as a linear combination (superposition) of (3.16). To satisfy $u_t(\rho, \varphi, 0)=0$, we set $\hat{B}=0$. Now the solution is written as
-
-$$
-u(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left\{\left[A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \cos m \varphi+\left[B_{m m} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \sin m \varphi\right\} \cos \frac{c t x_n^{(m)}}{a}
-$$
+With $\mu=m^2$ ($m=0,1,2, \cdots$) in the second equation of \eqref{eq.solve_drumhead_1}, we obtain $R(\rho)=J_m(\rho \sqrt{\lambda})$. For $R(a)=0$, we obtain $\sqrt{\lambda}=x_n^{(m)} / a$ where $x_n^{(m)}$ are the nonnegative roots of $J_m(x)=0$. With $\lambda = \left(x_n^{(m)} / a\right)^2$ in the third equation of \eqref{eq.solve_drumhead_1}, we get the solution $T(t) = \left(\bar{A} \cos \frac{c t x_n^{(m)}}{a}+\bar{B} \sin \frac{c t x_n^{(m)}}{a}\right)$. The separated solutions are obtained as
+\begin{equation}\label{eq.solve_drumhead_2}
+    u(\rho, \varphi, t)=J_m\left(\frac{\rho x_n^{(m)}}{a}\right)(A \cos m \varphi+B \sin m \varphi)\left(\bar{A} \cos \frac{c t x_n^{(m)}}{a}+\bar{B} \sin \frac{c t x_n^{(m)}}{a}\right) .
+\end{equation}
 
 
-Consider the Fourier series $m(\rho, \varphi, 0)=1=A_0+\sum_{m=1}^{\infty} A_m \cos (m x)+B_m \sin (m x)$. We can readily find $A_0=1, \quad A_m=B_m=0 \quad(m \geq 1)$. (Of course we can also obtain them as $A_0=\frac{1}{2 \pi} \int_{-\pi}^\pi 1 d \pi, A_m=\frac{1}{\pi} \int_{-\pi}^\pi \cos (m x) d x$, and $B_m=\frac{1}{\pi} \int_{-\pi}^\pi \sin (m x) d x$.) Therefore,
+We will now take the initial conditions into account. The general solution is given as a linear combination (superposition) of \eqref{eq.solve_drumhead_2}. To satisfy $u_t(\rho, \varphi, 0)=0$, we set $\bar{B}_{}=0$. Now the general solution is written as
+\begin{equation}\label{eq.solve_drumhead_3}
+    u(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left\{\left[A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \cos m \varphi+\left[B_{m m} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \sin m \varphi\right\} \cos \frac{c t x_n^{(m)}}{a}
+\end{equation}
 
-$$
-A_{m n}=B_{m n}=0, \quad \text { for } \quad m \geq 1,
-$$
+After matching the general solution with the last boundary condition $u(\rho, \varphi, 0)=1$, we obtain that 
+\begin{equation}\label{eq.solve_drumhead_4}
+    1 = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left(A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi+B_{m m} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi\right)
+\end{equation}
 
-and
-
+To compute the coefficients $A_{m n}$ (resp. $B_{m n})$, we multiply both sides by $J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi$ (resp. $J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi$) and then take integral. By $\frac{1}{\pi} \int_{-\pi}^\pi \cos (m x) d x = \frac{1}{\pi} \int_{-\pi}^\pi \sin (m x) d x = 0$ (if $m\neq 0$), we know that $A_{m n} = B_{m n} = 0$ if $m\neq 0$. Therefore, we take $m = 0$ in \eqref{eq.solve_drumhead_3} and \eqref{eq.solve_drumhead_4},
 $$
 u(\rho, \varphi, t)=\sum_{n=1}^{\infty} A_{0 n} J_0\left(\frac{\rho x_n^{(0)}}{a}\right) \cos \frac{c t x_n^{(0)}}{a} .
 $$
+\[
+    1 = \sum_{n=1}^{\infty} A_{0 n} J_0\left(\frac{\rho x_n^{(0)}}{a}\right)
+\]
 
 
-In Example 2, we calculated the Fourier-Bessel expansion $1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(0)}\right)}{x_n^{(0)} J_1\left(x_n^{(0)}\right)}$. By comparison, finally we obtain
-
+In Example \ref{ex.Fourier_Bessel_1}, we calculated the Fourier-Bessel expansion $1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(0)}\right)}{x_n^{(0)} J_1\left(x_n^{(0)}\right)}$. By comparison, we obtain $A_{0n} = \frac{2}{x_n^{(0)} J_1\left(x_n^{(0)}\right)}$, which implies that
 $$
-u(\rho, \varphi, t)=2 \sum_{n=1}^{\infty} \frac{1}{x_n^{(0)} J_1\left(x_n^{(0)}\right)} J_0\left(\frac{\rho x_n^{(0)}}{a}\right) \cos \frac{c t x_n^{(0)}}{a} .
+u(\rho, \varphi, t)=\sum_{n=1}^{\infty} \frac{2}{x_n^{(0)} J_1\left(x_n^{(0)}\right)} J_0\left(\frac{\rho x_n^{(0)}}{a}\right) \cos \frac{c t x_n^{(0)}}{a} .
 $$
-
 
 \subsection{Heat flow in the infinite cylinder}
-
-Heat flow in the infinite cylinder ${ }^4$
-
-Let us consider the heat transfer in the infinite cylinder $0 \leq \rho<\rho_{\max }$. We will solve the heat equation in polar coordinates
+Let us consider the heat transfer in the infinite cylinder $0 \leq \rho<a$. We will solve the heat equation in polar coordinates
 
 $$
 \left\{\begin{aligned}
-u_t=K \nabla^2 u, & t>0, \quad 0 \leq \rho<\rho_{\max }, \quad-\pi \leq \varphi \leq \pi, \\
-u\left(\rho_{\max }, \varphi, t\right)=T_1, & t>0, \quad-\pi \leq \varphi \leq \pi, \\
-u(\rho, \varphi, 0)=T_2, & 0 \leq \rho<\rho_{\max }, \quad-\pi \leq \varphi \leq \pi,
+&u_t=K \Delta u, && t>0, \quad 0 \leq \rho<a, \quad-\pi \leq \varphi \leq \pi, 
+\\
+&u\left(a, \varphi, t\right)=T_1, && t>0, \quad-\pi \leq \varphi \leq \pi, 
+\\
+&u(\rho, \varphi, 0)=T_2, && 0 \leq \rho<a, \quad-\pi \leq \varphi \leq \pi,
 \end{aligned}\right.
 $$
-
 where $T_1$ and $T_2$ are positive constants.
 
-Step 1
-To find the steady-state solution, we try $U(\rho)$ because the b. c. is independent of $\varphi$.
-
+We first the steady-state solution. Let us try $U(\rho)$ because the boundary conditions is independent of $\varphi$.
 $$
-K \nabla^2 U=K\left(\frac{\partial^2 U}{\partial \rho^2}+\frac{1}{\rho} \frac{\partial U}{\partial \rho}+\frac{1}{\rho^2} \frac{\partial^2 U}{\partial \varphi^2}\right)=K\left(U^{\prime \prime}+\frac{1}{\rho} U^{\prime}\right)=0 .
+K \Delta U=K\left(\frac{\partial^2 U}{\partial \rho^2}+\frac{1}{\rho} \frac{\partial U}{\partial \rho}+\frac{1}{\rho^2} \frac{\partial^2 U}{\partial \varphi^2}\right)=K\left(U^{\prime \prime}+\frac{1}{\rho} U^{\prime}\right)=0 .
 $$
-
-
 The general solution is obtained as
-
 $$
 U(\rho)=A+B \ln \rho .
 $$
-
-
-Let us exclude the second term and set $B=0$ (otherwise $U(0)$ diverges and the initial condition in Step 2 will also diverge). To satisfy $U\left(\rho_{\max }\right)=T_1$, we choose $A=T_1$. We thus obtain
-
+Let us exclude the second term and set $B=0$ (otherwise $U(0)$ diverges). To satisfy $U\left(a\right)=T_1$, we choose $A=T_1$. We thus obtain
 $$
 U(\rho)=T_1 .
 $$
 
-Step 2
 Define $v(\rho, \varphi, t)=u(\rho, \varphi, t)-U(\rho)$. We have
-
 $$
 \left\{\begin{aligned}
-v_t=K \nabla^2 v, & t>0, \quad 0 \leq \rho<\rho_{\max }, \quad-\pi \leq \varphi \leq \pi, \\
-v\left(\rho_{\max }, \varphi, t\right)=0, & t>0, \quad-\pi \leq \varphi \leq \pi, \\
-v(\rho, \varphi, 0)=T_2-U(\rho), & 0 \leq \rho<\rho_{\max }, \quad-\pi \leq \varphi \leq \pi,
+&v_t=K \Delta v, && t>0, \quad 0 \leq \rho<a, \quad-\pi \leq \varphi \leq \pi, 
+\\
+&v\left(a, \varphi, t\right)=0, && t>0, \quad-\pi \leq \varphi \leq \pi, 
+\\
+&v(\rho, \varphi, 0)=T_2-T_1, && 0 \leq \rho<a, \quad-\pi \leq \varphi \leq \pi,
 \end{aligned}\right.
 $$
 
-
-Step 3
 Using separation of variables with $u(\rho, \varphi, t)=R(\rho) \Phi(\varphi) T(t)$, we obtain
+Inserting into \eqref{eq.vibrating_drumhead}, we get
+\[
+    \frac{1}{K}\frac{T'}{T} = \frac{R''+\frac{1}{\rho} R'}{R} + \frac{1}{\rho^2}\frac{\Phi_{\varphi \varphi}}{\Phi}.
+\]
 
+The left (resp. right) hand side is a function of $t$ (resp. $\rho$, $\varphi$). Therefore, they must be a constant independent of all of three variables.
+\[
+    \frac{1}{K}\frac{T'}{T} = -\lambda,\quad \frac{R''+\frac{1}{\rho} R'}{R} + \frac{1}{\rho^2}\frac{\Phi_{\varphi \varphi}}{\Phi} = \lambda.
+\]
+The second equation can be transformed to 
+\[
+    \frac{\rho^2 R'' + \rho R'}{R} - \lambda \rho^2 = - \frac{\Phi_{\varphi \varphi}}{\Phi}
+\]
+Again, the left (resp. right) hand side is a function of $\rho$ (resp. $\varphi$). By introducing the separation constant $\mu$, we have
+\[
+    \frac{1}{K}\frac{T'}{T} = -\lambda,\quad \frac{\rho^2 R'' + \rho R'}{R} - \lambda \rho^2 = \mu, \quad - \frac{\Phi_{\varphi \varphi}}{\Phi} = \mu.
+\]
+
+From $u(a, \varphi, t)=0$ and $u_t(\rho, \varphi, 0)=0$, we know that $R(a) = 0$ respectively. Then we obtain
+\begin{equation}\label{eq.solve_heat_disk_1}
+\begin{array}{l}
+    \Phi^{\prime \prime}(\varphi)+\mu \Phi(\varphi)=0, \quad \Phi(-\pi)=\Phi(\pi), \quad \Phi^{\prime}(-\pi)=\Phi^{\prime}(\pi) \\
+    R^{\prime \prime}(\rho)+\frac{1}{\rho} R^{\prime}(\rho)+\left(\lambda-\frac{\mu}{\rho^2}\right) R(\rho)=0, \quad R(a)=0 \\
+    T'(t)+\lambda K T(t)=0.
+\end{array}
+\end{equation}
+
+
+In the first equation of \eqref{eq.solve_drumhead_1}, nontrivial solutions are obtained when $\sqrt{\mu} = m = 1,2, \cdots$,
 $$
-u(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty} J_m\left(\frac{\rho x_n^{(m)}}{\rho_{\max }}\right)\left(A_{m n} \cos m \varphi+B_{m n} \sin m \varphi\right) \exp \left[-\frac{\left(x_n^{(m)}\right)^2 K t}{\rho_{\max }^2}\right] .
+\Phi(\varphi)=A \cos m \varphi+B \sin m \varphi, \quad m=0,1,2, \cdots
 $$
 
 
-Noting that $1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(m)}\right)}{x_n J_1\left(x_n\right)}\left(0<x<1, J_0\left(x_n\right)=0\right)$, the solution is obtained as
+With $\mu=m^2$ ($m=0,1,2, \cdots$) in the second equation of \eqref{eq.solve_drumhead_1}, we obtain $R(\rho)=J_m(\rho \sqrt{\lambda})$. For $R(a)=0$, we obtain $\sqrt{\lambda}=x_n^{(m)} / a$ where $x_n^{(m)}$ are the nonnegative roots of $J_m(x)=0$. With $\lambda = \left(x_n^{(m)} / a\right)^2$ in the third equation of \eqref{eq.solve_drumhead_1}, we get the solution $T(t) = \exp \left[-\frac{\left(x_n^{(m)}\right)^2 K t}{a^2}\right]$. The separated solutions are obtained as
+\begin{equation}\label{eq.solve_heat_disk_2}
+    v(\rho, \varphi, t)=J_m\left(\frac{\rho x_n^{(m)}}{a}\right)(A \cos m \varphi+B \sin m \varphi)\exp \Bigg(-\frac{\left(x_n^{(m)}\right)^2 K t}{a^2}\Bigg).
+\end{equation}
 
-$$
-u(\rho, \varphi, t)=T_1+\sum_{n=1}^{\infty} A_n J_0\left(\frac{\rho x_n}{\rho_{\max }}\right) \exp \left[-\frac{x_n^2 K t}{\rho_{\max }^2}\right],
-$$
+The general solutions are obtained as
+\begin{equation}\label{eq.solve_heat_disk_3}
+    v(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\left(A_{m n} \cos m \varphi+B_{m n} \sin m \varphi\right) \exp \Bigg(-\frac{\left(x_n^{(m)}\right)^2 K t}{a^2}\Bigg).
+\end{equation}
 
-where $A_n=\frac{2\left(T_2-T_1\right)}{x_n J_1\left(x_n\right)}, J_0\left(x_n\right)=0, n=1,2, \cdots$.
+After matching the general solution with the last boundary condition $u(\rho, \varphi, 0)=T_2-T_1$, we obtain that 
+\begin{equation}\label{eq.solve_heat_disk_4}
+    T_2-T_1 = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left(A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi+B_{m m} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi\right)
+\end{equation}
+
+To compute the coefficients $A_{m n}$ (resp. $B_{m n})$, we multiply both sides by $J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi$ (resp. $J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi$) and then take integral. By $\frac{1}{\pi} \int_{-\pi}^\pi \cos (m x) d x = \frac{1}{\pi} \int_{-\pi}^\pi \sin (m x) d x = 0$ (if $m\neq 0$), we know that $A_{m n} = B_{m n} = 0$ if $m\neq 0$. Therefore, we take $m = 0$ in \eqref{eq.solve_heat_disk_3} and \eqref{eq.solve_heat_disk_4},
+$$
+u(\rho, \varphi, t)=\sum_{n=1}^{\infty} A_{0 n} J_0\left(\frac{\rho x_n^{(0)}}{a}\right) \exp \Bigg(-\frac{\left(x_n^{(0)}\right)^2 K t}{a^2}\Bigg).
+$$
+\[
+    T_2-T_1 = \sum_{n=1}^{\infty} A_{0 n} J_0\left(\frac{\rho x_n^{(0)}}{a}\right)
+\]
+
+Noting that $1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(m)}\right)}{x_n J_1\left(x_n\right)}$ $(0<x<1, J_0\left(x_n^{(0)}\right)=0)$, we get $A_{0n} = \frac{2(T_2-T_1)}{x_n^{(0)} J_1\left(x_n^{(0)}\right)}$, which implies that 
+$$
+u(\rho, \varphi, t)=T_1+\sum_{n=1}^{\infty} \frac{2(T_2-T_1)}{x_n^{(0)} J_1\left(x_n^{(0)}\right)} J_0\left(\frac{\rho x_n^{(0)}}{a}\right) \exp \Bigg(-\frac{\left(x_n^{(0)}\right)^2 K t}{a^2}\Bigg).
+$$
