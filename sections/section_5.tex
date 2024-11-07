@@ -562,20 +562,20 @@ Moreover, the series $\sum_{n=1}^{\infty} A_n J_m\left(x x_n^{(m)}\right)$ conve
 \end{proof}
 
 \begin{example}[]\label{ex.Fourier_Bessel_1}
-Let us compute the Fourier--Bessel series of the function $f(x)=1$, $0<x<1$, where $m=0$ and $\beta=0$. We have $1=\sum_{n=1}^{\infty} A_n J_0\left(x x_n^{(m)}\right)$, where $J_0(x_n)=0$ and
+Let us compute the Fourier--Bessel series of the function $f(x)=1$, $0<x<1$, where $m=0$ and $\beta=0$. We have $1=\sum_{n=1}^{\infty} A_n J_0\left(x x_n^{(0)}\right)$, where $J_0(x_n)=0$ and
 $$
-A_n=\frac{\int_0^1 J_m\left(x x_n^{(m)}\right) x d x}{\int_0^1 J_m\left(x x_n^{(m)}\right)^2 x d x}, \quad n=1,2, \cdots
+A_n=\frac{\int_0^1 J_m\left(x x_n^{(0)}\right) x d x}{\int_0^1 J_m\left(x x_n^{(0)}\right)^2 x d x}, \quad n=1,2, \cdots
 $$
 
 First applying a change of variable $t = xx_n$, then applying \eqref{eq.Bessel_recursion_3} and \eqref{eq.Bessel_orthogonality_2}, we obtain
 $$
 A_n=\frac{\frac{1}{x_n^2} \int_0^{x_n} t J_0(t) d t}{\int_0^1 J_0\left(x x_n\right)^2 x d x}\overset{\eqref{eq.Bessel_recursion_3}}{=}\frac{\left.\frac{1}{x_1^2} t J_1(t)\right|_0 ^{x_n}}{\int_0^1 J_0\left(x x_n\right)^2 x d x}\overset{\eqref{eq.Bessel_orthogonality_2}}{=}\frac{\frac{1}{x_n} J_1(x_n)}{\frac{1}{2} J_1(x_n)^2}=\frac{2}{x_n J_1(x_n)} .
 $$
-where we drop the superscript in $x_n^{(m)}$.
+where we drop the superscript in $x_n^{(0)}$.
 
 Therefore,
 $$
-1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(m)}\right)}{x_n^{(m)} J_1\left(x_n^{(m)}\right)}.
+1=2 \sum_{n=1}^{\infty} \frac{J_0\left(x x_n^{(0)}\right)}{x_n^{(0)} J_1\left(x_n^{(0)}\right)}.
 $$
 \end{example}
 
@@ -661,12 +661,12 @@ With $\mu=m^2$ ($m=0,1,2, \cdots$) in the second equation of \eqref{eq.solve_dru
 
 We will now take the initial conditions into account. The general solution is given as a linear combination (superposition) of \eqref{eq.solve_drumhead_2}. To satisfy $u_t(\rho, \varphi, 0)=0$, we set $\bar{B}_{}=0$. Now the general solution is written as
 \begin{equation}\label{eq.solve_drumhead_3}
-    u(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left\{\left[A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \cos m \varphi+\left[B_{m m} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \sin m \varphi\right\} \cos \frac{c t x_n^{(m)}}{a}
+    u(\rho, \varphi, t)=\sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left\{\left[A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \cos m \varphi+\left[B_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right)\right] \sin m \varphi\right\} \cos \frac{c t x_n^{(m)}}{a}
 \end{equation}
 
 After matching the general solution with the last boundary condition $u(\rho, \varphi, 0)=1$, we obtain that 
 \begin{equation}\label{eq.solve_drumhead_4}
-    1 = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left(A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi+B_{m m} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi\right)
+    1 = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left(A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi+B_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi\right)
 \end{equation}
 
 To compute the coefficients $A_{m n}$ (resp. $B_{m n})$, we multiply both sides by $J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi$ (resp. $J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi$) and then take integral. By $\frac{1}{\pi} \int_{-\pi}^\pi \cos (m x) d x = \frac{1}{\pi} \int_{-\pi}^\pi \sin (m x) d x = 0$ (if $m\neq 0$), we know that $A_{m n} = B_{m n} = 0$ if $m\neq 0$. Therefore, we take $m = 0$ in \eqref{eq.solve_drumhead_3} and \eqref{eq.solve_drumhead_4},
@@ -768,7 +768,7 @@ The general solutions are obtained as
 
 After matching the general solution with the last boundary condition $u(\rho, \varphi, 0)=T_2-T_1$, we obtain that 
 \begin{equation}\label{eq.solve_heat_disk_4}
-    T_2-T_1 = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left(A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi+B_{m m} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi\right)
+    T_2-T_1 = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty}\left(A_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi+B_{m n} J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi\right)
 \end{equation}
 
 To compute the coefficients $A_{m n}$ (resp. $B_{m n})$, we multiply both sides by $J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \cos m \varphi$ (resp. $J_m\left(\frac{\rho x_n^{(m)}}{a}\right) \sin m \varphi$) and then take integral. By $\frac{1}{\pi} \int_{-\pi}^\pi \cos (m x) d x = \frac{1}{\pi} \int_{-\pi}^\pi \sin (m x) d x = 0$ (if $m\neq 0$), we know that $A_{m n} = B_{m n} = 0$ if $m\neq 0$. Therefore, we take $m = 0$ in \eqref{eq.solve_heat_disk_3} and \eqref{eq.solve_heat_disk_4},
