@@ -7,7 +7,7 @@ In this section, we will discuss how to solve the Laplace equation $\Delta u = 0
     \Delta = \partial_{xx} + \partial_{yy} \quad \textrm{(in 2D)},\qquad\qquad \Delta = \partial_{xx} + \partial_{yy} + \partial_{zz} \quad \textrm{(in 3D)}
 \end{equation}
 
-We consider the cylindrical domain $\{(x, y, z): R_1^2\le x^2 + y^2 \le R_2^2,\,, z\in [-L, L]\}$, for which cylindrical coordinates $(\rho, \varphi, z)$ are particularly useful. The transformation from cartesian coordinates $(x, y, z)$ to cylindrical coordinates can simplify the domain to $\{(x, y, z): R_1\le r \le R_2,\,\varphi\in [0, 2\pi],\,z\in [-L, L]\}$.
+We consider the cylindrical domain $\{(x, y, z): R_1^2\le x^2 + y^2 \le R_2^2,\,, z\in [-L, L]\}$, for which cylindrical coordinates $(\rho, \varphi, z)$ are particularly useful. The transformation from cartesian coordinates $(x, y, z)$ to cylindrical coordinates can simplify the domain to $\{(x, y, z): R_1\le \rho \le R_2,\,\varphi\in [0, 2\pi],\,z\in [-L, L]\}$.
 
 The relationship between Cartesian coordinates $(x, y, z)$ and cylindrical coordinates $(\rho, \varphi, z)$ is given by
 \begin{equation}\label{eq.from_cartesian_to_cylindrical}
@@ -19,7 +19,10 @@ Additionally, we have the inverse relationships,
     \rho = \sqrt{x^2 + y^2}, \quad \varphi = \arctan\left(\frac{y}{x}\right), \quad z = z.
 \end{equation}
 
-To convert PDEs from Cartesian to cylindrical coordinates, we need to express the partial derivatives with respect to $x$ and $y$ in terms of $\rho$, $\varphi$, and $z$.
+Here is a picture of spherical coordinates.
+\textbf{TODO: }
+
+To convert PDEs from Cartesian to cylindrical coordinates, we need to express the partial derivatives with respect to $x$, $y$ and $z$ in terms of $\rho$, $\varphi$, and $z$.
 
 \begin{proposition}[]
 The first-order partial derivatives transform as,
@@ -93,7 +96,7 @@ This completes the proof.
 This expression is crucial for solving PDEs such as the Laplace equation or the wave equation in cylindrical coordinates.
 
 \subsection{Separation of Variables for the 2D Laplace equation}
-Separation of variables is a common technique used to solve PDEs, especially in systems with boundary conditions. Let's consider solving the equation on a cylindrical domain
+Let's consider solving the equation on a cylindrical domain
 \begin{equation} 
     \Delta u = 0, \quad R_1 \leq \sqrt{x^2+y^2} \leq R_2
 \end{equation}
@@ -356,7 +359,7 @@ Therefore, $J_m(\rho)$ is proportional to $\frac{1}{2 \pi} \int_{-\pi}^\pi e^{i\
 Let $x = 0$ in \eqref{eq.Bessel_int_formula}. 
 \begin{equation}\label{eq.proof_Bessel_value_at_zero_1}
     \begin{split}
-    J_m(\omega) =& \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{i0 \cdot \cos \varphi} e^{-im \varphi} \, d\varphi
+    J_m(0) =& \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{i0 \cdot \cos \varphi} e^{-im \varphi} \, d\varphi
     \\
     =& \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi
     \end{split}
@@ -364,7 +367,7 @@ Let $x = 0$ in \eqref{eq.Bessel_int_formula}.
 
 Evaluating this integral gives
 \begin{equation}\label{eq.proof_Bessel_value_at_zero_2}
-    J_m(\omega)=\frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi= 
+    J_m(0)=\frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi= 
     \begin{cases} 
     1 & \text{if } m = 0 \\ 
     0 & \text{if } m \neq 0 
