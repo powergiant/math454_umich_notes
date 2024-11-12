@@ -262,6 +262,15 @@ The following lemma is important in the proof of the Rodrigue formula.
 Let us only prove the case of $s = 1$. We know that $\left(\frac{d}{d s}\right)^j\left(s^2-1\right)^k|_{s = 1}$ is proportional to the $j$-th Taylor coefficient of $\left(s^2-1\right)^k$ at $s = 1$. By $\left(s^2-1\right)^k = (s-1)^k(s+1)^k = 2^k(s-1)^k(1 + \frac{s-1}{2})^k$, the $j$-th Taylor coefficient is $0$ when $j < k$. Therefore, $\left(\frac{d}{d s}\right)^j\left(s^2-1\right)^k|_{s = 1} = 0$.
 \end{proof}
 
+The following lemma is important in the computation of Legendre polynomial
+\begin{lemma}[]
+    $\left(\frac{d}{d s}\right)^k\Big|_{s = 0} s^l = l!\cdot \delta_{kl}$    
+\end{lemma}
+\begin{proof}
+    For $k > l$, we have$\left(\frac{d}{d s}\right)^k s^l = l!\cdot \delta_{kl} = 0$. For $k\le l$, $\left(\frac{d}{d s}\right)^k s^l = \frac{l!}{k!}s^{l-k}$ when $k \le l$. When $k < l$, $\left(\frac{d}{d s}\right)^k\Big|_{s = 0} s^l = \frac{l!}{{l-k}!}s^{l-k}|_{s = 0} = 0$. When $k = l$, $\left(\frac{d}{d s}\right)^l s^l = l!$.
+\end{proof}
+
+
 Using the Rodrigue formula, we can show that 
 \begin{proposition}[Recursion formula of Legendre polynomial] We have
 \begin{equation}\label{eq.Legendre_recursion}
@@ -320,7 +329,32 @@ Apply integration by parts for $k$ times and the boundary terms vanishes by Lemm
 \begin{equation}\label{eq.proof_orthogonal_Legendre_2}
     \int_{-1}^1 (P_k(s))^2 d s = \frac{1}{2^{2k} (k!)^2}\int_{-1}^1 \left(s^2-1\right)^k\cdot \left(\frac{d}{d s}\right)^{2k}\left(s^2-1\right)^k d s = \frac{(2k)!}{2^{2k} (k!)^2}\int_{-1}^1 \left(s^2-1\right)^k d s
 \end{equation}
-where we applied the fact that $\left(\frac{d}{d s}\right)^{2k}\left(s^2-1\right)^k = (2k)!$, which follows from the fact that $\left(\frac{d}{d s}\right)^{2k}\left(s^2-1\right)^k = \left(\frac{d}{d s}\right)^{2k}(s^{2k} + \textrm{lower order terms}) = \left(\frac{d}{d s}\right)^{2k} s^{2k}$.
+where we applied the fact that $\left(\frac{d}{d s}\right)^{2k}\left(s^2-1\right)^k = (2k)!$, which follows from the fact that 
+\begin{equation}\label{eq.proof_orthogonal_Legendre_3}
+    \left(\frac{d}{d s}\right)^{2k}\left(s^2-1\right)^k = \left(\frac{d}{d s}\right)^{2k}(s^{2k} + \textrm{lower order terms}) = \left(\frac{d}{d s}\right)^{2k} s^{2k}
+\end{equation}
+
+Therefore, we get
+\begin{equation}\label{eq.proof_orthogonal_Legendre_4}
+    \int_{-1}^1 (P_k(s))^2 d s = \frac{(2k)!}{2^{2k} (k!)^2}\int_{-1}^1 \left(s^2-1\right)^k d s  = \frac{(2k)!}{2^{2k} (k!)^2}\int_{-1}^1 \left(s-1\right)^k \left(s+1\right)^k d s
+\end{equation}
+
+\begin{equation}\label{eq.proof_orthogonal_Legendre_5}
+\begin{split}
+    &\int_{-1}^1 \left(s-1\right)^k \left(s+1\right)^k d s = \frac{1}{k+1}\int_{-1}^1 \left(s-1\right)^k \frac{d}{ds}\left(s+1\right)^{k+1} d s
+    \\
+    =& \left[\frac{1}{k+1}\left(s-1\right)^k \frac{d}{ds}\left(s+1\right)^{k+1}\right]^1_{-1} - \frac{1}{k+1}\int_{-1}^1 \frac{d}{ds}\left(s-1\right)^k \left(s+1\right)^{k+1} d s
+    \\
+    =&  \frac{k}{k+1}\int_{-1}^1 \left(s-1\right)^{k-1}\left(s+1\right)^{k+1} d s = \cdots = \frac{k\cdots 1}{k+1\cdots (k+k)}\int_{-1}^1 \left(s-1\right)^{k-k}\left(s+1\right)^{k+k} d s
+    \\
+    =& \frac{(k!)^2}{(2k)!} \int_{-1}^1 \left(s+1\right)^{2k} d s = \frac{(k!)^2}{(2k)!}\frac{1}{2k+1} \left[\left(s+1\right)^{2k}\right]_{-1}^1 = \frac{(k!)^2}{(2k)!}\frac{2^{2k+1}}{2k+1}
+\end{split}
+\end{equation}
+Therefore,
+\begin{equation}\label{eq.proof_orthogonal_Legendre_6}
+    \int_{-1}^1 (P_k(s))^2 d s = \frac{(2k)!}{2^{2k} (k!)^2}\int_{-1}^1 \left(s-1\right)^k \left(s+1\right)^k d s = \frac{(2k)!}{2^{2k} (k!)^2}\frac{(k!)^2}{(2k)!}\frac{2^{2k+1}}{2k+1} = \frac{2}{2k+1},
+\end{equation}
+which completes the proof.
 \end{proof}
 
 Now we introduce the notion of Fourier--Legendre series
@@ -494,12 +528,7 @@ By the formula of coefficients \eqref{eq.Legendre_formula_coef}, we get
 \end{split}
 \]
 
-To compute these coefficients, we evaluate the integral,
-\[
-a_k = \frac{2k + 1}{2} \int_0^1 P_k(s) \, ds.
-\]
-
-Using the Rodrigue formula, we get 
+To compute these coefficients, we evaluate the integral $\int_0^1 P_k(s) \, ds$. Using the Rodrigue formula, we get 
 \[
 \begin{split}
     \int_0^1 P_{k}(s) \, ds =& \frac{1}{2^{k} k!} \int_0^1 \left(\frac{d}{d s}\right)^{k}\left(s^2-1\right)^{k} \, ds 
@@ -519,21 +548,25 @@ Using the Binomial formula $(a + b)^k = \sum_{l = 0}^k C_k^l a^l b^{k - l}$ and 
     =& \frac{1}{2^{k} k!} \left(\frac{d}{d s}\right)^{k-1}\bigg|_{s = 0}\left(\sum_{l = 0}^{k} C_{k}^l (-1)^{k-l}s^{2l}\right)
 \end{split}
 \]
-If $k = 2m + 1$, then $\frac{1}{2^{k} k!} \left(\frac{d}{d s}\right)^{k-1}\bigg|_{s = 0}\left(C_{k}^{m} (-1)^{m+1}s^{2m}\right)\neq 0$ is the only non-vanishing term. If $k = 2m$, all term vanishes.
+If $k = 2m + 1$, then $\frac{1}{2^{k} k!} \left(\frac{d}{d s}\right)^{k-1}\bigg|_{s = 0}\left(C_{k}^{m} (-1)^{m+1}s^{2m}\right)\neq 0$ is the only non-vanishing term. If $k = 2m$, all term vanishes. Therefore, $a_{2m} = 0$. Inserting $k = 2m+1$ in the above formula, we get
+\[
+\begin{split}
+    \int_0^1 P_{2m+1}(s) \, ds
+    =& \frac{1}{2^{2m+1} (2m+1)!} \left(\frac{d}{d s}\right)^{2m}\bigg|_{s = 0}\left(C_{2m+1}^{m} (-1)^{m+1}s^{2m}\right) 
+    \\
+    =& \frac{1}{2^{2m+1} (2m+1)!} C_{2m+1}^{m} (-1)^{m+1} (2m)!
+    \\
+    =& \frac{1}{2^{2m+1} (2m+1)} C_{2m+1}^{m} (-1)^{m+1} 
+\end{split}
+\]
 
-% \\
-%     =& \frac{1}{2^{k} k!} \left(\frac{d}{d s}\right)^{k-1}\bigg|_{s = 0}\left(C_{k}^{m} (-1)^{m+1}s^{2m}\right) \qquad (2m = k - 1)
-% \\
-%     =& \frac{1}{2^{k} k!} C_{k}^{m} (-1)^{m+1} (2m)!
-%     \\
-%     =& \frac{1}{2^{k} (k)} C_{k}^{m} (-1)^{m+1} 
 
 Inserting into the equation of $a_{2m+1}$, we get 
 \[
-a_{2m+1} = (4m + 3) \int_0^1 P_{2m+1}(s) \, ds = \frac{4m + 3}{2^{2m+1} (2m+1)} C_{2m+1}^{m} (-1)^{m+1}.
+a_{2m+1} = \frac{(4m + 3)}{2a^{2m+1}} \int_0^1 P_{2m+1}(s) \, ds = \frac{4m + 3}{2m+1} \frac{(-1)^{m+1}}{2^{2m+2}a^{2m+1}} C_{2m+1}^{m}.
 \]
 
-Thus, the Fourier-Legendre series of \( f(s) \) is:
+Thus, the solution $u(r, \theta)$ is given by
 \[
-f(s) = \sum_{m=0}^\infty \frac{(-1)^{m+1}(4m + 3)}{2^{2m+1} (2m+1)} C_{2m+1}^{m} \, P_{2m+1}(s).
+    u(r, \theta) = \sum_{m=0}^\infty \frac{(-1)^{m+1}(4m + 3)}{2^{2m+2} (2m+1)} C_{2m+1}^{m} \left(\frac{r}{a}\right)^{2m+1} P_{2m+1}(s).
 \]
