@@ -359,15 +359,15 @@ Therefore, $J_m(\rho)$ is proportional to $\frac{1}{2 \pi} \int_{-\pi}^\pi e^{i\
 Let $x = 0$ in \eqref{eq.Bessel_int_formula}. 
 \begin{equation}\label{eq.proof_Bessel_value_at_zero_1}
     \begin{split}
-    J_m(0) =& \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{i0 \cdot \cos \varphi} e^{-im \varphi} \, d\varphi
+    J_m(0) =& \frac{1}{2\pi i^m} \int_{-\pi}^{\pi} e^{i0 \cdot \cos \varphi} e^{-im \varphi} \, d\varphi
     \\
-    =& \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi
+    =& \frac{1}{2\pi i^m} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi
     \end{split}
 \end{equation}
 
 Evaluating this integral gives
 \begin{equation}\label{eq.proof_Bessel_value_at_zero_2}
-    J_m(0)=\frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi= 
+    J_m(0)=\frac{1}{2\pi i^m} \int_{-\pi}^{\pi} e^{-im \varphi} \, d\varphi= 
     \begin{cases} 
     1 & \text{if } m = 0 \\ 
     0 & \text{if } m \neq 0 
