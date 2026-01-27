@@ -777,7 +777,7 @@ Thus the Fourier series of $x$ converges as $O(1 / N)$ and the Fourier series of
         \frac{1}{2 L} \int_{-L}^L |f(x)|^2 d x 
         =& \frac{1}{2 L} \int_{-L}^L \sum_{n=-\infty}^{\infty} \alpha_n e^{i n \pi x / L} \sum_{m=-\infty}^{\infty} \bar{\alpha}_m e^{-i m \pi x / L} dx
         \\
-        =& \sum_{n,m=0}^{\infty}\alpha_n\bar{\alpha}_m \underbrace{\frac{1}{2 L} \int_{-L}^L e^{i (n-m) \pi x / L} d x}_{= 0\textit{ if }n\neq m}
+        =& \sum_{n,m=-\infty}^{\infty}\alpha_n\bar{\alpha}_m \underbrace{\frac{1}{2 L} \int_{-L}^L e^{i (n-m) \pi x / L} d x}_{= 0\textit{ if }n\neq m}
         \\
         =&\sum_{n=-\infty}^{\infty}\left|\alpha_n\right|^2
     \end{split}
@@ -797,13 +797,13 @@ $$
 
 \end{proof}
 
-\begin{theorem}[Parseval's theorem for Fourier cosine series] Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with Fourier cosine series 
+\begin{theorem}[Parseval's theorem for Fourier cosine series] Let $f(x)$ defined on $0<x<L$ be a piecewise smooth function with Fourier cosine series 
     \begin{equation}\label{eq.Parseval_cosine_assumption}
         f(x)=A_0 + \sum_{n=1}^{\infty} A_n \cos \frac{n \pi x}{L}
     \end{equation}
-    Then, the mean square $\frac{1}{2 L} \int_{-L}^L f(x)^2 d x$ of $f(x)$ satisfies the following identity
+    Then, the mean square $\frac{1}{L} \int_0^L |f(x)|^2 d x$ of $f(x)$ satisfies the following identity
     \begin{equation}\label{eq.Parseval_cosine}
-        \frac{1}{2 L} \int_{-L}^L |f(x)|^2 d x=A_0^2 + \frac{1}{2}\sum_{n=1}^{\infty}A_n^2 .
+        \frac{1}{L} \int_0^L |f(x)|^2 d x=A_0^2 + \frac{1}{2}\sum_{n=1}^{\infty}A_n^2 .
     \end{equation}
 \end{theorem}
 \begin{proof}
@@ -811,7 +811,7 @@ $$
 \end{proof}
 
 \begin{theorem}[Parseval's theorem for Fourier sine series]
-    Let $f(x)$ defined on $-L<x<L$ be a piecewise smooth function with Fourier sine series 
+    Let $f(x)$ defined on $0<x<L$ be a piecewise smooth function with Fourier sine series 
     \begin{equation}\label{eq.Parseval_sine_assumption}
         f(x)=\sum_{n=1}^{\infty} B_n \sin \frac{n \pi x}{L}
     \end{equation}

@@ -1,1 +1,48 @@
 \section{Fourier transform and PDEs on unbounded domains}
+
+\section{The Fourier transform}
+
+\subsection{Derivation of the the Fourier Transform}
+
+The Fourier Series is a powerful tool for representing functions, but it has a fundamental limitation: it can only represent functions defined on a bounded domain $[-L, L]$. Beyond this domain, when $x$ moves outside of $[-L, L]$, the Fourier series $ A_0 + \sum_{n=1}^\infty \left(A_n \cos \frac{n \pi x}{L} + B_n \sin \frac{n \pi x}{L}\right) $ becomes periodic and no longer aligns with the original function $f(x)$.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{bounded_domain.png} % Replace with a simple image
+%     \caption{A function defined on a bounded domain $[-L, L]$.}
+%     \label{fig:bounded_domain}
+% \end{figure}
+
+To solve this problem, we can take limit of $L\rightarrow\infty$ in the definition of the Fourier series. the domain of $f(x)$ coincide with the Fourier series will becomes larger and larger and finally they are the same.
+
+the Fourier series is 
+\begin{equation}\label{eq.Fourier_transform_derivation_1}
+    f(x) = \sum_{n=-\infty}^{\infty} \alpha_n e^{\frac{i\pi nx}{L}}, \quad x \in [-L, L]
+\end{equation}
+
+\begin{equation}\label{eq.Fourier_transform_derivation_2}
+    \alpha_n = \frac{1}{2L} \int_{-L}^{L} f(x) e^{-\frac{i\pi nx}{L}} dx
+\end{equation}
+
+introducing $\hat{f}_L$ by 
+\begin{equation}\label{eq.Fourier_transform_derivation_3}
+    \hat{f}_L(\mu) = \frac{1}{2\pi} \int_{-L}^{L} f(x) e^{-i\mu x} dx
+\end{equation}
+
+then we have 
+\begin{equation}\label{eq.Fourier_transform_derivation_4}
+    \alpha_n = \frac{\pi}{L}\hat{f}_L \left(\frac{\pi n}{L}\right)
+\end{equation}
+
+
+$L \to \infty$ then $\hat{f}_L(\mu) \to \hat{f}(\mu)$
+
+\[
+\begin{aligned}
+    f(x) &= \sum_{n=-\infty}^{\infty} \hat{f}_L\left(\frac{\pi n}{L}\right) e^{i \frac{\pi n x}{L}} \cdot \frac{\pi}{L} 
+    \approx \sum_{n=-\infty}^{\infty} \hat{f}\left(\frac{\pi n}{L}\right) e^{i \frac{\pi n x}{L}} \cdot \frac{\pi}{L} 
+    \approx \sum_{\mu_n=\frac{\pi n}{L},\, n\in \mathbb{Z}} \hat{f}(\mu_n) e^{i \mu_n x} \cdot \Delta \mu 
+    \\ 
+    &\overset{L \to \infty}{\approx} \int_{-\infty}^{\infty} \hat{f}(\mu) e^{i \mu x} d\mu.
+\end{aligned}
+\]
