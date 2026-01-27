@@ -320,7 +320,27 @@ with boundary condition
 \end{equation}
 as an example.
 
-We are looking for a \underline{separated solution}. Substitute into \eqref{eq.Laplace}, then we get 
+\begin{figure}[H]
+    \begin{tikzpicture}
+        \node at (0,0) {\scalebox{0.5}{      
+            \includegraphics{pictures/boundary_value_problem.png}
+        }};
+        \node at (2.1, -1.5) {$x$};
+        \node at (-1.0, 2.1) {$y$};
+        \node at (1.2, -1.5) {$L$};
+        \node at (-1.5, 1.2) {$L$};
+        \node at (0.0, 1.5) {$\varphi(x)$};
+        \node at (0.0, -1.5) {$0$};
+        \node at (1.5, -0.1) {$0$};
+        \node at (-1.5, -0.1) {$0$};
+        % \node at (-1, -1.1) {$O$};
+    \end{tikzpicture}
+    \centering 
+    \caption{The boundary value problem.} 
+    \label{fig.boundary_value_problem} 
+\end{figure}
+
+We are looking for a \underline{separated solution} of the form, $u(x, y) = X(x) Y(y)$. Substitute into \eqref{eq.Laplace}, then we get 
 \begin{equation*}
     X^{\prime \prime} Y+X Y^{\prime \prime}=0 \quad\Rightarrow\quad
     \frac{X^{\prime \prime}}{X}= -\frac{Y^{\prime \prime}}{Y}
@@ -335,109 +355,64 @@ The following lemma implies that $X''/X$ and $Y''/Y$ are constants.
     $f(x) = g(y)$ $\Rightarrow$ $f'(x) = \partial_x (g(y)) = 0$ $\Rightarrow$ $f(x) = \textit{const}$.
 \end{proof}
 
-Let $\lambda$ be a constant and we write
+Let $\lambda$ be the constant and we write
 \begin{equation*}
     X^{\prime \prime}+\lambda X=0, \quad Y^{\prime \prime}-\lambda Y=0 .
 \end{equation*}
 
 We call $\lambda$ the \underline{separation constant}. At this moment $\lambda$ is arbitrary. Thus the PDE was reduced to two ODEs.
 
-\subsubsection{Solving separated solutions}
-
-If $\lambda=0$, then two ODEs have the following linearly independent solutions.
-\begin{equation}\label{eq.separated_basis_0}
-X=1, x, \quad Y=1, y.
-\end{equation}
-
-If $\lambda \neq 0$, then two ODEs have the following linearly independent solutions.
-\begin{equation}\label{eq.separated_basis}
-X=e^{\sqrt{-\lambda} x}, e^{-\sqrt{-\lambda} x}, \quad Y=e^{\sqrt{\lambda} y}, e^{-\sqrt{\lambda} y} .
-\end{equation}
-
-In either case, the solution is given by superpositions:
-\begin{equation}\label{eq.basis_separated}
-u=
-\left\{\begin{aligned}
-&\left(A_1 x+A_2\right)\left(B_1 y+B_2\right), && \lambda=0 
-\\
-&\left(A_1 e^{\sqrt{-\lambda} x}+A_2 e^{-\sqrt{-\lambda x}}\right)\left(B_1 e^{\sqrt{\lambda} y}+B_2 e^{-\sqrt{\lambda} y}\right), && \lambda \neq 0
-\end{aligned}\right.
-\end{equation}
-where $A_1, A_2, B_1, B_2$ are constants. 
-
-For $\lambda>0$, by writing $\lambda=k^2(k>0)$ we have
-\begin{equation}\label{eq.basis_+}
-u(x, y)=\left(A_1 e^{i k x}+A_2 e^{-i k x}\right)\left(B_1 e^{k y}+B_2 e^{-k y}\right),
-\end{equation}
-and for $\lambda<0$, by writing $\lambda=-l^2(l>0)$ we have
-\begin{equation}\label{eq.basis_-}
-u(x, y)=\left(A_1 e^{l x}+A_2 e^{-l x}\right)\left(B_1 e^{i l y}+B_2 e^{-i l y}\right) .
-\end{equation}
-
-Therefore, we get 
-
-\begin{equation}\label{eq.basis_separated_+-}
-u=
-\left\{\begin{aligned}
-&\left(A_1 x+A_2\right)\left(B_1 y+B_2\right), && 
-\\
-&\left(A_1 e^{i k x}+A_2 e^{-i k x}\right)\left(B_1 e^{k y}+B_2 e^{-k y}\right), && 
-\\
-&\left(A_1 e^{l x}+A_2 e^{-l x}\right)\left(B_1 e^{i l y}+B_2 e^{-i l y}\right).
-\end{aligned}\right.
-\end{equation}
-
-Instead of \eqref{eq.separated_basis}, we can also choose
-\begin{equation}
-X=\cos (\sqrt{\lambda} x), \sin (\sqrt{\lambda} x), \quad Y=\cosh (\sqrt{\lambda} y), \sinh (\sqrt{\lambda} y) .
-\end{equation}
-
-In this case, we have
-\begin{equation}\label{eq.cos_basis_+}
-    u(x, y)=\left(A_1 \cos (k x)+A_2 \sin (k x)\right)\left(B_1 \cosh (k y)+B_2 \sinh (k y)\right)
-\end{equation}
-\begin{equation}\label{eq.cos_basis_-}
-    u(x, y)=\left(A_1 \cosh (l x)+A_2 \sinh (l x)\right)\left(B_1 \cos (l y)+B_2 \sin (l y)\right)
-\end{equation}
-
-Note that \eqref{eq.cos_basis_+} becomes \eqref{eq.basis_+} and \eqref{eq.cos_basis_-} becomes \eqref{eq.basis_-} by redefining the coefficients. We call solutions such as \eqref{eq.basis_separated} through \eqref{eq.cos_basis_-} separated solutions because they are given in the form $u(x, y)=X(x) Y(y)$.
-
-The final result is 
-\begin{equation}\label{eq.basis_separated_final}
-u=
-\left\{\begin{aligned}
-&\left(A_1 x+A_2\right)\left(B_1 y+B_2\right), 
-\\
-&\left(A_1 \cos (k x)+A_2 \sin (k x)\right)\left(B_1 \cosh (k y)+B_2 \sinh (k y)\right),
-\\
-&\left(A_1 \cosh (l x)+A_2 \sinh (l x)\right)\left(B_1 \cos (l y)+B_2 \sin (l y)\right).
-\end{aligned}\right.
-\end{equation}
-
 \subsubsection{Solving the boundary value problem}
-The separation constant $\lambda$ and coefficients $A_1, A_2, B_1, B_2$ are partially determined by boundary conditions that in the region $0<x<L, 0<y<\infty$, $u(x, y)$ satisfies that
+The function $u(x, y)$ satisfies the following boundary conditions
 \begin{equation}\label{eq.solve_boundary_value_1}
 u(0, y)=0, \quad u(L, y)=0, \quad u(x, 0)=0, \quad u(x, L)=\varphi(x).
 \end{equation}
-
 Let us only consider the first three conditions.
 \begin{equation}\label{eq.solve_boundary_value_2}
 u(0, y)=0, \quad u(L, y)=0, \quad u(x, 0)=0.
 \end{equation}
 
-In \eqref{eq.basis_separated_final}, we have three cases.
+The first two boundary conditions $u(0, y) = u(L, y) = 0$ imply that $X(0)Y(y) = X(L)Y(y) = 0$. Since taking $Y(y) = 0$ would force the separated solution $u(x, y) = X(x)Y(y) = 0$, yielding only the trivial solution, we must have $X(0) = X(L) = 0$. Similarly, the condition $u(x, 0) = 0$ gives $Y(0) = 0$.
 
-\begin{enumerate}
-    \item $u=\left(A_1 x+A_2\right)\left(B_1 y+B_2\right)$. In this case, $u$ satisfies boundary conditions $u(0, y)=u(L, y)=0$ in \eqref{eq.solve_boundary_value_2} if and only if $u = 0$.
-    \item $u = \left(A_1 \cos (k x)+A_2 \sin (k x)\right)\left(B_1 \cosh (k y)+B_2 \sinh (k y)\right)$. In this case, $u$ satisfies boundary conditions $u(0, y)=u(L, y)=0$ when $A_1=0$ and $k=n \pi / L$, where $n$ is an integer. Furthermore we find $B_1=0$ by the condition $u(x, 0)=0$. That is, the solution $A_2 B_2 \sin (k x) \sinh (k y)$ with $k=n \pi / L$ $(n=0, \pm 1, \pm 2, \ldots)$ satisfies the boundary conditions.
-     
-    \item $u = \left(A_1 \cosh (l x)+A_2 \sinh (l x)\right)\left(B_1 \cos (l y)+B_2 \sin (l y)\right)$. In this case, $u$ satisfies boundary conditions $u(0, y)=u(L, y)=0$ only when $A_1=A_2=0$. That is, only the solution $u=0$ satisfies the boundary conditions.
-\end{enumerate}
+Combining these boundary conditions with the ODEs derived previously, we obtain the following boundary value problems:
+\begin{equation}\label{eq.separated_ODE}
+\left\{
+\begin{aligned}
+    &X'' + \lambda X = 0, \qquad X(0) = X(L) = 0,
+    \\
+    &Y'' - \lambda Y = 0, \qquad Y(0) = 0.
+\end{aligned}
+\right.
+\end{equation}
 
-Therefore we obtain the following separated solutions of Laplace's equation satisfying the boundary conditions.
+To solve the boundary value problem, we distinguish 3 different cases $\lambda = 0$, $\lambda = - k^2 < 0$ and $\lambda = k^2 > 0$.
+
+
+\paragraph{Case 1: $\lambda = 0$.} The $X$-equation becomes $X'' = 0$, so $X(x) = Ax + B$. The boundary conditions $X(0) = X(L) = 0$ force $A = B = 0$, giving only the trivial solution $X \equiv 0$.
+
+\paragraph{Case 2: $\lambda = -k^2 < 0$.} The $X$-equation becomes $X'' - k^2 X = 0$, with general solution $X(x) = A\cosh(kx) + B\sinh(kx)$. From $X(0) = 0$ we get $A = 0$, and from $X(L) = 0$ we get $B\sinh(kL) = 0$. Since $k \neq 0$, $\sinh(kL) \neq 0$, so $B = 0$. Again only the trivial solution.
+
+\paragraph{Case 3: $\lambda = k^2 > 0$.} The $X$-equation becomes $X'' + k^2 X = 0$, with general solution $X(x) = A\cos(kx) + B\sin(kx)$. From $X(0) = 0$ we get $A = 0$. From $X(L) = 0$ we get $B\sin(kL) = 0$. For a nontrivial solution we need $\sin(kL) = 0$, which gives $kL = n\pi$ for $n = 1, 2, \ldots$. Thus
+\[
+\lambda_n = \left(\frac{n\pi}{L}\right)^2, \qquad X_n(x) = \sin\frac{n\pi x}{L}, \quad n = 1, 2, \ldots.
+\]
+
+With $\lambda = \lambda_n$, the $Y$-equation becomes $Y'' - \left(\frac{n\pi}{L}\right)^2 Y = 0$. Let $\mu = \frac{n\pi}{L}$. The characteristic equation is $r^2 - \mu^2 = 0$, giving $r = \pm \mu$, so the general solution is $Y(y) = C_1 e^{\mu y} + C_2 e^{-\mu y}$. The condition $Y(0) = 0$ gives $C_1 + C_2 = 0$, i.e.\ $C_2 = -C_1$, so $Y(y) = C_1 \left(e^{\mu y} - e^{-\mu y}\right)$.
+Recall that the \underline{hyperbolic sine} and \underline{hyperbolic cosine} functions are defined by
+\[
+\sinh(z) = \frac{e^z - e^{-z}}{2}, \qquad \cosh(z) = \frac{e^z + e^{-z}}{2}.
+\]
+Using this notation, we can write
+\[
+Y(y) = D\sinh\frac{n\pi y}{L}.
+\]
+
+Therefore, by $u(x, y) = X(x) Y(y)$, we obtain the following separated solutions of Laplace's equation.
 \begin{equation}
 u(x, y)=A \sin \frac{n \pi x}{L} \sinh \frac{n \pi y}{L}, \quad n=1,2, \ldots,
 \end{equation}
+
+
 
 \subsubsection{Matching with the last boundary condition}\label{sec.match_boundary}
 
