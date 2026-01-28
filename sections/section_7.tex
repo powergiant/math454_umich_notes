@@ -2,15 +2,15 @@
 
 \subsection{The Fourier transform}
 
-\subsubsection{Motivation: from Fourier series to Fourier transform}
+\subsubsection{Motivation: from Fourier series to Fourier transform}\label{sec.motivation_fourier}
 
-Recall the complex form of the Fourier series on $[-L,L]$:
+Recall the complex form of the Fourier series on $[-L,L]$,
 \[
-  f(x) = \sum_{n=-\infty}^{\infty} c_n\,e^{in\pi x/L},
+  f(x) = \sum_{n=-\infty}^{\infty} \alpha_n\,e^{in\pi x/L},
   \qquad
-  c_n = \frac{1}{2L}\int_{-L}^{L} f(x')\,e^{-in\pi x'/L}\,dx'.
+  \alpha_n = \frac{1}{2L}\int_{-L}^{L} f(x')\,e^{-in\pi x'/L}\,dx'.
 \]
-Substituting $c_n$ back into the expansion gives
+Substituting $\alpha_n$ back into the expansion gives
 \[
   f(x)
   = \sum_{n=-\infty}^{\infty}
@@ -19,22 +19,22 @@ Substituting $c_n$ back into the expansion gives
 \]
 Define the discrete frequencies
 \[
-  p_n = \frac{n\pi}{L}, \qquad \Delta p = p_{n+1}-p_n = \frac{\pi}{L}.
+  \mu_n = \frac{n\pi}{L}, \qquad \Delta \mu = \mu_{n+1}-\mu_n = \frac{\pi}{L}.
 \]
 Then we can rewrite the Fourier series as a Riemann sum:
 \[
   f(x)
   = \sum_{n=-\infty}^{\infty}
     \frac{1}{2\pi}
-    \underbrace{\int_{-L}^{L} f(x')\,e^{-ip_n x'}\,dx'}_{\displaystyle\to\;\hat{f}(p_n)}
-    \;\cdot\; e^{ip_n x}\;\Delta p.
+    \underbrace{\int_{-L}^{L} f(x')\,e^{-i\mu_n x'}\,dx'}_{\displaystyle\to\;\hat{f}(\mu_n)}
+    \;\cdot\; e^{i\mu_n x}\;\Delta \mu.
 \]
-As $L\to\infty$, $\Delta p\to 0$ and the discrete variable $p_n$ becomes a continuous variable $p$. The Riemann sum converges to an integral:
+As $L\to\infty$, $\Delta \mu\to 0$ and the discrete variable $\mu_n$ becomes a continuous variable $\mu$. The Riemann sum converges to an integral:
 \begin{equation}\label{eq.ft_limit}
   f(x)
   = \frac{1}{2\pi}\int_{-\infty}^{\infty}
-    \!\left(\int_{-\infty}^{\infty} f(x')\,e^{-ipx'}\,dx'\right)
-    e^{ipx}\,dp.
+    \!\left(\int_{-\infty}^{\infty} f(x')\,e^{-i\mu x'}\,dx'\right)
+    e^{i\mu x}\,d\mu.
 \end{equation}
 This motivates the following definition.
 
@@ -43,133 +43,169 @@ This motivates the following definition.
 \begin{definition}[Fourier transform]\label{def.fourier_transform}
 Let $f(x)$ be a sufficiently fast-decaying function defined on $\mathbb{R}$. The \underline{Fourier transform} of $f$ is defined by
 \begin{equation}\label{eq.fourier_transform}
-  \hat{f}(p) = \int_{-\infty}^{\infty} f(x)\,e^{-ipx}\,dx.
+  \hat{f}(\mu) = \int_{-\infty}^{\infty} f(x)\,e^{-i\mu x}\,dx.
 \end{equation}
-The \underline{inverse Fourier transform} is given by
-\begin{equation}\label{eq.inverse_fourier_transform}
-  f(x) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \hat{f}(p)\,e^{ipx}\,dp.
-\end{equation}
+% The \underline{inverse Fourier transform} is given by
+% \begin{equation}\label{eq.inverse_fourier_transform}
+%   f(x) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \hat{f}(\mu)\,e^{i\mu x}\,d\mu.
+% \end{equation}
 \end{definition}
 
 \begin{theorem}[Properties of the Fourier transform]\label{th.fourier_transform_properties}
-Let $f(x)$ be a function with Fourier transform $\hat{f}(p)$. The following properties hold.
+Let $f(x)$ be a fast-decaying function defined on $\mathbb{R}$. Then the following properties hold.
 \begin{enumerate}
-  \item \textbf{Derivative property:} $\widehat{f'}(p) = ip\,\hat{f}(p)$, provided $f(x) \to 0$ as $|x| \to \infty$.
-  \item \textbf{Multiplication by $x$:} $\widehat{xf}(p) = i\,\hat{f}'(p)$.
-  \item \textbf{Parseval's identity:}
+  \item Inversion formula. $f(x) = \frac{1}{2\pi}\int_{-\infty}^{\infty} \hat{f}(\mu)\,e^{i\mu x}\,d\mu$.
+  \item Derivative property. $\widehat{f'}(\mu) = i\mu\,\hat{f}(\mu)$.
+  \item Parseval's identity.
     $\displaystyle\int_{-\infty}^{\infty} |f(x)|^2\,dx
-      = \frac{1}{2\pi}\int_{-\infty}^{\infty} |\hat{f}(p)|^2\,dp.$
-  \item \textbf{Generalized Parseval's identity:}
-    $\displaystyle\int_{-\infty}^{\infty}f(x)\overline{g(x)}\,dx
-        = \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(p)\overline{\hat{g}(p)}\,dp.$
+      = \frac{1}{2\pi}\int_{-\infty}^{\infty} |\hat{f}(\mu)|^2\,d\mu.$
 \end{enumerate}
 \end{theorem}
+\begin{proof} The first conclusion follows directly from the derivation in section \ref{sec.motivation_fourier}
 
-\begin{proof}[Proof of (1)]
-We compute the Fourier transform of $f'$ by integration by parts:
+The second conclusion can be proved as follows. We compute the Fourier transform of $f'$ by integration by parts:
 \begin{equation}\label{eq.proof_ft_derivative}
-  \widehat{f'}(p)
-  = \int_{-\infty}^{\infty} f'(x)\,e^{-ipx}\,dx
-  = \bigl[f(x)\,e^{-ipx}\bigr]_{-\infty}^{\infty}
-    + ip\int_{-\infty}^{\infty} f(x)\,e^{-ipx}\,dx
-  = ip\,\hat{f}(p),
+  \widehat{f'}(\mu)
+  = \int_{-\infty}^{\infty} f'(x)\,e^{-i\mu x}\,dx
+  = \bigl[f(x)\,e^{-i\mu x}\bigr]_{-\infty}^{\infty}
+    + i\mu\int_{-\infty}^{\infty} f(x)\,e^{-i\mu x}\,dx
+  = i\mu\,\hat{f}(\mu),
 \end{equation}
 where the boundary term vanishes since $f(x)\to 0$ as $|x|\to\infty$.
+
+The third conclusion can be proved as follows.
+For each $L>0$, let $f_L$ be the $2L$-periodic extension of $f|_{[-L,L]}$. Its complex Fourier series is
+\[
+  f_L(x) = \sum_{n=-\infty}^{\infty} \alpha_n\,e^{in\pi x/L},
+  \qquad
+  \alpha_n = \frac{1}{2L}\int_{-L}^{L} f_L(x)\,e^{-in\pi x/L}\,dx.
+\]
+Introduce the truncated Fourier transform
+\[
+  \hat{f}_L(\mu) = \int_{-L}^{L} f_L(x)\,e^{-i\mu x}\,dx,
+  \qquad \mu_n = \frac{n\pi}{L}.
+\]
+Then $\alpha_n = \frac{1}{2L}\hat{f}_L(\mu_n)$, so Parseval for Fourier series gives
+\begin{equation}\label{eq.parseval_series_to_transform}
+  \int_{-L}^{L} |f_L(x)|^2\,dx
+  = 2L\sum_{n=-\infty}^{\infty} |\alpha_n|^2
+  = \frac{1}{2L}\sum_{n=-\infty}^{\infty} |\hat{f}_L(\mu_n)|^2.
+\end{equation}
+Since $\Delta\mu = \mu_{n+1}-\mu_n = \pi/L$, we can rewrite
+\[
+  \frac{1}{2L}\sum_{n=-\infty}^{\infty} |\hat{f}_L(\mu_n)|^2
+  = \frac{\Delta\mu}{2\pi}\sum_{n=-\infty}^{\infty} |\hat{f}_L(\mu_n)|^2.
+\]
+As $L\to\infty$, we have $f_L\to f$ in $L^2(\mathbb{R})$ and $\hat{f}_L(\mu)\to\hat{f}(\mu)$,
+so the sum becomes a Riemann sum. Therefore
+\[
+  \int_{-\infty}^{\infty} |f(x)|^2\,dx
+  = \frac{1}{2\pi}\int_{-\infty}^{\infty} |\hat{f}(\mu)|^2\,d\mu,
+\]
+which is the desired identity.
 \end{proof}
 
-\begin{proof}[Proof of (2)]
-Differentiating $\hat{f}(p) = \int_{-\infty}^{\infty} f(x)\,e^{-ipx}\,dx$ with respect to $p$ under the integral sign gives
-\begin{equation}\label{eq.proof_ft_multiplication}
-  \hat{f}'(p)
-  = \frac{d}{dp}\int_{-\infty}^{\infty} f(x)\,e^{-ipx}\,dx
-  = \int_{-\infty}^{\infty} f(x)\,(-ix)\,e^{-ipx}\,dx
-  = -i\,\widehat{xf}(p).
-\end{equation}
-Therefore $\widehat{xf}(p) = i\,\hat{f}'(p)$.
-\end{proof}
-
-An important consequence of property (1) is the following.
-
-\begin{corollary}\label{cor.second_derivative_ft}
-If $f(x) \to 0$ and $f'(x) \to 0$ as $|x| \to \infty$, then $\widehat{f''}(p) = (ip)^2\hat{f}(p) = -p^2\hat{f}(p)$.
-\end{corollary}
-
-We also record the following property of real-valued functions.
-
-\begin{proposition}\label{prop.ft_real}
-If $f(x)$ is real-valued, then $\hat{f}(p) = \overline{\hat{f}(-p)}$.
-\end{proposition}
-
-\subsection{Heat equation on the full line}
-
-Consider the heat equation on $\mathbb{R}$:
-\begin{equation}\label{eq.heat_eq_R}
-  u_t = k\,u_{xx},\quad x\in\mathbb{R},\quad t>0,
-  \qquad u(x,0) = f(x).
-\end{equation}
 
 \subsubsection{Solution by Fourier transform}
 
-We apply the Fourier transform in $x$ to both sides of \eqref{eq.heat_eq_R}. By Corollary~\ref{cor.second_derivative_ft}, the right-hand side transforms as $k\,\widehat{u_{xx}} = -kp^2\,\hat{u}$. Since the Fourier transform does not act on $t$, we obtain the ODE
+\begin{equation}\label{eq.heat_eq_R}
+\left\{\begin{aligned} 
+    &u_t=K u_{xx}, \qquad x \in (-\infty, \infty), 
+    \\
+    &u(x, 0)=f(x).
+\end{aligned}\right.
+\end{equation}
+
+We apply the Fourier transform in $x$ to both sides of \eqref{eq.heat_eq_R}. By Theorem \ref{th.fourier_transform_properties} 2, the right-hand side transforms as $K\,\widehat{u_{xx}} = i \mu K\,\widehat{u_x}  = -K\mu^2\,\hat{u}$. Since the Fourier transform does not act on $t$, we obtain the ODE
 \begin{equation}\label{eq.heat_eq_R_ft}
-  \hat{u}_t = -kp^2\,\hat{u}.
+  \hat{u}_t = -K\mu^2\,\hat{u}.
 \end{equation}
 
-This is a separable first-order ODE in $t$ (with $p$ as a parameter). Solving by separation of variables,
+This is a separable first-order ODE in $t$ (with $\mu$ as a parameter). Solving by separation of variables,
 \begin{equation}\label{eq.heat_eq_R_ft_solve}
-  \frac{d\hat{u}}{dt} = -kp^2\,\hat{u}
+  \frac{d\hat{u}}{dt} = -K\mu^2\,\hat{u}
   \quad\Longrightarrow\quad
-  \ln\hat{u} = -kp^2\,t + C
+  \ln\hat{u} = -K\mu^2\,t + C
   \quad\Longrightarrow\quad
-  \hat{u}(p,t) = \hat{u}(p,0)\,e^{-kp^2 t}.
+  \hat{u}(\mu,t) = \hat{u}(\mu,0)\,e^{-K\mu^2 t}.
 \end{equation}
-The initial condition gives $\hat{u}(p,0) = \hat{f}(p)$, so
+The initial condition gives $\hat{u}(\mu,0) = \hat{f}(\mu)$, so
 \begin{equation}\label{eq.heat_eq_R_ft_sol}
-  \hat{u}(p,t) = \hat{f}(p)\,e^{-kp^2 t}.
+  \hat{u}(\mu,t) = \hat{f}(\mu)\,e^{-K\mu^2 t}.
 \end{equation}
 
-Applying the inverse Fourier transform \eqref{eq.inverse_fourier_transform},
+Applying the inverse Fourier transform Theorem \ref{th.fourier_transform_properties} 1,
 \begin{equation}\label{eq.heat_eq_R_sol_ft}
   u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty}
-    \hat{f}(p)\,e^{-kp^2 t}\,e^{ipx}\,dp.
+    \hat{f}(\mu)\,e^{-K\mu^2 t}\,e^{i\mu x}\,d\mu.
 \end{equation}
 
 \subsubsection{The heat kernel}\label{sec.heat_kernel}
 
-We can simplify \eqref{eq.heat_eq_R_sol_ft} into a convolution form. Substituting the definition $\hat{f}(p) = \int_{-\infty}^{\infty}f(x')\,e^{-ipx'}\,dx'$ and interchanging the order of integration,
+We can simplify \eqref{eq.heat_eq_R_sol_ft} into a convolution form. Substituting $\hat{f}(\mu) = \int_{-\infty}^{\infty}f(x')\,e^{-i\mu x'}\,dx'$ and interchanging the order of integration,
 \begin{equation}\label{eq.heat_kernel_derivation}
   u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty}f(x')
-    \int_{-\infty}^{\infty}e^{-kp^2 t + ip(x-x')}\,dp\;dx'.
+    \int_{-\infty}^{\infty}e^{-K\mu^2 t + i\mu(x-x')}\,d\mu\;dx'.
 \end{equation}
 
 To evaluate the inner integral, we use the following Gaussian integral formula.
 
+\begin{theorem}[Gaussian integral]\label{th.gaussian_integral_simple}
+\begin{equation}\label{eq.gaussian_integral_simple}
+  \int_{-\infty}^{\infty} e^{-\mu^2}\,d\mu
+  = \sqrt{\pi}.
+\end{equation}
+\end{theorem}
+\begin{proof}
+    This is established in the calculus course.
+\end{proof}
+
 \begin{theorem}[Gaussian integral]\label{th.gaussian_integral}
 \begin{equation}\label{eq.gaussian_integral}
-  \int_{-\infty}^{\infty} e^{-\alpha p^2+\beta p}\,dp
+  \int_{-\infty}^{\infty} e^{-\alpha \mu^2+\beta \mu}\,d\mu
   = \sqrt{\frac{\pi}{\alpha}}\;e^{\beta^2/(4\alpha)},
   \qquad \operatorname{Re}(\alpha)>0.
 \end{equation}
 \end{theorem}
+\begin{proof}
+Complete the square:
+\[
+  -\alpha\mu^2+\beta\mu
+  = -\alpha\left(\mu-\frac{\beta}{2\alpha}\right)^2 + \frac{\beta^2}{4\alpha}.
+\]
+Hence
+\[
+  \int_{-\infty}^{\infty} e^{-\alpha \mu^2+\beta \mu}\,d\mu
+  = e^{\beta^2/(4\alpha)}\int_{-\infty}^{\infty}
+    \exp\!\left(-\alpha\left(\mu-\frac{\beta}{2\alpha}\right)^2\right)\,d\mu.
+\]
+By the change of variables $y=\sqrt{\alpha}\left(\mu-\beta/(2\alpha)\right)$, we obtain
+\[
+  \int_{-\infty}^{\infty}
+    \exp\!\left(-\alpha\left(\mu-\frac{\beta}{2\alpha}\right)^2\right)\,d\mu
+  = \frac{1}{\sqrt{\alpha}}\int_{-\infty}^{\infty} e^{-y^2}\,dy,
+\]
+The the conclusion follows from applying Theorem~\ref{th.gaussian_integral_simple}.
+\end{proof}
 
-We apply Theorem~\ref{th.gaussian_integral} with $\alpha = kt$ and $\beta = i(x-x')$, so that $\beta^2 = -(x-x')^2$:
+We apply Theorem~\ref{th.gaussian_integral} with $\alpha = Kt$ and $\beta = i(x-x')$, so that $\beta^2 = -(x-x')^2$:
 \begin{equation}\label{eq.heat_kernel_gaussian}
-  \int_{-\infty}^{\infty}e^{-ktp^2+i(x-x')p}\,dp
-  = \sqrt{\frac{\pi}{kt}}\;e^{-(x-x')^2/(4kt)}.
+  \int_{-\infty}^{\infty}e^{-Kt\mu^2+i(x-x')p}\,d\mu
+  = \sqrt{\frac{\pi}{Kt}}\;e^{-(x-x')^2/(4Kt)}.
 \end{equation}
 
 Substituting back into \eqref{eq.heat_kernel_derivation},
 \begin{align}
   u(x,t)
   &= \frac{1}{2\pi}\int_{-\infty}^{\infty}f(x')\;
-     \sqrt{\frac{\pi}{kt}}\;e^{-(x-x')^2/(4kt)}\,dx' \nonumber\\
-  &= \frac{1}{\sqrt{4\pi kt}}\int_{-\infty}^{\infty}
-     f(x')\,e^{-(x-x')^2/(4kt)}\,dx'. \label{eq.heat_kernel_sol}
+     \sqrt{\frac{\pi}{Kt}}\;e^{-(x-x')^2/(4Kt)}\,dx' \nonumber\\
+  &= \frac{1}{\sqrt{4\pi Kt}}\int_{-\infty}^{\infty}
+     f(x')\,e^{-(x-x')^2/(4Kt)}\,dx'. \label{eq.heat_kernel_sol}
 \end{align}
 
 We define the \underline{heat kernel} (also called the \underline{Green's function} for the heat equation on $\mathbb{R}$):
 \begin{equation}\label{eq.heat_kernel}
-  \boxed{G(x,x';t) = \frac{1}{\sqrt{4\pi kt}}\,e^{-(x-x')^2/(4kt)}.}
+  G(x,x';t) = \frac{1}{\sqrt{4\pi Kt}}\,e^{-(x-x')^2/(4Kt)}.
 \end{equation}
 The solution to the heat equation \eqref{eq.heat_eq_R} is then
 \begin{equation}\label{eq.heat_sol_green}
@@ -178,13 +214,13 @@ The solution to the heat equation \eqref{eq.heat_eq_R} is then
 
 \subsubsection{Connection to eigenfunction expansion}
 
-Consider the heat equation $u_t = k\,u_{xx}$ on $x\in\mathbb{R}$. Define the operator $A = -\partial_{xx}$ acting on bounded functions $\phi(x)$ on $\mathbb{R}$. The eigenvalue problem $A\phi = \lambda\phi$, i.e.\ $-\phi'' = \lambda\phi$, has solutions
+Consider the heat equation $u_t = K\,u_{xx}$ on $x\in\mathbb{R}$. Define the operator $A = -\partial_{xx}$ acting on bounded functions $\phi(x)$ on $\mathbb{R}$. The eigenvalue problem $A\phi = \lambda\phi$, i.e.\ $-\phi'' = \lambda\phi$, has solutions
 \begin{equation}\label{eq.eigenvalue_full_line}
-  \phi(x) = e^{ipx},\qquad \lambda = p^2, \qquad p\in\mathbb{R}.
+  \phi(x) = e^{i\mu x},\qquad \lambda = \mu^2, \qquad p\in\mathbb{R}.
 \end{equation}
-The eigenfunctions $e^{ipx}$ are labeled by a continuous parameter $p$, and the eigenvalues satisfy $\lambda = p^2 \ge 0$. This is called the \underline{continuous spectrum}, in contrast to the discrete spectrum that arises on bounded domains. The ``eigenfunction expansion'' becomes
+The eigenfunctions $e^{i\mu x}$ are labeled by a continuous parameter $\mu$, and the eigenvalues satisfy $\lambda = \mu^2 \ge 0$. This is called the \underline{continuous spectrum}, in contrast to the discrete spectrum that arises on bounded domains. The ``eigenfunction expansion'' becomes
 \begin{equation}\label{eq.eigenfunction_expansion_ft}
-  u(x,t) = \int_{-\infty}^{\infty}\hat{u}(p,t)\,e^{ipx}\,\frac{dp}{2\pi},
+  u(x,t) = \int_{-\infty}^{\infty}\hat{u}(\mu,t)\,e^{i\mu x}\,\frac{d\mu}{2\pi},
 \end{equation}
 which is exactly the inverse Fourier transform.
 
@@ -196,7 +232,7 @@ The Fourier transform requires that $f(x)$ is defined on all of $\mathbb{R}$ and
 
 Consider the heat equation on the half-line:
 \begin{equation}\label{eq.heat_eq_half_line}
-  u_t = k\,u_{xx},\quad x>0,\quad t>0,\qquad u(x,0) = f(x),
+  u_t = K\,u_{xx},\quad x>0,\quad t>0,\qquad u(x,0) = f(x),
 \end{equation}
 together with one of the following boundary conditions:
 \begin{itemize}
@@ -228,26 +264,26 @@ The \underline{even extension} of $f(x)$ (for Neumann boundary conditions) is de
 
 The key observation is:
 \begin{itemize}
-  \item If $f$ is odd, then $\hat{f}(p)$ is purely imaginary and odd.
-  \item If $f$ is even, then $\hat{f}(p)$ is real and even.
+  \item If $f$ is odd, then $\hat{f}(\mu)$ is purely imaginary and odd.
+  \item If $f$ is even, then $\hat{f}(\mu)$ is real and even.
 \end{itemize}
 Therefore, for Dirichlet boundary conditions ($f_o$ is odd), we use the \underline{Fourier sine transform}, and for Neumann boundary conditions ($f_e$ is even), we use the \underline{Fourier cosine transform}.
 
 \begin{definition}[Fourier sine transform]\label{def.fourier_sine_transform}
 The \underline{Fourier sine transform} and its inverse are defined by
 \begin{equation}\label{eq.fourier_sine_transform}
-  \hat{f}_s(p) = \int_0^{\infty}f(x)\sin(px)\,dx,
+  \hat{f}_s(\mu) = \int_0^{\infty}f(x)\sin(\mu x)\,dx,
   \qquad
-  f(x) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_s(p)\sin(px)\,dp.
+  f(x) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_s(\mu)\sin(\mu x)\,d\mu.
 \end{equation}
 \end{definition}
 
 \begin{definition}[Fourier cosine transform]\label{def.fourier_cosine_transform}
 The \underline{Fourier cosine transform} and its inverse are defined by
 \begin{equation}\label{eq.fourier_cosine_transform}
-  \hat{f}_c(p) = \int_0^{\infty}f(x)\cos(px)\,dx,
+  \hat{f}_c(\mu) = \int_0^{\infty}f(x)\cos(\mu x)\,dx,
   \qquad
-  f(x) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_c(p)\cos(px)\,dp.
+  f(x) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_c(\mu)\cos(\mu x)\,d\mu.
 \end{equation}
 \end{definition}
 
@@ -255,52 +291,52 @@ The \underline{Fourier cosine transform} and its inverse are defined by
 
 We use the odd extension $f_o$ to extend $f$ to $\mathbb{R}$, then apply the full-line solution.
 
-Taking the Fourier sine transform of $u_t = k\,u_{xx}$ gives the ODE
+Taking the Fourier sine transform of $u_t = K\,u_{xx}$ gives the ODE
 \begin{equation}\label{eq.dirichlet_sine_ode}
-  (\hat{u}_s)_t = -kp^2\,\hat{u}_s.
+  (\hat{u}_s)_t = -K\mu^2\,\hat{u}_s.
 \end{equation}
-With the initial condition $\hat{u}_s(p,0) = \hat{f}_s(p)$, the solution is
+With the initial condition $\hat{u}_s(\mu,0) = \hat{f}_s(\mu)$, the solution is
 \begin{equation}\label{eq.dirichlet_sine_sol}
-  \hat{u}_s(p,t) = \hat{f}_s(p)\,e^{-kp^2 t}.
+  \hat{u}_s(\mu,t) = \hat{f}_s(\mu)\,e^{-K\mu^2 t}.
 \end{equation}
 Applying the inverse sine transform,
 \begin{equation}\label{eq.dirichlet_sine_invert}
-  u(x,t) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_s(p)\,\sin(px)\,e^{-kp^2 t}\,dp.
+  u(x,t) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_s(\mu)\,\sin(\mu x)\,e^{-K\mu^2 t}\,d\mu.
 \end{equation}
 
-Substituting $\hat{f}_s(p) = \int_0^{\infty}f(x')\sin(px')\,dx'$ and using the full-line result with the odd extension, we obtain
+Substituting $\hat{f}_s(\mu) = \int_0^{\infty}f(x')\sin(\mu x')\,dx'$ and using the full-line result with the odd extension, we obtain
 \begin{equation}\label{eq.dirichlet_half_line_sol}
-  u(x,t) = \frac{1}{\sqrt{4\pi kt}}\int_0^{\infty}f(x')
-    \left[e^{-(x-x')^2/(4kt)} - e^{-(x+x')^2/(4kt)}\right]\,dx'.
+  u(x,t) = \frac{1}{\sqrt{4\pi Kt}}\int_0^{\infty}f(x')
+    \left[e^{-(x-x')^2/(4Kt)} - e^{-(x+x')^2/(4Kt)}\right]\,dx'.
 \end{equation}
 
 We can write this as $u(x,t) = \int_0^{\infty} G^D(x,x';t)\,f(x')\,dx'$, where the \underline{Dirichlet Green's function} on the half-line is
 \begin{equation}\label{eq.dirichlet_green}
-  G^D(x,x';t) = \frac{1}{\sqrt{4\pi kt}}
-  \left[e^{-(x-x')^2/(4kt)} - e^{-(x+x')^2/(4kt)}\right].
+  G^D(x,x';t) = \frac{1}{\sqrt{4\pi Kt}}
+  \left[e^{-(x-x')^2/(4Kt)} - e^{-(x+x')^2/(4Kt)}\right].
 \end{equation}
 
 \subsubsection{Neumann case: solution via cosine transform}
 
 Using the even extension $f_e$ and the cosine transform, we get the same type of ODE:
 \begin{equation}\label{eq.neumann_cosine_ode}
-  (\hat{u}_c)_t = -kp^2\,\hat{u}_c,\qquad
-  \hat{u}_c(p,0) = \hat{f}_c(p).
+  (\hat{u}_c)_t = -K\mu^2\,\hat{u}_c,\qquad
+  \hat{u}_c(\mu,0) = \hat{f}_c(\mu).
 \end{equation}
-The solution is $\hat{u}_c(p,t) = \hat{f}_c(p)\,e^{-kp^2 t}$. Applying the inverse cosine transform,
+The solution is $\hat{u}_c(\mu,t) = \hat{f}_c(\mu)\,e^{-K\mu^2 t}$. Applying the inverse cosine transform,
 \begin{equation}\label{eq.neumann_cosine_invert}
-  u(x,t) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_c(p)\,\cos(px)\,e^{-kp^2 t}\,dp.
+  u(x,t) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_c(\mu)\,\cos(\mu x)\,e^{-K\mu^2 t}\,d\mu.
 \end{equation}
 Substituting $\hat{f}_c$ and computing as before, we obtain
 \begin{equation}\label{eq.neumann_half_line_sol}
-  u(x,t) = \frac{1}{\sqrt{4\pi kt}}\int_0^{\infty}f(x')
-    \left[e^{-(x-x')^2/(4kt)} + e^{-(x+x')^2/(4kt)}\right]\,dx'.
+  u(x,t) = \frac{1}{\sqrt{4\pi Kt}}\int_0^{\infty}f(x')
+    \left[e^{-(x-x')^2/(4Kt)} + e^{-(x+x')^2/(4Kt)}\right]\,dx'.
 \end{equation}
 
 The \underline{Neumann Green's function} on the half-line is
 \begin{equation}\label{eq.neumann_green}
-  \boxed{G^N(x,x';t) = \frac{1}{\sqrt{4\pi kt}}
-  \left[e^{-(x-x')^2/(4kt)} + e^{-(x+x')^2/(4kt)}\right].}
+  \boxed{G^N(x,x';t) = \frac{1}{\sqrt{4\pi Kt}}
+  \left[e^{-(x-x')^2/(4Kt)} + e^{-(x+x')^2/(4Kt)}\right].}
 \end{equation}
 
 Note that the Dirichlet Green's function uses a minus sign (odd extension), while the Neumann Green's function uses a plus sign (even extension).
@@ -317,29 +353,29 @@ with initial conditions $u(x,0) = f(x)$ and $u_t(x,0) = g(x)$.
 
 Taking the Fourier transform in $x$ and using Corollary~\ref{cor.second_derivative_ft}, we obtain the ODE
 \begin{equation}\label{eq.wave_eq_R_ft}
-  \hat{u}_{tt} + c^2 p^2\,\hat{u} = 0.
+  \hat{u}_{tt} + c^2 \mu^2\,\hat{u} = 0.
 \end{equation}
-This is a constant-coefficient second-order ODE in $t$. The characteristic equation is $r^2 + c^2p^2 = 0$, giving $r = \pm icp$. By Theorem~\ref{th.2nd_ODE}, the general solution is
+This is a constant-coefficient second-order ODE in $t$. The characteristic equation is $r^2 + c^2\mu^2 = 0$, giving $r = \pm icp$. By Theorem~\ref{th.2nd_ODE}, the general solution is
 \begin{equation}\label{eq.wave_eq_R_ft_sol}
-  \hat{u}(p,t) = A(p)\,e^{icpt} + B(p)\,e^{-icpt}.
+  \hat{u}(\mu,t) = A(\mu)\,e^{icpt} + B(\mu)\,e^{-icpt}.
 \end{equation}
 
-Applying the initial conditions $\hat{u}(p,0) = \hat{f}(p)$ and $\hat{u}_t(p,0) = \hat{g}(p)$, we get the system
+Applying the initial conditions $\hat{u}(\mu,0) = \hat{f}(\mu)$ and $\hat{u}_t(\mu,0) = \hat{g}(\mu)$, we get the system
 \begin{equation}\label{eq.wave_eq_R_ic}
-  A(p)+B(p) = \hat{f}(p),
+  A(\mu)+B(\mu) = \hat{f}(\mu),
   \qquad
-  icp\bigl[A(p)-B(p)\bigr] = \hat{g}(p).
+  icp\bigl[A(\mu)-B(\mu)\bigr] = \hat{g}(\mu).
 \end{equation}
-Solving for $A(p)$ and $B(p)$,
+Solving for $A(\mu)$ and $B(\mu)$,
 \begin{equation}\label{eq.wave_eq_R_AB}
-  A(p) = \frac{1}{2}\hat{f}(p) + \frac{\hat{g}(p)}{2icp},
+  A(\mu) = \frac{1}{2}\hat{f}(\mu) + \frac{\hat{g}(\mu)}{2icp},
   \qquad
-  B(p) = \frac{1}{2}\hat{f}(p) - \frac{\hat{g}(p)}{2icp}.
+  B(\mu) = \frac{1}{2}\hat{f}(\mu) - \frac{\hat{g}(\mu)}{2icp}.
 \end{equation}
 
 Substituting back into \eqref{eq.wave_eq_R_ft_sol} and using $\frac{e^{icpt}+e^{-icpt}}{2} = \cos(cpt)$ and $\frac{e^{icpt}-e^{-icpt}}{2} = i\sin(cpt)$, we get
 \begin{equation}\label{eq.wave_eq_R_ft_combined}
-  \hat{u}(p,t) = \hat{f}(p)\cos(cpt) + \frac{\hat{g}(p)}{icp}\sin(cpt).
+  \hat{u}(\mu,t) = \hat{f}(\mu)\cos(cpt) + \frac{\hat{g}(\mu)}{icp}\sin(cpt).
 \end{equation}
 
 \subsubsection{D'Alembert's formula}
@@ -349,10 +385,10 @@ Applying the inverse Fourier transform to \eqref{eq.wave_eq_R_ft_combined}, the 
 For the first term, using $\cos(cpt) = \frac{1}{2}(e^{icpt} + e^{-icpt})$,
 \begin{equation}\label{eq.dalembert_I1}
 \begin{aligned}
-  I_1 &= \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(p)\,e^{ipx}\cos(cpt)\,dp \\
+  I_1 &= \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\mu)\,e^{i\mu x}\cos(cpt)\,d\mu \\
   &= \frac{1}{2}\!\left[
-       \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(p)\,e^{ip(x+ct)}\,dp
-     + \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(p)\,e^{ip(x-ct)}\,dp
+       \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\mu)\,e^{i\mu(x+ct)}\,d\mu
+     + \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\mu)\,e^{i\mu(x-ct)}\,d\mu
      \right] \\
   &= \frac{1}{2}\bigl[f(x+ct)+f(x-ct)\bigr],
 \end{aligned}
@@ -362,13 +398,13 @@ where the last step follows from the inverse Fourier transform formula \eqref{eq
 For the second term,
 \begin{equation}\label{eq.dalembert_I2_start}
   I_2 = \frac{1}{2\pi}\int_{-\infty}^{\infty}
-    \frac{\hat{g}(p)}{icp}\,e^{ipx}\,\sin(cpt)\,dp.
+    \frac{\hat{g}(\mu)}{icp}\,e^{i\mu x}\,\sin(cpt)\,d\mu.
 \end{equation}
 We use the identity $\frac{\sin(cpt)}{cp} = \int_0^t \cos(cps)\,ds$ to write
 \begin{equation}\label{eq.dalembert_I2}
 \begin{aligned}
   I_2 &= \frac{1}{2\pi}\int_0^t\int_{-\infty}^{\infty}
-    \frac{\hat{g}(p)}{i}\,e^{ipx}\,\cos(cps)\,dp\,ds
+    \frac{\hat{g}(\mu)}{i}\,e^{i\mu x}\,\cos(cps)\,d\mu\,ds
   = \frac{1}{2c}\int_{x-ct}^{x+ct}g(s)\,ds.
 \end{aligned}
 \end{equation}
@@ -395,7 +431,7 @@ The initial profile $e^{-x^2}$ splits into two bumps traveling in opposite direc
 
 Consider the nonhomogeneous heat equation
 \begin{equation}\label{eq.nonhom_heat}
-  u_t - k\,u_{xx} = h(x,t),\qquad u(x,0) = f(x).
+  u_t - K\,u_{xx} = h(x,t),\qquad u(x,0) = f(x).
 \end{equation}
 
 We decompose $u = v + w$, where $v$ solves the homogeneous problem with initial data, and $w$ solves the nonhomogeneous problem with zero initial data:
@@ -406,23 +442,23 @@ We decompose $u = v + w$, where $v$ solves the homogeneous problem with initial 
 \end{aligned}
 \end{equation}
 
-The solution for $v$ is already known from section~\ref{sec.heat_kernel}: $\hat{v}(p,t) = \hat{f}(p)\,e^{-kp^2 t}$.
+The solution for $v$ is already known from section~\ref{sec.heat_kernel}: $\hat{v}(\mu,t) = \hat{f}(\mu)\,e^{-K\mu^2 t}$.
 
 For $w$, we take the Fourier transform in $x$ to obtain the first-order linear ODE
 \begin{equation}\label{eq.nonhom_heat_w_ft}
-  \hat{w}_t + kp^2\,\hat{w} = \hat{h}(p,t),
-  \qquad \hat{w}(p,0) = 0.
+  \hat{w}_t + K\mu^2\,\hat{w} = \hat{h}(\mu,t),
+  \qquad \hat{w}(\mu,0) = 0.
 \end{equation}
-We solve this by the integrating factor method (Theorem~\ref{th.linear_ODE}). Multiplying by the integrating factor $e^{kp^2 t}$,
+We solve this by the integrating factor method (Theorem~\ref{th.linear_ODE}). Multiplying by the integrating factor $e^{K\mu^2 t}$,
 \begin{equation}\label{eq.nonhom_heat_w_integrating}
-  \frac{d}{dt}\bigl[e^{kp^2 t}\,\hat{w}\bigr] = e^{kp^2 t}\,\hat{h}(p,t).
+  \frac{d}{dt}\bigl[e^{K\mu^2 t}\,\hat{w}\bigr] = e^{K\mu^2 t}\,\hat{h}(\mu,t).
 \end{equation}
-Integrating from $0$ to $t$ and using $\hat{w}(p,0) = 0$,
+Integrating from $0$ to $t$ and using $\hat{w}(\mu,0) = 0$,
 \begin{equation}\label{eq.nonhom_heat_w_ft_sol}
-  e^{kp^2 t}\,\hat{w}(p,t)
-  = \int_0^t e^{kp^2 s}\,\hat{h}(p,s)\,ds
+  e^{K\mu^2 t}\,\hat{w}(\mu,t)
+  = \int_0^t e^{K\mu^2 s}\,\hat{h}(p,s)\,ds
   \quad\Longrightarrow\quad
-  \hat{w}(p,t) = \int_0^t \hat{h}(p,s)\,e^{-kp^2(t-s)}\,ds.
+  \hat{w}(\mu,t) = \int_0^t \hat{h}(p,s)\,e^{-K\mu^2(t-s)}\,ds.
 \end{equation}
 
 Applying the inverse Fourier transform and substituting back $\hat{f}$ and $\hat{h}$, and using the Gaussian integral (Theorem~\ref{th.gaussian_integral}), we obtain the full solution:
@@ -430,7 +466,7 @@ Applying the inverse Fourier transform and substituting back $\hat{f}$ and $\hat
 \begin{aligned}
   u(x,t)
   &= \int_{-\infty}^{\infty}
-     \frac{1}{\sqrt{4\pi kt}}\,e^{-(x-x')^2/(4kt)}\,f(x')\,dx' \\
+     \frac{1}{\sqrt{4\pi Kt}}\,e^{-(x-x')^2/(4Kt)}\,f(x')\,dx' \\
   &\quad+ \int_0^t\int_{-\infty}^{\infty}
      \frac{1}{\sqrt{4\pi k(t-s)}}\,e^{-(x-x')^2/[4k(t-s)]}\,h(x',s)\,dx'\,ds.
 \end{aligned}
@@ -468,7 +504,7 @@ For any domain $\Omega \subset \mathbb{R}$,
 
 Note that the heat kernel \eqref{eq.heat_kernel} approaches a delta function as $t \to 0^+$:
 \begin{equation}\label{eq.heat_kernel_delta_limit}
-  \frac{1}{\sqrt{4\pi kt}}\,e^{-(x-x')^2/(4kt)} \to \delta(x-x') \qquad \text{as } t \to 0^+.
+  \frac{1}{\sqrt{4\pi Kt}}\,e^{-(x-x')^2/(4Kt)} \to \delta(x-x') \qquad \text{as } t \to 0^+.
 \end{equation}
 
 \subsubsection{Connection to Green's function}
@@ -508,33 +544,33 @@ where $\delta_\varepsilon(x)$ is any family of functions satisfying $\int_{-\inf
 
 \subsubsection{Fourier transform of $\delta$}
 
-By the sifting property with $g(x) = e^{-ipx}$ and $a = 0$,
+By the sifting property with $g(x) = e^{-i\mu x}$ and $a = 0$,
 \begin{equation}\label{eq.delta_ft}
-  \hat{\delta}(p)
-  = \int_{-\infty}^{\infty}\delta(x)\,e^{-ipx}\,dx = e^{0} = 1.
+  \hat{\delta}(\mu)
+  = \int_{-\infty}^{\infty}\delta(x)\,e^{-i\mu x}\,dx = e^{0} = 1.
 \end{equation}
 
-Applying the inverse Fourier transform to $\hat{\delta}(p) = 1$, we obtain the \underline{Fourier representation of $\delta$}:
+Applying the inverse Fourier transform to $\hat{\delta}(\mu) = 1$, we obtain the \underline{Fourier representation of $\delta$}:
 \begin{equation}\label{eq.delta_fourier_rep}
-  \delta(x) = \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{ipx}\,dp.
+  \delta(x) = \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{i\mu x}\,d\mu.
 \end{equation}
 
 \subsection{Green's function: general theory}
 
 \subsubsection{Verification that $G$ is the Green's function}
 
-We verify that the heat kernel $G(x,t) = \frac{1}{\sqrt{4\pi kt}}\,e^{-x^2/(4kt)}$ satisfies $G_t = k\,G_{xx}$ and $G\big|_{t\to 0^+} = \delta(x)$.
+We verify that the heat kernel $G(x,t) = \frac{1}{\sqrt{4\pi Kt}}\,e^{-x^2/(4Kt)}$ satisfies $G_t = k\,G_{xx}$ and $G\big|_{t\to 0^+} = \delta(x)$.
 
 \begin{proof}
 We work in Fourier space. The Fourier transform of $G$ is
 \begin{equation}\label{eq.green_ft}
-  \hat{G}(p,t) = \int_{-\infty}^{\infty}G(x,t)\,e^{-ipx}\,dx = e^{-kp^2 t}.
+  \hat{G}(\mu,t) = \int_{-\infty}^{\infty}G(x,t)\,e^{-i\mu x}\,dx = e^{-K\mu^2 t}.
 \end{equation}
 We check both conditions:
 \begin{enumerate}
-  \item \textbf{PDE:} $\hat{G}_t = -kp^2\,e^{-kp^2 t} = -kp^2\,\hat{G}
+  \item \textbf{PDE:} $\hat{G}_t = -K\mu^2\,e^{-K\mu^2 t} = -K\mu^2\,\hat{G}
     = k\,\widehat{G_{xx}}$, which is the Fourier transform of $G_t = k\,G_{xx}$.
-  \item \textbf{Initial condition:} $\hat{G}(p,0) = 1 = \hat{\delta}(p)$,
+  \item \textbf{Initial condition:} $\hat{G}(\mu,0) = 1 = \hat{\delta}(\mu)$,
     so $G\big|_{t=0} = \delta(x)$. \qedhere
 \end{enumerate}
 \end{proof}
@@ -551,7 +587,7 @@ The \underline{convolution} of two functions $f$ and $g$ is defined by
 \begin{theorem}[Convolution theorem]\label{th.convolution}
 The Fourier transform of a convolution is the product of the Fourier transforms:
 \begin{equation}\label{eq.convolution_theorem}
-  \widehat{f\star g}(p) = \hat{f}(p)\cdot\hat{g}(p).
+  \widehat{f\star g}(\mu) = \hat{f}(\mu)\cdot\hat{g}(\mu).
 \end{equation}
 \end{theorem}
 
@@ -559,12 +595,12 @@ The Fourier transform of a convolution is the product of the Fourier transforms:
 We compute directly from the definitions:
 \begin{equation}\label{eq.proof_convolution}
 \begin{aligned}
-  \widehat{f\star g}(p)
+  \widehat{f\star g}(\mu)
   &= \int_{-\infty}^{\infty}
-     \left(\int_{-\infty}^{\infty}f(y)\,g(x-y)\,dy\right)e^{-ipx}\,dx \\
-  &= \int_{-\infty}^{\infty}f(y)\,e^{-ipy}
-     \left(\int_{-\infty}^{\infty}g(x-y)\,e^{-ip(x-y)}\,dx\right)dy \\
-  &= \hat{f}(p)\cdot\hat{g}(p),
+     \left(\int_{-\infty}^{\infty}f(y)\,g(x-y)\,dy\right)e^{-i\mu x}\,dx \\
+  &= \int_{-\infty}^{\infty}f(y)\,e^{-i\mu y}
+     \left(\int_{-\infty}^{\infty}g(x-y)\,e^{-i\mu(x-y)}\,dx\right)dy \\
+  &= \hat{f}(\mu)\cdot\hat{g}(\mu),
 \end{aligned}
 \end{equation}
 where in the second line we substituted $\mu = x - y$ in the inner integral.
@@ -586,7 +622,7 @@ Since $G(x,x';t)$ solves the heat equation with initial data $\delta(x-x')$, by 
 \end{equation}
 
 \begin{lemma}\label{lem.green_solution}
-If $G(x,x';t)$ satisfies \eqref{eq.green_heat_delta}, then $u(x,t) = \int_{-\infty}^{\infty}G(x,x';t)\,f(x')\,dx'$ is a solution to $u_t = k\,u_{xx}$, $u|_{t=0} = f(x)$.
+If $G(x,x';t)$ satisfies \eqref{eq.green_heat_delta}, then $u(x,t) = \int_{-\infty}^{\infty}G(x,x';t)\,f(x')\,dx'$ is a solution to $u_t = K\,u_{xx}$, $u|_{t=0} = f(x)$.
 \end{lemma}
 
 \begin{proof}
@@ -596,7 +632,7 @@ We verify both conditions.
 \begin{equation}\label{eq.green_pde_check}
   u_t = \int_{-\infty}^{\infty}G_t(x,x';t)\,f(x')\,dx'
   = \int_{-\infty}^{\infty}k\,G_{xx}(x,x';t)\,f(x')\,dx'
-  = k\,u_{xx}.
+  = K\,u_{xx}.
 \end{equation}
 
 \textit{Initial condition:}
@@ -612,19 +648,19 @@ We verify both conditions.
 
 We can also derive the heat kernel by directly solving the Green's function problem \eqref{eq.green_heat_delta}. Taking the Fourier transform in $x$,
 \begin{equation}\label{eq.green_ft_ode}
-  \hat{G}_t = -kp^2\,\hat{G}.
+  \hat{G}_t = -K\mu^2\,\hat{G}.
 \end{equation}
 The initial condition $G|_{t=0} = \delta(x-x')$ gives
 \begin{equation}\label{eq.green_ft_ic}
-  \hat{G}(p,0)
-  = \int_{-\infty}^{\infty}\delta(x-x')\,e^{-ipx}\,dx = e^{-ipx'}.
+  \hat{G}(\mu,0)
+  = \int_{-\infty}^{\infty}\delta(x-x')\,e^{-i\mu x}\,dx = e^{-i\mu x'}.
 \end{equation}
-Solving the ODE gives $\hat{G}(p,t) = e^{-ipx'}\,e^{-kp^2 t}$. Applying the inverse Fourier transform and using the Gaussian integral (Theorem~\ref{th.gaussian_integral}),
+Solving the ODE gives $\hat{G}(\mu,t) = e^{-i\mu x'}\,e^{-K\mu^2 t}$. Applying the inverse Fourier transform and using the Gaussian integral (Theorem~\ref{th.gaussian_integral}),
 \begin{equation}\label{eq.green_ft_result}
 \begin{aligned}
-  G(x,x';t) &= \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{ipx}\,e^{-ipx'}\,e^{-kp^2 t}\,dp
-  = \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-kp^2 t + ip(x-x')}\,dp \\
-  &= \frac{1}{\sqrt{4\pi kt}}\,e^{-(x-x')^2/(4kt)}.
+  G(x,x';t) &= \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{i\mu x}\,e^{-i\mu x'}\,e^{-K\mu^2 t}\,d\mu
+  = \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-K\mu^2 t + i\mu(x-x')}\,d\mu \\
+  &= \frac{1}{\sqrt{4\pi Kt}}\,e^{-(x-x')^2/(4Kt)}.
 \end{aligned}
 \end{equation}
 This confirms the heat kernel \eqref{eq.heat_kernel}.
@@ -676,7 +712,7 @@ The \underline{method of mirror images} allows us to construct Green's functions
 \begin{example}[Dirichlet on the half-line]\label{ex.mirror_dirichlet}
 Consider the heat equation on $x > 0$ with Dirichlet boundary condition:
 \begin{equation}\label{eq.mirror_dirichlet_problem}
-  u_t = k\,u_{xx},\quad u\big|_{x=0}=0,\quad u\big|_{t=0}=f(x).
+  u_t = K\,u_{xx},\quad u\big|_{x=0}=0,\quad u\big|_{t=0}=f(x).
 \end{equation}
 The Green's function must satisfy
 \begin{equation}\label{eq.mirror_dirichlet}
@@ -687,21 +723,21 @@ The Green's function must satisfy
   \end{cases}
 \end{equation}
 
-We place a mirror charge of opposite sign $-\delta(x+x')$ at $-x'$. The free-space Green's function is $G^{\text{free}} = \frac{1}{\sqrt{4\pi kt}}\,e^{-(x-x')^2/(4kt)}$ and the image contribution is $G^{\text{image}} = -\frac{1}{\sqrt{4\pi kt}}\,e^{-(x+x')^2/(4kt)}$. Therefore
+We place a mirror charge of opposite sign $-\delta(x+x')$ at $-x'$. The free-space Green's function is $G^{\text{free}} = \frac{1}{\sqrt{4\pi Kt}}\,e^{-(x-x')^2/(4Kt)}$ and the image contribution is $G^{\text{image}} = -\frac{1}{\sqrt{4\pi Kt}}\,e^{-(x+x')^2/(4Kt)}$. Therefore
 \begin{equation}\label{eq.mirror_dirichlet_sol}
-  G^D(x,x';t) = \frac{1}{\sqrt{4\pi kt}}
-  \left[e^{-(x-x')^2/(4kt)} - e^{-(x+x')^2/(4kt)}\right].
+  G^D(x,x';t) = \frac{1}{\sqrt{4\pi Kt}}
+  \left[e^{-(x-x')^2/(4Kt)} - e^{-(x+x')^2/(4Kt)}\right].
 \end{equation}
 
-One can verify that the boundary condition is satisfied: $G^D(0,x';t) = \frac{1}{\sqrt{4\pi kt}}
-\bigl[e^{-x'^2/(4kt)} - e^{-x'^2/(4kt)}\bigr] = 0$.
+One can verify that the boundary condition is satisfied: $G^D(0,x';t) = \frac{1}{\sqrt{4\pi Kt}}
+\bigl[e^{-x'^2/(4Kt)} - e^{-x'^2/(4Kt)}\bigr] = 0$.
 \end{example}
 
 \begin{example}[Neumann on the half-line]\label{ex.mirror_neumann}
 For the Neumann boundary condition $u_x(0,t) = 0$, the image has the \emph{same} sign (even reflection):
 \begin{equation}\label{eq.mirror_neumann_sol}
-  G^N(x,x';t) = \frac{1}{\sqrt{4\pi kt}}
-  \left[e^{-(x-x')^2/(4kt)} + e^{-(x+x')^2/(4kt)}\right].
+  G^N(x,x';t) = \frac{1}{\sqrt{4\pi Kt}}
+  \left[e^{-(x-x')^2/(4Kt)} + e^{-(x+x')^2/(4Kt)}\right].
 \end{equation}
 The solution is then $u(x,t) = \int_0^{\infty}G^N(x,x';t)\,f(x')\,dx'$.
 \end{example}
