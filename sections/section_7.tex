@@ -106,7 +106,7 @@ which is the desired identity.
 \end{proof}
 
 
-\subsection{Solving heat equation by Fourier transform}
+\subsection{Solving heat equation by Fourier transform}\label{sec.heat_equation_fourier}
 
 In this section, we solve the following heat equation using Fourier transform
 
@@ -123,7 +123,7 @@ We apply the Fourier transform in $x$ to both sides of \eqref{eq.heat_eq_R}. By 
   \hat{u}_t = -K\mu^2\,\hat{u}.
 \end{equation}
 
-\subsubsection{Applying the Fourier transform}
+\subsubsection{Applying the Fourier transform}\label{sec.apply_fourier}
 
 This is a separable first-order ODE in $t$ (with $\mu$ as a parameter). Solving by separation of variables,
 \begin{equation}\label{eq.heat_eq_R_ft_solve}
@@ -250,122 +250,106 @@ Equating coefficients yields the ODE
 
 
 
-\subsection{Fourier sine and cosine transforms}
+\subsection{Boundary value problem on the half line}
 
-The Fourier transform requires that $f(x)$ is defined on all of $\mathbb{R}$ and decays sufficiently fast as $|x| \to \infty$. In many applications, we need to solve PDEs on the half-line $x > 0$. In this case, we extend $f$ to the whole line and use the Fourier sine or cosine transform.
+The Fourier transform requires a solution on the whole line. For problems on $(0,\infty)$ we extend the initial data to $\mathbb{R}$ by odd/even reflection, which leads naturally to the sine/cosine transforms.
 
 \subsubsection{Heat equation on the half-line}
 
-Consider the heat equation on the half-line:
+Consider the heat equation
 \begin{equation}\label{eq.heat_eq_half_line}
-  u_t = K\,u_{xx},\quad x>0,\quad t>0,\qquad u(x,0) = f(x),
+  u_t = K\,u_{xx},\quad x>0,\quad t>0,\qquad u(x,0)=f(x),
 \end{equation}
-together with one of the following boundary conditions:
+with one of the boundary conditions
 \begin{itemize}
-  \item \textbf{Dirichlet boundary condition:} $u(0,t)=0$.
-  \item \textbf{Neumann boundary condition:} $u_x(0,t)=0$.
+  \item Dirichlet. $u(0,t)=0$,
+  \item Neumann. $u_x(0,t)=0$.
 \end{itemize}
-
-Since the Fourier transform requires $u(x,t)$ to be defined on $x\in(-\infty,\infty)$, we need to extend $f$ from $x > 0$ to all of $\mathbb{R}$.
 
 \subsubsection{Odd and even extensions}
 
-The \underline{odd extension} of $f(x)$ (for Dirichlet boundary conditions) is defined by
+Define the odd and even extensions of $f$ to $\mathbb{R}$ by
 \begin{equation}\label{eq.odd_extension_ft}
-  f_o(x) =
+  f_O(x)=
   \begin{cases}
-    f(x),   & x>0,\\
-    -f(-x), & x<0.
+    f(x), & x>0,\\
+    0, & x=0,\\
+    -f(-x), & x<0,
   \end{cases}
 \end{equation}
-
-The \underline{even extension} of $f(x)$ (for Neumann boundary conditions) is defined by
 \begin{equation}\label{eq.even_extension_ft}
-  f_e(x) =
+  f_E(x)=
   \begin{cases}
-    f(x),  & x>0,\\
+    f(x), & x>0,\\
+    0, & x=0,\\
     f(-x), & x<0.
   \end{cases}
 \end{equation}
+The odd extension leads to the sine transform (Dirichlet), and the even extension leads to the cosine transform (Neumann).
 
-The key observation is:
-\begin{itemize}
-  \item If $f$ is odd, then $\hat{f}(\mu)$ is purely imaginary and odd.
-  \item If $f$ is even, then $\hat{f}(\mu)$ is real and even.
-\end{itemize}
-Therefore, for Dirichlet boundary conditions ($f_o$ is odd), we use the \underline{Fourier sine transform}, and for Neumann boundary conditions ($f_e$ is even), we use the \underline{Fourier cosine transform}.
+\begin{lemma}\label{lem.odd_even_extension_bc}
+If $f$ is odd, then $f(0)=0$. If $f$ is even and differentiable, then $f'(0)=0$.
+\end{lemma}
+\begin{proof}
+If $f$ is odd, $f(0)=-f(0)$ so $f(0)=0$. If $f$ is even, then $f'(x)=-f'(-x)$, so $f'(0)=-f'(0)$ and hence $f'(0)=0$.
+\end{proof}
 
-\begin{definition}[Fourier sine transform]\label{def.fourier_sine_transform}
-The \underline{Fourier sine transform} and its inverse are defined by
-\begin{equation}\label{eq.fourier_sine_transform}
-  \hat{f}_s(\mu) = \int_0^{\infty}f(x)\sin(\mu x)\,dx,
-  \qquad
-  f(x) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_s(\mu)\sin(\mu x)\,d\mu.
+\begin{theorem}\label{thm.half_line_reflection}
+Let $u_O$ solve the full-line heat equation with initial data $f_O$, and let $u_E$ solve the full-line heat equation with initial data $f_E$. Then the restrictions $u_O|_{x>0}$ and $u_E|_{x>0}$ solve the half-line heat equation with Dirichlet and Neumann boundary conditions, respectively.
+\end{theorem}
+
+\subsubsection{Dirichlet case: odd extension}
+
+The full-line solution with initial data $f_O$ is
+\begin{equation}\label{eq.dirichlet_full_line_sol}
+  u_O(x,t)=\frac{1}{\sqrt{4\pi Kt}}\int_{-\infty}^{\infty} e^{-(x-x')^2/(4Kt)}\,f_O(x')\,dx'.
 \end{equation}
-\end{definition}
-
-\begin{definition}[Fourier cosine transform]\label{def.fourier_cosine_transform}
-The \underline{Fourier cosine transform} and its inverse are defined by
-\begin{equation}\label{eq.fourier_cosine_transform}
-  \hat{f}_c(\mu) = \int_0^{\infty}f(x)\cos(\mu x)\,dx,
-  \qquad
-  f(x) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_c(\mu)\cos(\mu x)\,d\mu.
-\end{equation}
-\end{definition}
-
-\subsubsection{Dirichlet case: solution via sine transform}
-
-We use the odd extension $f_o$ to extend $f$ to $\mathbb{R}$, then apply the full-line solution.
-
-Taking the Fourier sine transform of $u_t = K\,u_{xx}$ gives the ODE
-\begin{equation}\label{eq.dirichlet_sine_ode}
-  (\hat{u}_s)_t = -K\mu^2\,\hat{u}_s.
-\end{equation}
-With the initial condition $\hat{u}_s(\mu,0) = \hat{f}_s(\mu)$, the solution is
-\begin{equation}\label{eq.dirichlet_sine_sol}
-  \hat{u}_s(\mu,t) = \hat{f}_s(\mu)\,e^{-K\mu^2 t}.
-\end{equation}
-Applying the inverse sine transform,
-\begin{equation}\label{eq.dirichlet_sine_invert}
-  u(x,t) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_s(\mu)\,\sin(\mu x)\,e^{-K\mu^2 t}\,d\mu.
-\end{equation}
-
-Substituting $\hat{f}_s(\mu) = \int_0^{\infty}f(x')\sin(\mu x')\,dx'$ and using the full-line result with the odd extension, we obtain
+For $x>0$, split the integral and substitute the odd extension:
+\begin{align}
+  u(x,t) &= \frac{1}{\sqrt{4\pi Kt}}
+    \left(\int_{0}^{\infty} e^{-(x-x')^2/(4Kt)}\,f(x')\,dx'
+    + \int_{-\infty}^{0} e^{-(x-x')^2/(4Kt)}\,(-f(-x'))\,dx'\right)\nonumber\\
+  &= \frac{1}{\sqrt{4\pi Kt}}
+    \left(\int_{0}^{\infty} e^{-(x-x')^2/(4Kt)}\,f(x')\,dx'
+    - \int_{0}^{\infty} e^{-(x+x')^2/(4Kt)}\,f(x')\,dx'\right).\label{eq.dirichlet_split_integral}
+\end{align}
+Therefore
 \begin{equation}\label{eq.dirichlet_half_line_sol}
-  u(x,t) = \frac{1}{\sqrt{4\pi Kt}}\int_0^{\infty}f(x')
-    \left[e^{-(x-x')^2/(4Kt)} - e^{-(x+x')^2/(4Kt)}\right]\,dx'.
+  u(x,t)=\frac{1}{\sqrt{4\pi Kt}}\int_{0}^{\infty} f(x')
+  \left[e^{-(x-x')^2/(4Kt)}-e^{-(x+x')^2/(4Kt)}\right]\,dx'.
 \end{equation}
-
-We can write this as $u(x,t) = \int_0^{\infty} G^D(x,x';t)\,f(x')\,dx'$, where the \underline{Dirichlet Green's function} on the half-line is
+Equivalently, $u(x,t)=\int_{0}^{\infty} G^D(x,x';t)\,f(x')\,dx'$, where the Dirichlet Green's function is
 \begin{equation}\label{eq.dirichlet_green}
-  G^D(x,x';t) = \frac{1}{\sqrt{4\pi Kt}}
-  \left[e^{-(x-x')^2/(4Kt)} - e^{-(x+x')^2/(4Kt)}\right].
+  G^D(x,x';t)=\frac{1}{\sqrt{4\pi Kt}}
+  \left[e^{-(x-x')^2/(4Kt)}-e^{-(x+x')^2/(4Kt)}\right].
 \end{equation}
 
-\subsubsection{Neumann case: solution via cosine transform}
+\subsubsection{Neumann case: even extension}
 
-Using the even extension $f_e$ and the cosine transform, we get the same type of ODE:
-\begin{equation}\label{eq.neumann_cosine_ode}
-  (\hat{u}_c)_t = -K\mu^2\,\hat{u}_c,\qquad
-  \hat{u}_c(\mu,0) = \hat{f}_c(\mu).
+The full-line solution with initial data $f_E$ is
+\begin{equation}\label{eq.neumann_full_line_sol}
+  u_E(x,t)=\frac{1}{\sqrt{4\pi Kt}}\int_{-\infty}^{\infty} e^{-(x-x')^2/(4Kt)}\,f_E(x')\,dx'.
 \end{equation}
-The solution is $\hat{u}_c(\mu,t) = \hat{f}_c(\mu)\,e^{-K\mu^2 t}$. Applying the inverse cosine transform,
-\begin{equation}\label{eq.neumann_cosine_invert}
-  u(x,t) = \frac{2}{\pi}\int_0^{\infty}\hat{f}_c(\mu)\,\cos(\mu x)\,e^{-K\mu^2 t}\,d\mu.
-\end{equation}
-Substituting $\hat{f}_c$ and computing as before, we obtain
+For $x>0$ we use the even extension and the same splitting:
+\begin{align}
+  u(x,t) &= \frac{1}{\sqrt{4\pi Kt}}
+    \left(\int_{0}^{\infty} e^{-(x-x')^2/(4Kt)}\,f(x')\,dx'
+    + \int_{-\infty}^{0} e^{-(x-x')^2/(4Kt)}\,f(-x')\,dx'\right)\nonumber\\
+  &= \frac{1}{\sqrt{4\pi Kt}}
+    \left(\int_{0}^{\infty} e^{-(x-x')^2/(4Kt)}\,f(x')\,dx'
+    + \int_{0}^{\infty} e^{-(x+x')^2/(4Kt)}\,f(x')\,dx'\right).\label{eq.neumann_split_integral}
+\end{align}
+Hence
 \begin{equation}\label{eq.neumann_half_line_sol}
-  u(x,t) = \frac{1}{\sqrt{4\pi Kt}}\int_0^{\infty}f(x')
-    \left[e^{-(x-x')^2/(4Kt)} + e^{-(x+x')^2/(4Kt)}\right]\,dx'.
+  u(x,t)=\frac{1}{\sqrt{4\pi Kt}}\int_{0}^{\infty} f(x')
+  \left[e^{-(x-x')^2/(4Kt)}+e^{-(x+x')^2/(4Kt)}\right]\,dx'.
 \end{equation}
-
-The \underline{Neumann Green's function} on the half-line is
+The Neumann Green's function on the half-line is
 \begin{equation}\label{eq.neumann_green}
-  \boxed{G^N(x,x';t) = \frac{1}{\sqrt{4\pi Kt}}
-  \left[e^{-(x-x')^2/(4Kt)} + e^{-(x+x')^2/(4Kt)}\right].}
+  G^N(x,x';t)=\frac{1}{\sqrt{4\pi Kt}}
+  \left[e^{-(x-x')^2/(4Kt)}+e^{-(x+x')^2/(4Kt)}\right].
 \end{equation}
-
-Note that the Dirichlet Green's function uses a minus sign (odd extension), while the Neumann Green's function uses a plus sign (even extension).
+The Dirichlet kernel uses a minus sign (odd extension) and the Neumann kernel uses a plus sign (even extension).
 
 \subsection{Wave equation on $\mathbb{R}$}
 
@@ -377,41 +361,41 @@ with initial conditions $u(x,0) = f(x)$ and $u_t(x,0) = g(x)$.
 
 \subsubsection{Solution by Fourier transform}
 
-Taking the Fourier transform in $x$ and using Corollary~\ref{cor.second_derivative_ft}, we obtain the ODE
+Taking the Fourier transform in $x$ and using Theorem \ref{th.fourier_transform_properties} 2, we obtain the ODE
 \begin{equation}\label{eq.wave_eq_R_ft}
   \hat{u}_{tt} + c^2 \mu^2\,\hat{u} = 0.
 \end{equation}
-This is a constant-coefficient second-order ODE in $t$. The characteristic equation is $r^2 + c^2\mu^2 = 0$, giving $r = \pm icp$. By Theorem~\ref{th.2nd_ODE}, the general solution is
+This is a constant-coefficient second-order ODE in $t$. The characteristic equation is $r^2 + c^2\mu^2 = 0$, giving $r = \pm ic\mu$. By Theorem~\ref{th.2nd_ODE}, the general solution is
 \begin{equation}\label{eq.wave_eq_R_ft_sol}
-  \hat{u}(\mu,t) = A(\mu)\,e^{icpt} + B(\mu)\,e^{-icpt}.
+  \hat{u}(\mu,t) = A(\mu)\,\cos(c\mu t) + B(\mu)\,\sin(c\mu t)
 \end{equation}
 
-Applying the initial conditions $\hat{u}(\mu,0) = \hat{f}(\mu)$ and $\hat{u}_t(\mu,0) = \hat{g}(\mu)$, we get the system
+Applying the initial conditions $\hat{u}(\mu,0) = \hat{f}(\mu)$ and $\hat{u}_t(\mu,0) = \hat{g}(\mu)$, we get
 \begin{equation}\label{eq.wave_eq_R_ic}
-  A(\mu)+B(\mu) = \hat{f}(\mu),
+  A(\mu) = \hat{f}(\mu),
   \qquad
-  icp\bigl[A(\mu)-B(\mu)\bigr] = \hat{g}(\mu).
+  ic\mu B(\mu) = \hat{g}(\mu).
 \end{equation}
 Solving for $A(\mu)$ and $B(\mu)$,
 \begin{equation}\label{eq.wave_eq_R_AB}
-  A(\mu) = \frac{1}{2}\hat{f}(\mu) + \frac{\hat{g}(\mu)}{2icp},
+  A(\mu) = \hat{f}(\mu),
   \qquad
-  B(\mu) = \frac{1}{2}\hat{f}(\mu) - \frac{\hat{g}(\mu)}{2icp}.
+  B(\mu) = \frac{\hat{g}(\mu)}{ic\mu}.
 \end{equation}
 
-Substituting back into \eqref{eq.wave_eq_R_ft_sol} and using $\frac{e^{icpt}+e^{-icpt}}{2} = \cos(cpt)$ and $\frac{e^{icpt}-e^{-icpt}}{2} = i\sin(cpt)$, we get
+Substituting back into \eqref{eq.wave_eq_R_ft_sol}, we get
 \begin{equation}\label{eq.wave_eq_R_ft_combined}
-  \hat{u}(\mu,t) = \hat{f}(\mu)\cos(cpt) + \frac{\hat{g}(\mu)}{icp}\sin(cpt).
+  \hat{u}(\mu,t) = \hat{f}(\mu)\cos(c\mu t) + \frac{\hat{g}(\mu)}{ic\mu}\sin(c\mu t).
 \end{equation}
 
 \subsubsection{D'Alembert's formula}
 
 Applying the inverse Fourier transform to \eqref{eq.wave_eq_R_ft_combined}, the solution splits into two terms $u(x,t) = I_1 + I_2$.
 
-For the first term, using $\cos(cpt) = \frac{1}{2}(e^{icpt} + e^{-icpt})$,
+For the first term, using $\cos(c\mu t) = \frac{1}{2}(e^{ic\mu t} + e^{-ic\mu t})$,
 \begin{equation}\label{eq.dalembert_I1}
 \begin{aligned}
-  I_1 &= \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\mu)\,e^{i\mu x}\cos(cpt)\,d\mu \\
+  I_1 &= \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\mu)\,e^{i\mu x}\cos(c\mu t)\,d\mu \\
   &= \frac{1}{2}\!\left[
        \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\mu)\,e^{i\mu(x+ct)}\,d\mu
      + \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\mu)\,e^{i\mu(x-ct)}\,d\mu
@@ -424,14 +408,12 @@ where the last step follows from the inverse Fourier transform formula \eqref{eq
 For the second term,
 \begin{equation}\label{eq.dalembert_I2_start}
   I_2 = \frac{1}{2\pi}\int_{-\infty}^{\infty}
-    \frac{\hat{g}(\mu)}{icp}\,e^{i\mu x}\,\sin(cpt)\,d\mu.
+    \frac{\hat{g}(\mu)}{ic\mu}\,e^{i\mu x}\,\sin(c\mu t)\,d\mu.
 \end{equation}
-We use the identity $\frac{\sin(cpt)}{cp} = \int_0^t \cos(cps)\,ds$ to write
+We use the identity $\frac{e^{i\mu x}\,\sin(c\mu t)}{i c\mu} = \frac{e^{i\mu (x - ct)} - e^{i\mu (x + ct)}}{2c\mu} = \frac{1}{2c}\int_{x-ct}^{x+ct} e^{i\mu x'} \mathrm{d} x'$ to write
 \begin{equation}\label{eq.dalembert_I2}
 \begin{aligned}
-  I_2 &= \frac{1}{2\pi}\int_0^t\int_{-\infty}^{\infty}
-    \frac{\hat{g}(\mu)}{i}\,e^{i\mu x}\,\cos(cps)\,d\mu\,ds
-  = \frac{1}{2c}\int_{x-ct}^{x+ct}g(s)\,ds.
+  I_2 &= \frac{1}{2c}\int_{x-ct}^{x+ct} \left(\frac{1}{2\pi} \int_{-\infty}^{\infty} \hat{g}(\mu) e^{i\mu x'} d\mu\right) \, \mathrm{d} x' = \frac{1}{2c}\int_{x-ct}^{x+ct} g(x') \, \mathrm{d} x'.
 \end{aligned}
 \end{equation}
 
@@ -440,10 +422,13 @@ Combining $I_1$ and $I_2$, we obtain the following classical result.
 \begin{theorem}[D'Alembert's formula]\label{th.dalembert}
 The solution to the wave equation \eqref{eq.wave_eq_R} with initial conditions $u(x,0)=f(x)$ and $u_t(x,0)=g(x)$ is
 \begin{equation}\label{eq.dalembert}
-  \boxed{u(x,t) = \frac{1}{2}\bigl[f(x+ct)+f(x-ct)\bigr]
-    + \frac{1}{2c}\int_{x-ct}^{x+ct}g(s)\,ds.}
+  u(x,t) = \frac{1}{2}\bigl[f(x+ct)+f(x-ct)\bigr]
+    + \frac{1}{2c}\int_{x-ct}^{x+ct}g(x')\,\mathrm{d}x'.
 \end{equation}
 \end{theorem}
+\begin{proof}
+    The proof follows from the explanation above.
+\end{proof}
 
 \begin{example}\label{ex.dalembert}
 Consider $u_{tt} = c^2\,u_{xx}$ with $u(x,0) = e^{-x^2}$ and $u_t(x,0) = 0$. Since $g = 0$, D'Alembert's formula gives
@@ -463,12 +448,12 @@ Consider the nonhomogeneous heat equation
 We decompose $u = v + w$, where $v$ solves the homogeneous problem with initial data, and $w$ solves the nonhomogeneous problem with zero initial data:
 \begin{equation}\label{eq.nonhom_heat_decomp}
 \begin{aligned}
-  &v_t = k\,v_{xx},\qquad v(x,0) = f(x), \\
-  &w_t - k\,w_{xx} = h(x,t),\qquad w(x,0) = 0.
+  &v_t = K\,v_{xx},\qquad v(x,0) = f(x), \\
+  &w_t - K\,w_{xx} = h(x,t),\qquad w(x,0) = 0.
 \end{aligned}
 \end{equation}
 
-The solution for $v$ is already known from section~\ref{sec.heat_kernel}: $\hat{v}(\mu,t) = \hat{f}(\mu)\,e^{-K\mu^2 t}$.
+The solution for $v$ is already known from section~\ref{sec.apply_fourier}, $\hat{v}(\mu,t) = \hat{f}(\mu)\,e^{-K\mu^2 t}$.
 
 For $w$, we take the Fourier transform in $x$ to obtain the first-order linear ODE
 \begin{equation}\label{eq.nonhom_heat_w_ft}
@@ -482,9 +467,9 @@ We solve this by the integrating factor method (Theorem~\ref{th.linear_ODE}). Mu
 Integrating from $0$ to $t$ and using $\hat{w}(\mu,0) = 0$,
 \begin{equation}\label{eq.nonhom_heat_w_ft_sol}
   e^{K\mu^2 t}\,\hat{w}(\mu,t)
-  = \int_0^t e^{K\mu^2 s}\,\hat{h}(p,s)\,ds
+  = \int_0^t e^{K\mu^2 s}\,\hat{h}(\mu,s)\,ds
   \quad\Longrightarrow\quad
-  \hat{w}(\mu,t) = \int_0^t \hat{h}(p,s)\,e^{-K\mu^2(t-s)}\,ds.
+  \hat{w}(\mu,t) = \int_0^t \hat{h}(\mu,s)\,e^{-K\mu^2(t-s)}\,ds.
 \end{equation}
 
 Applying the inverse Fourier transform and substituting back $\hat{f}$ and $\hat{h}$, and using the Gaussian integral (Theorem~\ref{th.gaussian_integral}), we obtain the full solution:
@@ -494,13 +479,13 @@ Applying the inverse Fourier transform and substituting back $\hat{f}$ and $\hat
   &= \int_{-\infty}^{\infty}
      \frac{1}{\sqrt{4\pi Kt}}\,e^{-(x-x')^2/(4Kt)}\,f(x')\,dx' \\
   &\quad+ \int_0^t\int_{-\infty}^{\infty}
-     \frac{1}{\sqrt{4\pi k(t-s)}}\,e^{-(x-x')^2/[4k(t-s)]}\,h(x',s)\,dx'\,ds.
+     \frac{1}{\sqrt{4\pi K(t-s)}}\,e^{-(x-x')^2/[4K(t-s)]}\,h(x',s)\,dx'\,ds.
 \end{aligned}
 \end{equation}
 In terms of the Green's function \eqref{eq.heat_kernel},
 \begin{equation}\label{eq.nonhom_heat_green}
-  \boxed{u(x,t) = \int_{-\infty}^{\infty}G(x,x';t)\,f(x')\,dx'
-  + \int_0^t\!\int_{-\infty}^{\infty}G(x,x';t-s)\,h(x',s)\,dx'\,ds.}
+  u(x,t) = \int_{-\infty}^{\infty}G(x,x';t)\,f(x')\,dx'
+  + \int_0^t\!\int_{-\infty}^{\infty}G(x,x';t-s)\,h(x',s)\,dx'\,ds.
 \end{equation}
 
 \subsection{The Dirac delta function}
@@ -538,7 +523,7 @@ Note that the heat kernel \eqref{eq.heat_kernel} approaches a delta function as 
 The \underline{Green's function} $G$ for the heat equation satisfies
 \begin{equation}\label{eq.green_heat_delta}
   \begin{cases}
-    G_t = k\,G_{xx}, \\
+    G_t = K\,G_{xx}, \\
     G\big|_{t=0} = \delta(x-x').
   \end{cases}
 \end{equation}
@@ -549,24 +534,12 @@ That is, $G$ is the response to a point-source initial condition at $x=x'$.
 \begin{theorem}[Properties of $\delta(x)$]\label{th.delta_properties}
 The Dirac delta function has the following properties.
 \begin{enumerate}
-  \item \textbf{Sifting property:}
-    $\displaystyle\int_{-\infty}^{\infty}\delta(x-a)\,g(x)\,dx = g(a)$.
+  \item $\displaystyle\int_{-\infty}^{\infty}\delta(x-a)\,g(x)\,dx = g(a)$.
   \item $\delta(x)$ is even: $\delta(-x)=\delta(x)$.
   \item $\displaystyle\delta(cx) = \frac{1}{|c|}\,\delta(x)$, for $c\ne 0$.
   \item $x\,\delta(x) = 0$.
 \end{enumerate}
 \end{theorem}
-
-\subsubsection{$\delta$ as a limit of sequences}
-
-The delta function can be realized as a limit of ordinary functions:
-\begin{equation}\label{eq.delta_limit}
-  \delta(x) = \lim_{\varepsilon\to 0}\delta_\varepsilon(x),
-\end{equation}
-where $\delta_\varepsilon(x)$ is any family of functions satisfying $\int_{-\infty}^{\infty}\delta_\varepsilon(x)\,dx = 1$ and $\delta_\varepsilon(x)\to 0$ for $x\ne 0$ as $\varepsilon \to 0$. A standard example is the Gaussian approximation
-\begin{equation}\label{eq.delta_gaussian}
-  \delta_\varepsilon(x) = \frac{1}{\varepsilon\sqrt{\pi}}\,e^{-x^2/\varepsilon^2}.
-\end{equation}
 
 \subsubsection{Fourier transform of $\delta$}
 
@@ -585,7 +558,7 @@ Applying the inverse Fourier transform to $\hat{\delta}(\mu) = 1$, we obtain the
 
 \subsubsection{Verification that $G$ is the Green's function}
 
-We verify that the heat kernel $G(x,t) = \frac{1}{\sqrt{4\pi Kt}}\,e^{-x^2/(4Kt)}$ satisfies $G_t = k\,G_{xx}$ and $G\big|_{t\to 0^+} = \delta(x)$.
+We verify that the heat kernel $G(x,t) = \frac{1}{\sqrt{4\pi Kt}}\,e^{-x^2/(4Kt)}$ satisfies $G_t = K\,G_{xx}$ and $G\big|_{t\to 0^+} = \delta(x)$.
 
 \begin{proof}
 We work in Fourier space. The Fourier transform of $G$ is
@@ -595,7 +568,7 @@ We work in Fourier space. The Fourier transform of $G$ is
 We check both conditions:
 \begin{enumerate}
   \item \textbf{PDE:} $\hat{G}_t = -K\mu^2\,e^{-K\mu^2 t} = -K\mu^2\,\hat{G}
-    = k\,\widehat{G_{xx}}$, which is the Fourier transform of $G_t = k\,G_{xx}$.
+    = k\,\widehat{G_{xx}}$, which is the Fourier transform of $G_t = K\,G_{xx}$.
   \item \textbf{Initial condition:} $\hat{G}(\mu,0) = 1 = \hat{\delta}(\mu)$,
     so $G\big|_{t=0} = \delta(x)$. \qedhere
 \end{enumerate}
@@ -657,7 +630,7 @@ We verify both conditions.
 \textit{PDE:} Differentiating under the integral sign,
 \begin{equation}\label{eq.green_pde_check}
   u_t = \int_{-\infty}^{\infty}G_t(x,x';t)\,f(x')\,dx'
-  = \int_{-\infty}^{\infty}k\,G_{xx}(x,x';t)\,f(x')\,dx'
+  = \int_{-\infty}^{\infty}K\,G_{xx}(x,x';t)\,f(x')\,dx'
   = K\,u_{xx}.
 \end{equation}
 
@@ -723,7 +696,7 @@ To determine $B$, we integrate the equation $G_{xx}+G_{yy}=\delta(x-x')\delta(y-
 \end{equation}
 Therefore $B = \frac{1}{2\pi}$, and we may take $A = 0$. The \underline{free-space Green's function} for Poisson's equation in 2D is
 \begin{equation}\label{eq.green_laplace_2d_result}
-  \boxed{G(x,y;x',y') = \frac{1}{2\pi}\ln r = \frac{1}{2\pi}\ln\sqrt{(x-x')^2+(y-y')^2}.}
+  G(x,y;x',y') = \frac{1}{2\pi}\ln r = \frac{1}{2\pi}\ln\sqrt{(x-x')^2+(y-y')^2}.
 \end{equation}
 
 The solution to Poisson's equation is then
@@ -743,7 +716,7 @@ Consider the heat equation on $x > 0$ with Dirichlet boundary condition:
 The Green's function must satisfy
 \begin{equation}\label{eq.mirror_dirichlet}
   \begin{cases}
-    G_t = k\,G_{xx}, \\
+    G_t = K\,G_{xx}, \\
     G\big|_{t=0} = \delta(x-x'), \\
     G\big|_{x=0} = 0.
   \end{cases}
