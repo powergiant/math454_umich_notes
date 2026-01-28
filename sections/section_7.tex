@@ -106,7 +106,9 @@ which is the desired identity.
 \end{proof}
 
 
-\subsubsection{Solution by Fourier transform}
+\subsection{Solving heat equation by Fourier transform}
+
+In this section, we solve the following heat equation using Fourier transform
 
 \begin{equation}\label{eq.heat_eq_R}
 \left\{\begin{aligned} 
@@ -120,6 +122,8 @@ We apply the Fourier transform in $x$ to both sides of \eqref{eq.heat_eq_R}. By 
 \begin{equation}\label{eq.heat_eq_R_ft}
   \hat{u}_t = -K\mu^2\,\hat{u}.
 \end{equation}
+
+\subsubsection{Applying the Fourier transform}
 
 This is a separable first-order ODE in $t$ (with $\mu$ as a parameter). Solving by separation of variables,
 \begin{equation}\label{eq.heat_eq_R_ft_solve}
@@ -140,13 +144,13 @@ Applying the inverse Fourier transform Theorem \ref{th.fourier_transform_propert
     \hat{f}(\mu)\,e^{-K\mu^2 t}\,e^{i\mu x}\,d\mu.
 \end{equation}
 
-\subsubsection{The heat kernel}\label{sec.heat_kernel}
-
 We can simplify \eqref{eq.heat_eq_R_sol_ft} into a convolution form. Substituting $\hat{f}(\mu) = \int_{-\infty}^{\infty}f(x')\,e^{-i\mu x'}\,dx'$ and interchanging the order of integration,
 \begin{equation}\label{eq.heat_kernel_derivation}
   u(x,t) = \frac{1}{2\pi}\int_{-\infty}^{\infty}f(x')
     \int_{-\infty}^{\infty}e^{-K\mu^2 t + i\mu(x-x')}\,d\mu\;dx'.
 \end{equation}
+
+\subsubsection{The Gaussian integral formula}
 
 To evaluate the inner integral, we use the following Gaussian integral formula.
 
@@ -190,7 +194,7 @@ The the conclusion follows from applying Theorem~\ref{th.gaussian_integral_simpl
 
 We apply Theorem~\ref{th.gaussian_integral} with $\alpha = Kt$ and $\beta = i(x-x')$, so that $\beta^2 = -(x-x')^2$:
 \begin{equation}\label{eq.heat_kernel_gaussian}
-  \int_{-\infty}^{\infty}e^{-Kt\mu^2+i(x-x')p}\,d\mu
+  \int_{-\infty}^{\infty}e^{-Kt\mu^2+i(x-x')\mu}\,d\mu
   = \sqrt{\frac{\pi}{Kt}}\;e^{-(x-x')^2/(4Kt)}.
 \end{equation}
 
@@ -214,15 +218,37 @@ The solution to the heat equation \eqref{eq.heat_eq_R} is then
 
 \subsubsection{Connection to eigenfunction expansion}
 
-Consider the heat equation $u_t = K\,u_{xx}$ on $x\in\mathbb{R}$. Define the operator $A = -\partial_{xx}$ acting on bounded functions $\phi(x)$ on $\mathbb{R}$. The eigenvalue problem $A\phi = \lambda\phi$, i.e.\ $-\phi'' = \lambda\phi$, has solutions
-\begin{equation}\label{eq.eigenvalue_full_line}
-  \phi(x) = e^{i\mu x},\qquad \lambda = \mu^2, \qquad p\in\mathbb{R}.
-\end{equation}
-The eigenfunctions $e^{i\mu x}$ are labeled by a continuous parameter $\mu$, and the eigenvalues satisfy $\lambda = \mu^2 \ge 0$. This is called the \underline{continuous spectrum}, in contrast to the discrete spectrum that arises on bounded domains. The ``eigenfunction expansion'' becomes
+Consider the heat equation $u_t = K\,u_{xx}$ on $x\in\mathbb{R}$ and set
+$A=-\partial_{xx}$ with domain $\textrm{Dom}(A)=\{\phi:\phi \text{ is bounded on }\mathbb{R}\}$.
+The eigenvalue problem $A\phi=\lambda\phi$ is
+\[
+  -\phi''=\lambda\phi.
+\]
+Writing $\lambda=\mu^2$ (case A) gives $\phi''+\mu^2\phi=0$, hence
+\[
+  \phi(x)=e^{i\mu x},\qquad \mu\in\mathbb{R}.
+\]
+Writing $\lambda=-\mu^2$ (case B) gives $\phi''-\mu^2\phi=0$, so
+$\phi(x)=Ae^{\mu x}+Be^{-\mu x}$, which is unbounded unless $A=B=0$.
+
+Thus only the (case A) $\lambda=\mu^2\ge 0$ is acceptable, and the eigenfunction expansion is
 \begin{equation}\label{eq.eigenfunction_expansion_ft}
   u(x,t) = \int_{-\infty}^{\infty}\hat{u}(\mu,t)\,e^{i\mu x}\,\frac{d\mu}{2\pi},
 \end{equation}
 which is exactly the inverse Fourier transform.
+
+Since $u_t=K\,u_{xx}=-K A u$, differentiating under the integral gives
+\[
+  u_t(x,t) = \int_{-\infty}^{\infty}\frac{d\hat{u}}{dt}(\mu,t)\,e^{i\mu x}\,\frac{d\mu}{2\pi},
+  \qquad
+  -K A u = -K\int_{-\infty}^{\infty}\mu^2\hat{u}(\mu,t)\,e^{i\mu x}\,\frac{d\mu}{2\pi}.
+\]
+Equating coefficients yields the ODE
+\begin{equation}\label{eq.eigenfunction_ode}
+  \frac{d\hat{u}}{dt}(\mu,t) = -K\mu^2\,\hat{u}(\mu,t).
+\end{equation}
+
+
 
 \subsection{Fourier sine and cosine transforms}
 
